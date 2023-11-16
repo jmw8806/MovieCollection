@@ -1,0 +1,61 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.6.33927.249
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieCollection", "MovieCollection\MovieCollection.csproj", "{2DB0CABA-97A0-4016-B5F9-500259751521}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccessFakes", "DataAccessFakes\DataAccessFakes.csproj", "{D0B7B145-1044-499D-B6AE-AA4E0C50525A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccessInterfaces", "DataAccessInterfaces\DataAccessInterfaces.csproj", "{7F702E9C-21E1-42DA-BAF0-CE830A8F4A65}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccessLayer", "DataAccessLayer\DataAccessLayer.csproj", "{04EEA206-B10B-41FC-887B-68EBDD1F1A11}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataObjects", "DataObjects\DataObjects.csproj", "{1BDC12AF-E36C-442B-871A-F95E49896CE2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogicLayer", "LogicLayer\LogicLayer.csproj", "{4A997F89-3AD2-4EFF-97CF-D2BCA1674438}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogicLayerTests", "LogicLayerTests\LogicLayerTests.csproj", "{F7F58221-882D-4CDD-83DA-F8C39E0E7660}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2DB0CABA-97A0-4016-B5F9-500259751521}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2DB0CABA-97A0-4016-B5F9-500259751521}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2DB0CABA-97A0-4016-B5F9-500259751521}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2DB0CABA-97A0-4016-B5F9-500259751521}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D0B7B145-1044-499D-B6AE-AA4E0C50525A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D0B7B145-1044-499D-B6AE-AA4E0C50525A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D0B7B145-1044-499D-B6AE-AA4E0C50525A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D0B7B145-1044-499D-B6AE-AA4E0C50525A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7F702E9C-21E1-42DA-BAF0-CE830A8F4A65}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7F702E9C-21E1-42DA-BAF0-CE830A8F4A65}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7F702E9C-21E1-42DA-BAF0-CE830A8F4A65}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7F702E9C-21E1-42DA-BAF0-CE830A8F4A65}.Release|Any CPU.Build.0 = Release|Any CPU
+		{04EEA206-B10B-41FC-887B-68EBDD1F1A11}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04EEA206-B10B-41FC-887B-68EBDD1F1A11}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04EEA206-B10B-41FC-887B-68EBDD1F1A11}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04EEA206-B10B-41FC-887B-68EBDD1F1A11}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1BDC12AF-E36C-442B-871A-F95E49896CE2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1BDC12AF-E36C-442B-871A-F95E49896CE2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1BDC12AF-E36C-442B-871A-F95E49896CE2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1BDC12AF-E36C-442B-871A-F95E49896CE2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4A997F89-3AD2-4EFF-97CF-D2BCA1674438}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4A997F89-3AD2-4EFF-97CF-D2BCA1674438}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4A997F89-3AD2-4EFF-97CF-D2BCA1674438}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4A997F89-3AD2-4EFF-97CF-D2BCA1674438}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F7F58221-882D-4CDD-83DA-F8C39E0E7660}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F7F58221-882D-4CDD-83DA-F8C39E0E7660}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F7F58221-882D-4CDD-83DA-F8C39E0E7660}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F7F58221-882D-4CDD-83DA-F8C39E0E7660}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {328F9F3C-90F1-43AA-A707-7CD6346B062E}
+	EndGlobalSection
+EndGlobal

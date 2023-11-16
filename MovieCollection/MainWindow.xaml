@@ -1,0 +1,206 @@
+﻿<Window x:Class="MovieCollection.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        Title="Movie Collection " Height="700" Width="1200" ResizeMode="NoResize" Loaded="Window_Loaded">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="559*"/>
+            <ColumnDefinition Width="41"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="90"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition />
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+        <Menu Grid.Row="0" Padding="20px 0px" Grid.ColumnSpan="2">
+            <MenuItem x:Name="mnuFile" Header="File">
+                <MenuItem x:Name="mnuExit" Header="Exit"></MenuItem>
+            </MenuItem>
+            <MenuItem x:Name="mnuEdit" Header="Edit">
+                <MenuItem x:Name="mnuAddMovie" Header="Add Movie"></MenuItem>
+                <MenuItem x:Name="mnuAddCollection" Header="Add Collection"></MenuItem>
+                <MenuItem x:Name="mnuChangePassword" Header="Change Password"></MenuItem>
+            </MenuItem>
+            <MenuItem x:Name="mnuView" Header="View">
+                <MenuItem x:Name="mnuAll" Header="All"></MenuItem>
+                <MenuItem x:Name="mnuSearch" Header="Search"></MenuItem>
+                <MenuItem x:Name="mnuCollections" Header="Collections"></MenuItem>
+                <MenuItem x:Name="mnuProfile" Header="Profile"></MenuItem>
+            </MenuItem>
+            <MenuItem x:Name="mnuHelp" Header="Help">
+                <MenuItem x:Name="mnuAbout" Header="About"></MenuItem>
+                <MenuItem x:Name="mnuTest" Header="Test" Click="mnuTest_Click"></MenuItem>
+            </MenuItem>
+        </Menu>
+        <Grid Grid.Row="1" Grid.ColumnSpan="2">
+            <!-- Greetings/Login Grid -->
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="717*"/>
+                <ColumnDefinition Width="103*"/>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="250"/>
+                <ColumnDefinition Width="30"/>
+            </Grid.ColumnDefinitions>
+            <Label x:Name="lblGreeting" Content="Please login to continue to the Movie Collection." Padding="20px 5px 20px 0px" Margin="10,10,0,10"
+                   VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Grid.RowSpan="3" 
+                   FontWeight="Bold" FontSize="20" HorizontalAlignment="Left"/>
+            <Label x:Name="lblEmail" Content="Email:" Grid.Column="2" FontSize="14" FontWeight="Bold" HorizontalAlignment="Left" Margin="40,0,0,0"/>
+            <TextBox x:Name="txtEmail" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" Width="250          "/>
+            <Label x:Name="lblPassword" Content="Password:" Grid.Row="1" Grid.Column="2" FontSize="14" FontWeight="Bold" HorizontalAlignment="Left" Margin="14,0,0,0"/>
+            <PasswordBox x:Name="pwdPassword" Grid.Row="1"  Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" Width="250"/>
+            <Button x:Name="btnLoginSubmit" Grid.Row="2" Grid.Column="3" HorizontalAlignment="Left" Width="100" Content="Log In" Click="btnLoginSubmit_Click"/>
+            <Button x:Name="btnLoginCancel" Grid.Row="2" Grid.Column="3" HorizontalAlignment="Left" Width="100" Content="Cancel" Margin="150,0,0,0" Click="btnLoginCancel_Click"/>
+        </Grid>
+        <StackPanel Name="tabContainer" Grid.Row="3" Grid.ColumnSpan="2" Margin="20 0 20 0" Height="510">
+            <TabControl x:Name="tabsetMain" >
+                <TabItem x:Name="tabHome" Header="Home">
+                    <Grid Background="#FFF3ECEC" Height="480">
+                        <Grid.RowDefinitions>
+                            <RowDefinition  />
+                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="50"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="98*"/>
+                            <ColumnDefinition Width="10*"/>
+                            <ColumnDefinition Width="19*"/>
+                            <ColumnDefinition Width="36.585"/>
+                            <ColumnDefinition Width="39.025"/>
+                            <ColumnDefinition Width="24.39"/>
+                            <ColumnDefinition Width="50"/>
+                            <ColumnDefinition Width="300"/>
+                            <ColumnDefinition Width="50"/>
+                            <ColumnDefinition Width="200"/>
+                            <ColumnDefinition Width="200"/>
+                            <ColumnDefinition Width="127*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Content="Today's Flick Pick:" Grid.Row="2" Grid.RowSpan="2" FontSize="40" RenderTransformOrigin="0.504,0.423" Margin="-60,0,180,3" Grid.ColumnSpan="8">
+                            <Label.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform/>
+                                    <SkewTransform/>
+                                    <RotateTransform Angle="-90.644"/>
+                                    <TranslateTransform X="-7.777" Y="4.166"/>
+                                </TransformGroup>
+                            </Label.RenderTransform>
+                        </Label>
+                        <Image x:Name="imgHome" Grid.Column="7" Grid.RowSpan="10" Width="300" Height="352" Source="/bin/Debug/data/movieImg/zero.png" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <Label x:Name="lblHomeTitle" Grid.Column="9" Grid.Row="0" Grid.ColumnSpan="2" Content="Title"
+                               HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="30" FontWeight="Bold" HorizontalAlignment="Left" Margin="164,0,0,0"/>
+                        <Label x:Name="lblHomeRuntime" Grid.Row="1" Grid.Column="9" Content="Runtime:" FontSize="25" HorizontalAlignment="Left"
+                               FontWeight="Bold" Margin="73,0,0,0"/>
+                        <TextBlock x:Name="txtHomeRuntime" Text="90" FontSize="25" Grid.Row="1" Grid.Column="10" VerticalAlignment="Center"/>
+                        <Label x:Name="lblHomeRating" Grid.Row="2" Grid.Column="9" Content="Rating:" FontSize="25" HorizontalAlignment="Left"
+                               FontWeight="Bold" Margin="96,0,0,0"/>
+                        <TextBlock x:Name="txtHomeRating" Text="G" FontSize="25" Grid.Row="2" Grid.Column="10" VerticalAlignment="Center" />
+                        <Label x:Name="lblHomeFormat" Grid.Row="3" Grid.Column="9" Content="Format:" FontSize="25" HorizontalAlignment="Left"
+                               FontWeight="Bold" Margin="89,0,0,0"/>
+                        <TextBlock x:Name="txtHomeFormat" Text="DVD" FontSize="25" Grid.Row="3" Grid.Column="10" VerticalAlignment="Center" />
+                        <Label x:Name="lblHomeLanguage" Grid.Row="4" Grid.Column="9" Content="Language:" FontSize="25" HorizontalAlignment="Left"
+                               FontWeight="Bold" Margin="59,0,0,0"/>
+                        <TextBlock x:Name="txtHomeLanguage" Text="English" FontSize="25" Grid.Row="4" Grid.Column="10" VerticalAlignment="Center" />
+                        <Label x:Name="lblHomeGenres" Grid.Row="5" Grid.Column="9" Content="Genres:" FontSize="25" HorizontalAlignment="Left"
+                               FontWeight="Bold" Margin="92,0,0,0"/>
+                        <TextBlock x:Name="txtHomeGenres" Text="" FontSize="25" Grid.Row="5" Grid.Column="10" VerticalAlignment="Center" />
+
+                    </Grid>
+                </TabItem>
+                <TabItem x:Name="tabSearch" Header="Search">
+                    <Label Content="Search"/>
+                </TabItem>
+                <TabItem x:Name="tabAll" Header="All" GotFocus="tabAll_GotFocus">
+                    <Grid Height="500" Width="1100">
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="300"/>
+                            <ColumnDefinition Width="50"/>
+                            <ColumnDefinition Width="250"/>
+                            <ColumnDefinition Width="250"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <ListBox x:Name="lstAllMovies" Grid.Row="1" Grid.RowSpan="9" Grid.Column="1" MouseDoubleClick="lstAllMovies_MouseDoubleClick"/>
+                        
+                        <Image x:Name="imgAllMoviesImage"  Grid.Row="1" Grid.RowSpan="7" Grid.Column="3" Width="300" Height="352"/>
+                        <Label x:Name="lblAllMoviesTitle" Grid.Row="1" Grid.Column="4" Content="Title" FontWeight="Bold" FontSize="20" />
+                        <Label x:Name="lblAllMoviesYear" Grid.Row="2" Grid.Column="4" Content="Year"  FontSize="20" />
+                        <Label x:Name="lblAllMoviesRating" Grid.Row="3" Grid.Column="4" Content="Rating"  FontSize="20" />
+                        <Label x:Name="lblAllMoviesFormats" Grid.Row="4" Grid.Column="4" Content="Formats"  FontSize="20" />
+                        <Label x:Name="lblAllMoviesGenres" Grid.Row="5" Grid.Column="4" Content="Genres"  FontSize="20" />
+                        <Label x:Name="lblAllMoviesLanguages" Grid.Row="6" Grid.Column="4" Content="Languages"  FontSize="20" />
+                        <Label x:Name="lblAllMoviesRuntime" Grid.Row="7" Grid.Column="4" Content="Runtime: mins"  FontSize="20" />
+                        <Label x:Name="lblAllMoviesCriterion" Grid.Row="8" Grid.Column="4" Content="Criterion: "  FontSize="20" />
+
+                    </Grid>
+                </TabItem>
+                <TabItem x:Name="tabCollections" Header="Collections">
+                    <Label Content="Collections"/>
+                </TabItem>
+                <TabItem x:Name="tabAdd" Header="Add">
+                    <Grid Height="500" Width="1100">
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition/>
+                            <RowDefinition Height="80"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="235"/>
+                            <ColumnDefinition Width="40"/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        
+                    </Grid>
+                </TabItem>
+                <TabItem x:Name="tabProfile" Header="Profile">
+                    <Label Content="Profile"/>
+                </TabItem>
+                <TabItem x:Name="tabAdministration" Header="Administration">
+                    <Label Content="Administration"/>
+                </TabItem>
+            </TabControl>
+        </StackPanel>
+    </Grid>
+
+</Window>
