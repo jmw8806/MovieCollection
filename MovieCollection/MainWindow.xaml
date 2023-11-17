@@ -68,31 +68,31 @@
                     <Grid Background="#FFF3ECEC" Height="480">
                         <Grid.RowDefinitions>
                             <RowDefinition  />
-                            <RowDefinition Height="40"/>
-                            <RowDefinition Height="40"/>
-                            <RowDefinition Height="40"/>
-                            <RowDefinition Height="40"/>
-                            <RowDefinition Height="40"/>
-                            <RowDefinition Height="40"/>
-                            <RowDefinition Height="40"/>
                             <RowDefinition Height="50"/>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="40"/>
                             <RowDefinition/>
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="98*"/>
+                            <ColumnDefinition />
                             <ColumnDefinition Width="10*"/>
                             <ColumnDefinition Width="19*"/>
                             <ColumnDefinition Width="36.585"/>
-                            <ColumnDefinition Width="39.025"/>
+                            <ColumnDefinition Width="7.274"/>
+                            <ColumnDefinition Width="31.751"/>
                             <ColumnDefinition Width="24.39"/>
                             <ColumnDefinition Width="50"/>
                             <ColumnDefinition Width="300"/>
                             <ColumnDefinition Width="50"/>
-                            <ColumnDefinition Width="200"/>
+                            <ColumnDefinition Width="140"/>
+                            <ColumnDefinition Width="10"/>
                             <ColumnDefinition Width="200"/>
                             <ColumnDefinition Width="127*"/>
                         </Grid.ColumnDefinitions>
-                        <Label Content="Today's Flick Pick:" Grid.Row="2" Grid.RowSpan="2" FontSize="40" RenderTransformOrigin="0.504,0.423" Margin="-60,0,180,3" Grid.ColumnSpan="8">
+                        <Label Content="Today's Flick Pick:" Grid.Row="2" Grid.RowSpan="2" FontSize="40" RenderTransformOrigin="0.504,0.423" Margin="-60,0,180,3" Grid.ColumnSpan="9">
                             <Label.RenderTransform>
                                 <TransformGroup>
                                     <ScaleTransform/>
@@ -102,24 +102,23 @@
                                 </TransformGroup>
                             </Label.RenderTransform>
                         </Label>
-                        <Image x:Name="imgHome" Grid.Column="7" Grid.RowSpan="10" Width="300" Height="352" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        <Label x:Name="lblHomeTitle" Grid.Column="9" Grid.Row="0" Grid.ColumnSpan="2" Content="Title"
-                               HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="30" FontWeight="Bold" HorizontalAlignment="Left" Margin="164,0,0,0"/>
-                        <Label x:Name="lblHomeRuntime" Grid.Row="1" Grid.Column="9" Content="Runtime:" FontSize="25" HorizontalAlignment="Left"
-                               FontWeight="Bold" Margin="73,0,0,0"/>
-                        <TextBlock x:Name="txtHomeRuntime" Text="90" FontSize="25" Grid.Row="1" Grid.Column="10" VerticalAlignment="Center"/>
-                        <Label x:Name="lblHomeRating" Grid.Row="2" Grid.Column="9" Content="Rating:" FontSize="25" HorizontalAlignment="Left"
-                               FontWeight="Bold" Margin="96,0,0,0"/>
-                        <TextBlock x:Name="txtHomeRating" Text="G" FontSize="25" Grid.Row="2" Grid.Column="10" VerticalAlignment="Center" />
-                        <Label x:Name="lblHomeFormat" Grid.Row="3" Grid.Column="9" Content="Format:" FontSize="25" HorizontalAlignment="Left"
-                               FontWeight="Bold" Margin="89,0,0,0"/>
-                        <TextBlock x:Name="txtHomeFormat" Text="DVD" FontSize="25" Grid.Row="3" Grid.Column="10" VerticalAlignment="Center" />
-                        <Label x:Name="lblHomeLanguage" Grid.Row="4" Grid.Column="9" Content="Language:" FontSize="25" HorizontalAlignment="Left"
-                               FontWeight="Bold" Margin="59,0,0,0"/>
-                        <TextBlock x:Name="txtHomeLanguage" Text="English" FontSize="25" Grid.Row="4" Grid.Column="10" VerticalAlignment="Center" />
-                        <Label x:Name="lblHomeGenres" Grid.Row="5" Grid.Column="9" Content="Genres:" FontSize="25" HorizontalAlignment="Left"
-                               FontWeight="Bold" Margin="92,0,0,0"/>
-                        <TextBlock x:Name="txtHomeGenres" Text="" FontSize="25" Grid.Row="5" Grid.Column="10" VerticalAlignment="Center" />
+                        <Image x:Name="imgHome" Grid.Column="8" Grid.RowSpan="8" Width="300" Height="352" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,64,0,0"/>
+                        <Label x:Name="lblHomeTitle" Grid.Column="10" Grid.Row="1" Grid.ColumnSpan="4" Content="Title" FontSize="28" FontWeight="Bold" Margin="5,0,0,0"/>
+                        <Label x:Name="lblHomeRuntime" Grid.Row="2" Grid.Column="10" Content="Runtime:" FontSize="25" HorizontalAlignment="Left"
+                               FontWeight="Bold" Margin="23,0,0,0"/>
+                        <TextBlock x:Name="txtHomeRuntime" Text="90" FontSize="25" Grid.Row="2" Grid.Column="11" VerticalAlignment="Center" Grid.ColumnSpan="3" Margin="10,0,205,0"/>
+                        <Label x:Name="lblHomeRating" Grid.Row="3" Grid.Column="10" Content="Rating:" FontSize="25" HorizontalAlignment="Left"
+                               FontWeight="Bold" Margin="46,0,0,0"/>
+                        <TextBlock x:Name="txtHomeRating" Text="G" FontSize="25" Grid.Row="3" Grid.Column="11" VerticalAlignment="Center" Grid.ColumnSpan="3" Margin="10,0,205,0" />
+                        <Label x:Name="lblHomeFormat" Grid.Row="4" Grid.Column="10" Content="Format:" FontSize="25" HorizontalAlignment="Left"
+                               FontWeight="Bold" Margin="39,0,0,0"/>
+                        <TextBlock x:Name="txtHomeFormat" Text="DVD" FontSize="25" Grid.Row="4" Grid.Column="11" VerticalAlignment="Center" Grid.ColumnSpan="3" Margin="10,0,205,0" />
+                        <Label x:Name="lblHomeLanguage" Grid.Row="5" Grid.Column="10" Content="Language:" FontSize="25" HorizontalAlignment="Left"
+                               FontWeight="Bold" Margin="9,0,0,0"/>
+                        <TextBlock x:Name="txtHomeLanguage" Text="English" FontSize="25" Grid.Row="5" Grid.Column="11" VerticalAlignment="Center" Grid.ColumnSpan="3" Margin="10,0,205,0" />
+                        <Label x:Name="lblHomeGenres" Grid.Row="6" Grid.Column="10" Content="Genres:" FontSize="25" HorizontalAlignment="Left"
+                               FontWeight="Bold" Margin="43,0,0,0"/>
+                        <TextBlock x:Name="txtHomeGenres" Text="" FontSize="25" Grid.Row="6" Grid.Column="11" VerticalAlignment="Center" Grid.ColumnSpan="3" Margin="10,0,205,0" />
 
                     </Grid>
                 </TabItem>
@@ -130,7 +129,7 @@
                     <Grid Height="500" Width="1100">
                         <Grid.RowDefinitions>
                             <RowDefinition/>
-                            <RowDefinition/>
+                            <RowDefinition Height="Auto"/>
                             <RowDefinition/>
                             <RowDefinition/>
                             <RowDefinition/>
@@ -145,14 +144,15 @@
                             <ColumnDefinition/>
                             <ColumnDefinition Width="300"/>
                             <ColumnDefinition Width="50"/>
-                            <ColumnDefinition Width="250"/>
-                            <ColumnDefinition Width="250"/>
+                            <ColumnDefinition Width="250" />
+                            <ColumnDefinition Width="385"/>
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
                         <ListBox x:Name="lstAllMovies" Grid.Row="1" Grid.RowSpan="9" Grid.Column="1" MouseDoubleClick="lstAllMovies_MouseDoubleClick"/>
 
-                        <Image x:Name="imgAllMoviesImage"  Grid.Row="1" Grid.RowSpan="7" Grid.Column="3" Width="300" Height="352"/>
-                        <Label x:Name="lblAllMoviesTitle" Grid.Row="1" Grid.Column="4" Content="Title" FontWeight="Bold" FontSize="20" />
+                        <Image x:Name="imgAllMoviesImage"  Grid.Row="1" Grid.RowSpan="7" Grid.Column="3" Width="300" Height="352" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0 0 0 10"/>
+                        <TextBlock x:Name="lblAllMoviesTitle" Grid.Row="1" Grid.Column="4" Text="Title" FontWeight="Bold" FontSize="20" TextWrapping="Wrap"
+                                   Margin="5 0 0 0"/>
                         <Label x:Name="lblAllMoviesYear" Grid.Row="2" Grid.Column="4" Content="Year"  FontSize="20" />
                         <Label x:Name="lblAllMoviesRating" Grid.Row="3" Grid.Column="4" Content="Rating"  FontSize="20" />
                         <Label x:Name="lblAllMoviesFormats" Grid.Row="4" Grid.Column="4" Content="Formats"  FontSize="20" />
@@ -190,7 +190,7 @@
                             <ColumnDefinition Width="300"/>
                         </Grid.ColumnDefinitions>
                         <Image x:Name="imgAddImage" Grid.Row="1" Grid.Column="1" Grid.RowSpan="6" Width="220" Height="270" Margin="32 0 0 10">
-                            
+
                         </Image>
                         <TextBox x:Name="txtAddURL" Grid.Row="8" Grid.Column="2" VerticalAlignment="Top"  Margin="3,3,20,5" Height="32" VerticalContentAlignment="Center" Padding="5"  HorizontalAlignment="Center" Width="260"/>
                         <Button x:Name="btnAddMovieImage" Content="Preview Image URL"  Grid.Row="8"  Grid.Column="1" VerticalAlignment="Bottom" Width="125" Height="35" Grid.ColumnSpan="2" Click="btnAddMovieImage_Click"/>

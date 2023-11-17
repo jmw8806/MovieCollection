@@ -235,7 +235,7 @@ namespace MovieCollection
 
         private void tabAll_GotFocus(object sender, RoutedEventArgs e)
         {
-            lblAllMoviesTitle.Content = "Title";
+            lblAllMoviesTitle.Text = "Title";
             lblAllMoviesYear.Content = "Year";
             lblAllMoviesRating.Content = "Rating";
             lblAllMoviesRuntime.Content = "Runtime";
@@ -259,7 +259,7 @@ namespace MovieCollection
                 }
             }
 
-            lblAllMoviesTitle.Content = movie.title;
+            lblAllMoviesTitle.Text = movie.title;
             lblAllMoviesYear.Content = movie.year;
             lblAllMoviesRating.Content = movie.rating;
             lblAllMoviesRuntime.Content = movie.runtime.ToString() + " mins";
