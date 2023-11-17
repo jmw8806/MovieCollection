@@ -399,24 +399,7 @@ namespace MovieCollection
         }
 
 
-        private BitmapSource getImage(string name)
-        {
-            return LoadImage("C:\\Users\\jmw66\\source\\repos\\MovieCollection\\MovieCollection\\Resources\\" + name);
-        }
-        private static BitmapSource LoadImage(string path)
-        {
-            var bitmap = new BitmapImage();
-
-            using (var stream = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read))
-            {
-                bitmap.BeginInit();
-                bitmap.CacheOption = BitmapCacheOption.OnLoad;
-                bitmap.StreamSource = stream;
-                bitmap.EndInit();
-            }
-
-            return bitmap;
-        }
+       
 
         private void btnAddMovieImage_Click(object sender, RoutedEventArgs e)
         {
