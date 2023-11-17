@@ -18,7 +18,10 @@ namespace LogicLayer
         List<string> GetAllFormats();
         List<string> GetFormatsByMovieID(int movieID);
         List<string> GetAllLocations();
-        string GetImageNameByMovieID(int movieID);
+        string GetImageURLByMovieID(int movieID);
         List<MovieVM> GetAllMovieVMs();
+        List<string> GetAllRatings();
+        bool AddMovie(string title, int year, string rating, int runtime, bool isCriterion, string notes, string language, string genre, string fileName, string format);
+        
     }
 }

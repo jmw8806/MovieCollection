@@ -195,6 +195,21 @@ namespace LogicLayerTests
             }
             Assert.AreEqual(expectedResult, actualResult);
         }
+
+        [TestMethod]
+        public void TestGetAllRatingsCountPasses()
+        {
+            int actualCount = _movieManager.GetAllRatings().Count;
+            Assert.IsTrue (actualCount == 3);
+        }
+
+        [TestMethod]
+        public void TestGetAllRatingsCountFails()
+        {
+            int actualCount = _movieManager.GetAllRatings().Count;
+            Assert.IsFalse(actualCount == 4);
+        }
+
     }
 
 }

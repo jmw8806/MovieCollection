@@ -32,7 +32,7 @@ namespace LogicLayer
                 movieVM.genres = _movieAccessor.GetMovieGenresByMovieID(movieID);
                 movieVM.languages = _movieAccessor.GetLanguagesByMovieID(movieID);
                 movieVM.formats = _movieAccessor.GetAllFormatsByMovieID(movieID);
-                movieVM.imgName = _movieAccessor.GetImageNameByMovieID(movieID);
+                movieVM.imgName = _movieAccessor.GetImageURLByMovieID(movieID);
             }
             catch (Exception ex) 
             {
@@ -189,15 +189,15 @@ namespace LogicLayer
             return locations;
         }
 
-        public string GetImageNameByMovieID(int movieID)
+        public string GetImageURLByMovieID(int movieID)
         {
-            string imageName = "";
+            string url = "";
             try
             {
-                imageName = _movieAccessor.GetImageNameByMovieID(movieID);
-                if(imageName == null)
+                url = _movieAccessor.GetImageURLByMovieID(movieID);
+                if(url == null || url == "")
                 {
-                    throw new ApplicationException("No image found");
+                    url = "https://thumbs.dreamstime.com/b/movie-film-poster-design-template-background-vintage-reel-sunray-element-can-be-used-backdrop-banner-brochure-leaflet-197521645.jpg";
                 }
             }
             catch (Exception ex)
@@ -205,7 +205,7 @@ namespace LogicLayer
                 throw new ApplicationException("Error locating image", ex);
             }
 
-            return imageName;
+            return url;
         }
 
         public List<MovieVM> GetAllMovieVMs()
@@ -226,12 +226,71 @@ namespace LogicLayer
                     notes = movie.notes,
                     genres = _movieAccessor.GetMovieGenresByMovieID(movie.titleID),
                     formats = _movieAccessor.GetAllFormatsByMovieID(movie.titleID),
-                    imgName = _movieAccessor.GetImageNameByMovieID(movie.titleID),
+                    imgName = _movieAccessor.GetImageURLByMovieID(movie.titleID),
                     languages = _movieAccessor.GetLanguagesByMovieID(movie.titleID)
                 }) ;
             }
 
             return movieVMs;
         }
+
+        public List<string> GetAllRatings()
+        {
+            List<string> ratings = null;
+            try
+            {
+                ratings = _movieAccessor.GetAllRatings();
+                if (ratings == null)
+                {
+                    throw new ApplicationException("No locations found");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Error finding locations", ex);
+            }
+
+            return ratings;
+
+        }
+
+        public bool AddMovie(string title, int year, string rating, int runtime,
+            bool isCriterion, string notes, string language, string genre, string fileName, string format)
+        {
+            bool success = false;
+            int addMovieGetID = 0;
+            // sp_insert_title
+            try
+            {
+                addMovieGetID = _movieAccessor.AddMovieReturnNewID(title, year, rating, runtime, isCriterion, notes);
+                if (addMovieGetID == 0)
+                {
+                    throw new ApplicationException("Add movie failed");
+                }
+
+                // stored procedures
+                int addMovieLanguage = _movieAccessor.AddMovieLanguage(addMovieGetID, language);
+                int addMovieGenre = _movieAccessor.AddMovieGenre(addMovieGetID, genre);
+                int addMovieImage = _movieAccessor.AddMovieImage(addMovieGetID, fileName);
+                int addMovieFormat = _movieAccessor.AddMovieFormat(addMovieGetID, format);
+                
+                // Check that all stored procedures executed successfully
+                if (addMovieLanguage != 1 && addMovieGenre != 1 && addMovieImage != 1 && addMovieFormat != 1)
+                {
+                    throw new ApplicationException("Failed to add movie");
+                }
+                else
+                {
+                    success = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return success;
+        }
+
+
     }
 }

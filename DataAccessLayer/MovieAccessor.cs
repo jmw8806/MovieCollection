@@ -400,11 +400,11 @@ namespace DataAccessLayer
             return locations;
         }
 
-        public string GetImageNameByMovieID(int movieID)
+        public string GetImageURLByMovieID(int movieID)
         {
-            string imgName = "";
+            string url = "";
             var conn = DBConnectionProvider.GetConnection();
-            var cmdText = "sp_get_fileName_by_titleID";
+            var cmdText = "sp_get_url_by_titleID";
             var cmd = new SqlCommand(cmdText, conn);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.Add("@titleID", SqlDbType.Int);
@@ -421,7 +421,7 @@ namespace DataAccessLayer
                 }
                 else
                 {
-                    imgName = Convert.ToString(result);
+                    url = Convert.ToString(result);
                 }
             }
             catch (Exception ex)
@@ -432,8 +432,227 @@ namespace DataAccessLayer
             {
                 conn.Close();
             }
-            return imgName;
+            return url;
 
+        }
+
+        public List<string> GetAllRatings()
+        {
+            List<string> ratings = new List<string>();
+            var conn = DBConnectionProvider.GetConnection();
+            var cmdText = "sp_get_all_ratings";
+            var cmd = new SqlCommand(cmdText, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            try
+            {
+                conn.Open();
+                SqlDataReader reader = cmd.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        ratings.Add(reader.GetString(0));
+                    }
+                }
+                else
+                {
+                    throw new ApplicationException("Languages not found");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return ratings;
+        }
+
+        public int AddMovieReturnNewID(string title, int year, string rating, int runtime, bool criterion, string notes)
+        {
+            int newID = 0;
+
+            var conn = DBConnectionProvider.GetConnection();
+            var cmdText = "sp_insert_title_return_ID";
+            var cmd = new SqlCommand(cmdText, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Add("@title", SqlDbType.NVarChar, 250);
+            cmd.Parameters.Add("@release_year", SqlDbType.Int);
+            cmd.Parameters.Add("@rating", SqlDbType.NVarChar, 5);
+            cmd.Parameters.Add("@runtime", SqlDbType.Int);
+            cmd.Parameters.Add("@criterion", SqlDbType.Bit);           
+            cmd.Parameters.Add("@notes", SqlDbType.NVarChar, 250);
+            cmd.Parameters.Add("@new_id", SqlDbType.Int).Direction = ParameterDirection.Output;
+
+            cmd.Parameters["@title"].Value = title;
+            cmd.Parameters["@release_year"].Value = year;
+            cmd.Parameters["@rating"].Value = rating;
+            cmd.Parameters["@runtime"].Value = runtime;
+            cmd.Parameters["@criterion"].Value = criterion;
+            cmd.Parameters["@notes"].Value = notes;
+
+            try
+            {
+                conn.Open();
+                cmd.ExecuteNonQuery();
+                newID = (int)cmd.Parameters["@new_id"].Value;
+                if(newID == 0)
+                {
+                    throw new ApplicationException("ID retrieval failed");
+                }
+            }
+            catch (Exception ex) 
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return newID;
+        }
+
+        public int AddMovieLanguage(int id, string language)
+        {
+            int rows = 0;
+
+            var conn = DBConnectionProvider.GetConnection();
+            var cmdText = "sp_insert_titleLanguage";
+            var cmd = new SqlCommand(cmdText, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Add("@titleID", SqlDbType.Int);
+            cmd.Parameters.Add("@media_language", SqlDbType.NVarChar, 100);
+           
+
+            cmd.Parameters["@titleID"].Value = id;
+            cmd.Parameters["@media_language"].Value = language;
+           
+            try
+            {
+                conn.Open();
+                rows = cmd.ExecuteNonQuery();
+               if(rows == 0)
+                {
+                    throw new ApplicationException("Language " + language + " addition failed");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return rows;
+        }
+
+        public int AddMovieGenre(int id, string genre)
+        {
+            int rows = 0;
+
+            var conn = DBConnectionProvider.GetConnection();
+            var cmdText = "sp_insert_titleGenre";
+            var cmd = new SqlCommand(cmdText, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Add("@titleID", SqlDbType.Int);
+            cmd.Parameters.Add("@genre", SqlDbType.NVarChar, 100);
+
+
+            cmd.Parameters["@titleID"].Value = id;
+            cmd.Parameters["@genre"].Value = genre;
+
+            try
+            {
+                conn.Open();
+                rows = cmd.ExecuteNonQuery();
+                if (rows == 0)
+                {
+                    throw new ApplicationException("Genre " + genre + " addition failed");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return rows;
+        }
+
+        public int AddMovieImage(int id, string url)
+        {
+            int rows = 0;
+
+            var conn = DBConnectionProvider.GetConnection();
+            var cmdText = "sp_insert_titleImage";
+            var cmd = new SqlCommand(cmdText, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Add("@titleID", SqlDbType.Int);
+            cmd.Parameters.Add("@url", SqlDbType.NVarChar, 100);
+
+
+            cmd.Parameters["@titleID"].Value = id;
+            cmd.Parameters["@url"].Value = url;
+
+            try
+            {
+                conn.Open();
+                rows = cmd.ExecuteNonQuery();
+                if (rows == 0)
+                {
+                    throw new ApplicationException("Image addition failed");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return rows;
+        }
+
+        public int AddMovieFormat(int id, string format)
+        {
+            int rows = 0;
+
+            var conn = DBConnectionProvider.GetConnection();
+            var cmdText = "sp_insert_titleFormat";
+            var cmd = new SqlCommand(cmdText, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Add("@titleID", SqlDbType.Int);
+            cmd.Parameters.Add("@media_format", SqlDbType.NVarChar, 100);
+
+
+            cmd.Parameters["@titleID"].Value = id;
+            cmd.Parameters["@media_format"].Value = format;
+
+            try
+            {
+                conn.Open();
+                rows = cmd.ExecuteNonQuery();
+                if (rows == 0)
+                {
+                    throw new ApplicationException("Format, " + format + ", addition failed");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return rows;
         }
     }
 

@@ -1,27 +1,14 @@
-﻿using DataAccessFakes;
-using DataObjects;
+﻿using DataObjects;
 using LogicLayer;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Drawing;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.Resources;
 using static DataObjects.DisplayHelpers;
-using System.Reflection;
-using System.Threading;
-using System.Drawing;
-using System.IO;
+
 
 namespace MovieCollection
 {
@@ -38,7 +25,10 @@ namespace MovieCollection
         List<Movie> _movies = null;
         List<MovieVM> _movieVMs = null;
         MovieVM _selectedMovie = null;
-        ResourceManager _rm = new ResourceManager("MovieCollection.Resource", Assembly.GetExecutingAssembly());
+        List<string> _genres = null;
+        List<string> _languages = null;
+        List<string> _ratings = null;
+        List<string> _formats = null;
 
         public MainWindow()
         {
@@ -48,11 +38,11 @@ namespace MovieCollection
 
         private void mnuTest_Click(object sender, RoutedEventArgs e)
         {
-            string image = "";
+
             try
             {
-                image = _movieManager.GetImageNameByMovieID(_homeMovie.titleID);
-                MessageBox.Show(image);
+               
+                
             }
             catch (Exception ex)
             {
@@ -68,12 +58,19 @@ namespace MovieCollection
             _random_id = generate_random_id(_movieManager.count_all_titles());
             _movies = new List<Movie>();
             _movieVMs = new List<MovieVM>();
+            _genres = new List<string>();
+            _languages = new List<string>();
+            _ratings = new List<string>();
             try
             {
                 _homeMovie = _movieManager.GetMovieByTitleID(_random_id);
                 display_home_movie(_homeMovie);
                 _movies = _movieManager.GetAllMovies();
                 _movieVMs = _movieManager.GetAllMovieVMs();
+                _genres = _movieManager.GetAllGenres();
+                _languages = _movieManager.GetAllLanguages();
+                _ratings = _movieManager.GetAllRatings();
+                _formats = _movieManager.GetAllFormats();
 
             }
             catch (Exception ex)
@@ -87,6 +84,12 @@ namespace MovieCollection
             {
                 hideTabs();
             }
+            refreshMovieList();
+            resetForms();
+            cboAddGenre.ItemsSource = _genres;
+            cboAddLanguage.ItemsSource = _languages;
+            cboAddRating.ItemsSource = _ratings;
+            cboAddFormat.ItemsSource = _formats;
 
 
         }
@@ -222,14 +225,14 @@ namespace MovieCollection
             txtHomeLanguage.Text = displayList(movie.languages);
             txtHomeGenres.Text = displayList(movie.genres);
             txtHomeFormat.Text = displayList(movie.formats);
-            
-            
-            imgHome.Source = getImage(movie.imgName);
-            
+            BitmapImage bitmap = displayImageFromURL(movie.imgName);
+            imgHome.Source = bitmap;
+           
+
         }
 
 
-      
+
         private void tabAll_GotFocus(object sender, RoutedEventArgs e)
         {
             lblAllMoviesTitle.Content = "Title";
@@ -237,41 +240,164 @@ namespace MovieCollection
             lblAllMoviesRating.Content = "Rating";
             lblAllMoviesRuntime.Content = "Runtime";
             lblAllMoviesCriterion.Content = "Criterion";
-            imgAllMoviesImage.Source = getImage("blank.png");
             lblAllMoviesFormats.Content = "Formats";
             lblAllMoviesGenres.Content = "Genres";
             lblAllMoviesLanguages.Content = "Languages";
-            
-            foreach(var movie in _movieVMs)
-            {
-                lstAllMovies.Items.Add(movie.title);
-            }
-            
+
         }
 
         private void lstAllMovies_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            
+
             MovieVM movie = null;
-            
-            foreach(MovieVM movieVM in _movieVMs)
+
+            foreach (MovieVM movieVM in _movieVMs)
             {
-                if(lstAllMovies.SelectedValue.ToString() == movieVM.title)
+                if (lstAllMovies.SelectedValue.ToString() == movieVM.title)
                 {
                     movie = movieVM;
                 }
             }
-            lstAllMovies.Items.Clear();
+
             lblAllMoviesTitle.Content = movie.title;
             lblAllMoviesYear.Content = movie.year;
             lblAllMoviesRating.Content = movie.rating;
             lblAllMoviesRuntime.Content = movie.runtime.ToString() + " mins";
             lblAllMoviesCriterion.Content = criterionOutputConverter(movie.isCriterion);
-            imgAllMoviesImage.Source = getImage(movie.imgName);
+            imgAllMoviesImage.Source = displayImageFromURL(movie.imgName);
             lblAllMoviesFormats.Content = displayList(movie.formats);
             lblAllMoviesGenres.Content = displayList(movie.genres);
             lblAllMoviesLanguages.Content = displayList(movie.languages);
         }
+
+        private void tabAdd_GotFocus(object sender, RoutedEventArgs e)
+        {
+           
+        }
+
+        private void btnAddMovie_Click(object sender, RoutedEventArgs e)
+        {
+
+            string addTitle = txtAddName.Text;
+            int addYear = 0;
+            if(int.TryParse(txtAddYear.Text, out int _))
+            {
+                addYear = int.Parse(txtAddYear.Text);
+            }
+            else
+            {
+                MessageBox.Show("Year is in incorrect format");
+                txtAddYear.Clear();
+            }
+
+
+            int addRuntime = 0;
+            if(int.TryParse(txtAddRuntime.Text, out int _))
+            {
+                addRuntime = int.Parse(txtAddName.Text);
+            }
+            else
+            {
+                MessageBox.Show("Runtime is in incorrect format");
+                txtAddRuntime.Clear();
+            }
+            
+            string addLanguage = cboAddLanguage.SelectedValue.ToString();
+            string addGenre = cboAddGenre.SelectedValue.ToString();
+            string addFormat = cboAddFormat.SelectedValue.ToString();
+            string addRating = cboAddRating.SelectedValue.ToString();
+            string addNotes = txtAddNotes.Text;
+            if (string.IsNullOrEmpty(addNotes))
+            {
+                addNotes = "";
+            }
+            bool addIsCriterion = false;
+            string addImage = txtAddURL.Text;
+            if(string.IsNullOrEmpty(addImage))
+            {
+                addImage = "https://cdn4.iconfinder.com/data/icons/picture-sharing-sites/32/No_Image-1024.png";
+            }
+            if (chkAddCriterion.IsChecked == true)
+            {
+                addIsCriterion = true;
+            }
+            if (string.IsNullOrEmpty(addTitle) && string.IsNullOrEmpty(txtAddYear.Text) && string.IsNullOrEmpty(txtAddRuntime.Text)
+                && string.IsNullOrEmpty(addLanguage) && string.IsNullOrEmpty(addGenre) && string.IsNullOrEmpty(addFormat) &&
+                string.IsNullOrEmpty(addRating))
+            {
+                MessageBox.Show("Please complete all required fields");
+            }
+            else
+            {
+                try
+                {
+                    bool newMovie = _movieManager.AddMovie(addTitle, addYear, addRating, addRuntime, addIsCriterion, addNotes, addLanguage, addGenre, addImage, addFormat);
+                    if (newMovie)
+                    {
+                        MessageBox.Show("Success! " + addTitle + " was added.");
+                        refreshMovieList();
+                        resetForms();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Error. Your title was not added");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Application Error \n\n" + ex.Message);
+                }
+            }
+
+        }
+
+        private void resetForms()
+        {
+
+            txtAddName.Clear();
+            txtAddYear.Clear();
+            txtAddRuntime.Clear();
+            cboAddLanguage.SelectedIndex = 0;
+            cboAddGenre.SelectedIndex = 0;
+            cboAddFormat.SelectedIndex = 0;
+            cboAddRating.SelectedIndex = 0;
+            txtAddNotes.Clear();
+            chkAddCriterion.IsChecked = false;
+            txtAddURL.Clear();
+        }
+
+        private void refreshMovieList()
+        {
+            lstAllMovies.Items.Clear();
+            _movieVMs = _movieManager.GetAllMovieVMs();
+            foreach (var movie in _movieVMs)
+            {
+                lstAllMovies.Items.Add(movie.title);
+            }
+        }
+
+        private void btnAddCancel_Click(object sender, RoutedEventArgs e)
+        {
+            resetForms();
+        }
+
+        private BitmapImage displayImageFromURL(string url)
+        {
+            string imageUrl = url;
+            BitmapImage bitmap = new BitmapImage();
+            bitmap.BeginInit();
+            try
+            {
+                bitmap.UriSource = new Uri(imageUrl);
+                bitmap.EndInit();
+            }
+            catch
+            {
+                bitmap = null;
+            }
+            return bitmap;
+        }
+
 
         private BitmapSource getImage(string name)
         {
@@ -292,6 +418,13 @@ namespace MovieCollection
             return bitmap;
         }
 
-       
+        private void btnAddMovieImage_Click(object sender, RoutedEventArgs e)
+        {
+            BitmapSource bitmap = displayImageFromURL(txtAddURL.Text);
+            if(bitmap != null) 
+            { 
+                imgAddImage.Source = bitmap;
+            }
+        }
     }
 }

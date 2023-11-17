@@ -133,9 +133,6 @@
     <None Include="bin\Debug\data\movieImg\zero.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\one.bmp" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\five.png" />
   </ItemGroup>
   <ItemGroup>
@@ -154,13 +151,7 @@
     <None Include="Resources\zero.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\viewVehicles.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="one.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\blank.bmp" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="blank.png" />

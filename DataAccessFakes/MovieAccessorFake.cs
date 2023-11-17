@@ -16,6 +16,7 @@ namespace DataAccessFakes
         private List<string> languages = new List<string>();
         private List<string> formats = new List<string>();
         private List<string> locations = new List<string>();
+        private List<string> ratings = new List<string>();
         public MovieAccessorFake() {
             //MovieVM
             fakeMovies.Add(new MovieVM()
@@ -120,7 +121,9 @@ namespace DataAccessFakes
 
 
 
-
+            ratings.Add("G");
+            ratings.Add("PG-13");
+            ratings.Add("R");
 
             genres.Add("Horror");
             genres.Add("Comedy");
@@ -249,7 +252,7 @@ namespace DataAccessFakes
             throw new NotImplementedException();
         }
 
-        public string GetImageNameByMovieID(int movieID)
+        public string GetImageURLByMovieID(int movieID)
         {
             string imageName = "";
             foreach(var movie in fakeMovies)
@@ -269,6 +272,36 @@ namespace DataAccessFakes
                 throw new ApplicationException("No image found");
             }
             return imageName;
+        }
+
+        public List<string> GetAllRatings()
+        {
+            return ratings;
+        }
+
+        public int AddMovieReturnNewID(string title, int year, string rating, int runtime, bool criterion, string notes)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int AddMovieLanguage(int id, string language)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int AddMovieGenre(int id, string genre)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int AddMovieImage(int id, string fileName)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int AddMovieFormat(int id, string format)
+        {
+            throw new NotImplementedException();
         }
     }
 }

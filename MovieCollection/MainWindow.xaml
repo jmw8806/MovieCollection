@@ -102,7 +102,7 @@
                                 </TransformGroup>
                             </Label.RenderTransform>
                         </Label>
-                        <Image x:Name="imgHome" Grid.Column="7" Grid.RowSpan="10" Width="300" Height="352" Source="/bin/Debug/data/movieImg/zero.png" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <Image x:Name="imgHome" Grid.Column="7" Grid.RowSpan="10" Width="300" Height="352" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         <Label x:Name="lblHomeTitle" Grid.Column="9" Grid.Row="0" Grid.ColumnSpan="2" Content="Title"
                                HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="30" FontWeight="Bold" HorizontalAlignment="Left" Margin="164,0,0,0"/>
                         <Label x:Name="lblHomeRuntime" Grid.Row="1" Grid.Column="9" Content="Runtime:" FontSize="25" HorizontalAlignment="Left"
@@ -150,7 +150,7 @@
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
                         <ListBox x:Name="lstAllMovies" Grid.Row="1" Grid.RowSpan="9" Grid.Column="1" MouseDoubleClick="lstAllMovies_MouseDoubleClick"/>
-                        
+
                         <Image x:Name="imgAllMoviesImage"  Grid.Row="1" Grid.RowSpan="7" Grid.Column="3" Width="300" Height="352"/>
                         <Label x:Name="lblAllMoviesTitle" Grid.Row="1" Grid.Column="4" Content="Title" FontWeight="Bold" FontSize="20" />
                         <Label x:Name="lblAllMoviesYear" Grid.Row="2" Grid.Column="4" Content="Year"  FontSize="20" />
@@ -166,8 +166,8 @@
                 <TabItem x:Name="tabCollections" Header="Collections">
                     <Label Content="Collections"/>
                 </TabItem>
-                <TabItem x:Name="tabAdd" Header="Add">
-                    <Grid Height="500" Width="1100">
+                <TabItem x:Name="tabAdd" Header="Add" GotFocus="tabAdd_GotFocus">
+                    <Grid Height="450" Width="1100">
                         <Grid.RowDefinitions>
                             <RowDefinition/>
                             <RowDefinition Height="40"/>
@@ -177,20 +177,43 @@
                             <RowDefinition Height="40"/>
                             <RowDefinition Height="40"/>
                             <RowDefinition Height="40"/>
-                            <RowDefinition/>
+                            <RowDefinition Height="80"/>
                             <RowDefinition Height="80"/>
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
-                            <ColumnDefinition Width="235"/>
-                            <ColumnDefinition Width="40"/>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
+                            <ColumnDefinition Width="4.6"/>
+                            <ColumnDefinition Width="300"/>
+                            <ColumnDefinition Width="75"/>
+                            <ColumnDefinition Width="300"/>
+                            <ColumnDefinition Width="75"/>
+                            <ColumnDefinition Width="300"/>
                         </Grid.ColumnDefinitions>
-                        
+                        <Image x:Name="imgAddImage" Grid.Row="1" Grid.Column="1" Grid.RowSpan="6" Width="220" Height="270" Margin="32 0 0 10">
+                            
+                        </Image>
+                        <TextBox x:Name="txtAddURL" Grid.Row="8" Grid.Column="2" VerticalAlignment="Top"  Margin="3,3,20,5" Height="32" VerticalContentAlignment="Center" Padding="5"  HorizontalAlignment="Center" Width="260"/>
+                        <Button x:Name="btnAddMovieImage" Content="Preview Image URL"  Grid.Row="8"  Grid.Column="1" VerticalAlignment="Bottom" Width="125" Height="35" Grid.ColumnSpan="2" Click="btnAddMovieImage_Click"/>
+                        <Label Content="Name:" HorizontalAlignment="Right" VerticalAlignment="Top" Grid.Row="2" Grid.Column="3" FontSize="12" FontWeight="Bold" Margin="0 3 5 0"/>
+                        <Label Content="Year:" HorizontalAlignment="Right" VerticalAlignment="Top" Grid.Row="3" Grid.Column="3" FontSize="12" FontWeight="Bold" Margin="0 3 5 0"/>
+                        <Label Content="Runtime" HorizontalAlignment="Right" VerticalAlignment="Top" Grid.Row="4" Grid.Column="3" FontSize="12" FontWeight="Bold" Margin="0 3 5 0"/>
+                        <Label Content="Language:" HorizontalAlignment="Right" VerticalAlignment="Top" Grid.Row="5" Grid.Column="3" FontSize="12" FontWeight="Bold" Margin="0 3 5 0"/>
+                        <Label Content="Genre:" HorizontalAlignment="Right" VerticalAlignment="Top" Grid.Row="2" Grid.Column="5" FontSize="12" FontWeight="Bold" Margin="0 3 5 0"/>
+                        <Label Content="Rating:" HorizontalAlignment="Right" VerticalAlignment="Top" Grid.Row="6" Grid.Column="3" FontSize="12" FontWeight="Bold" Margin="0 3 5 0"/>
+                        <Label Content="Criterion:" HorizontalAlignment="Right" VerticalAlignment="Top" Grid.Row="7" Grid.Column="3" FontSize="12" FontWeight="Bold" Margin="0 3 5 0"/>
+                        <Label Content="Notes:" HorizontalAlignment="Right" VerticalAlignment="Top" Grid.Row="4" Grid.Column="5" FontSize="12" FontWeight="Bold" Margin="0,3,5,0"/>
+                        <Label Content="Format:" HorizontalAlignment="Right" VerticalAlignment="Top" Grid.Row="3" Grid.Column="5" FontSize="12" FontWeight="Bold" Margin="0,3,5,0"/>
+                        <TextBox x:Name="txtAddName" VerticalContentAlignment="Center" Grid.Row="2" Grid.Column="4" Margin="3,3,20,5"/>
+                        <TextBox x:Name="txtAddYear" VerticalContentAlignment="Center" Grid.Row="3" Grid.Column="4" Margin="3,3,20,5"/>
+                        <TextBox x:Name="txtAddRuntime" VerticalContentAlignment="Center" Grid.Row="4" Grid.Column="4" Margin="3,3,20,5"/>
+                        <ComboBox x:Name="cboAddLanguage" VerticalContentAlignment="Center"  Grid.Row="5" Grid.Column="4" Margin="3,3,20,5"/>
+                        <ComboBox x:Name="cboAddGenre" VerticalContentAlignment="Center" Grid.Row="2" Grid.Column="6" Margin="3,3,20,5"/>
+                        <ComboBox x:Name="cboAddFormat" VerticalContentAlignment="Center" Grid.Row="3" Grid.Column="6" Margin="3,3,20,5"/>
+                        <ComboBox x:Name="cboAddRating" VerticalContentAlignment="Center" Grid.Row="6" Grid.Column="4" Margin="3,3,20,5"/>
+                        <CheckBox x:Name="chkAddCriterion" Grid.Row="7" Grid.Column="4" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                        <TextBox x:Name="txtAddNotes" Grid.Row="4" Grid.Column="6" Grid.RowSpan="3" Margin="3,3,20,5" Padding="3"/>
+                        <Button x:Name="btnAddMovie" Grid.Row="9" Grid.Column="6" Content="Add" Width="125" Height="35" FontSize="14" FontWeight="Bold" HorizontalAlignment="Left" Margin="0,15,0,15" Click="btnAddMovie_Click"/>
+                        <Button x:Name="btnAddCancel" Grid.Row="9" Grid.Column="6" Content="Cancel" Width="125" Height="35" FontSize="14" FontWeight="Bold" HorizontalAlignment="Right" Margin="0,15,20,18" Click="btnAddCancel_Click"/>
                     </Grid>
                 </TabItem>
                 <TabItem x:Name="tabProfile" Header="Profile">

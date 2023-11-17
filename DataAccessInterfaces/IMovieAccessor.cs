@@ -19,6 +19,12 @@ namespace DataAccessInterfaces
         List<string> GetAllFormats();
         List<string> GetAllFormatsByMovieID(int movieID);
         List<string> GetAllLocations();
-        string GetImageNameByMovieID(int movieID);
+        string GetImageURLByMovieID(int movieID);
+        List<string> GetAllRatings();
+        int AddMovieReturnNewID(string title, int year, string rating, int runtime, bool criterion, string notes);
+        int AddMovieLanguage(int id, string language);
+        int AddMovieGenre(int id, string genre);
+        int AddMovieImage(int id, string url);
+        int AddMovieFormat(int id, string format);
     }
 }
