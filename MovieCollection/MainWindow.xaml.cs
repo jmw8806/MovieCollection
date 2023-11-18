@@ -2,12 +2,14 @@
 using LogicLayer;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using static DataObjects.DisplayHelpers;
+using static DataObjects.MovieSearchHelpers;
 
 
 namespace MovieCollection
@@ -25,6 +27,7 @@ namespace MovieCollection
         List<Movie> _movies = null;
         List<MovieVM> _movieVMs = null;
         MovieVM _selectedMovie = null;
+        
         List<string> _genres = null;
         List<string> _languages = null;
         List<string> _ratings = null;
@@ -41,8 +44,8 @@ namespace MovieCollection
 
             try
             {
-               
-                
+                int currentYear = DateTime.Now.Year;
+                MessageBox.Show(currentYear.ToString());
             }
             catch (Exception ex)
             {
@@ -61,6 +64,7 @@ namespace MovieCollection
             _genres = new List<string>();
             _languages = new List<string>();
             _ratings = new List<string>();
+
             try
             {
                 _homeMovie = _movieManager.GetMovieByTitleID(_random_id);
@@ -77,7 +81,7 @@ namespace MovieCollection
             {
                 MessageBox.Show("Error \n" + _random_id.ToString() + "\n" + ex);
             }
-
+            
             txtEmail.Focus();
             btnLoginSubmit.IsDefault = true;
             if (_loggedInUser == null)
@@ -90,6 +94,7 @@ namespace MovieCollection
             cboAddLanguage.ItemsSource = _languages;
             cboAddRating.ItemsSource = _ratings;
             cboAddFormat.ItemsSource = _formats;
+            cboSearchYear.ItemsSource = getYears(1888);
 
 
         }
@@ -294,7 +299,7 @@ namespace MovieCollection
             int addRuntime = 0;
             if(int.TryParse(txtAddRuntime.Text, out int _))
             {
-                addRuntime = int.Parse(txtAddName.Text);
+                addRuntime = int.Parse(txtAddRuntime.Text);
             }
             else
             {
@@ -364,6 +369,7 @@ namespace MovieCollection
             txtAddNotes.Clear();
             chkAddCriterion.IsChecked = false;
             txtAddURL.Clear();
+            imgAddImage.Source = null;
         }
 
         private void refreshMovieList()
@@ -403,11 +409,10 @@ namespace MovieCollection
 
         private void btnAddMovieImage_Click(object sender, RoutedEventArgs e)
         {
-            BitmapSource bitmap = displayImageFromURL(txtAddURL.Text);
-            if(bitmap != null) 
-            { 
-                imgAddImage.Source = bitmap;
-            }
+            MessageBox.Show(txtAddURL.Text);   
+            string url = txtAddURL.Text;
+            BitmapImage img = displayImageFromURL(url);
+            imgAddImage.Source = img;
         }
     }
 }
