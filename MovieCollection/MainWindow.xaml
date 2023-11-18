@@ -172,7 +172,7 @@
                         <TextBox x:Name="txtSearchRuntime" Grid.Column="2" Grid.Row="6" Width="75" Height="40" VerticalContentAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0 0 0 5" Padding="2"/>
                         <Label Grid.Column="2" Grid.Row="7" Content="Yes" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10 0 0 0"/>
                         <CheckBox x:Name="chkSearchCriterion" Grid.Column="2" Grid.Row="7" Width="50" Height="40" VerticalAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Left" Margin="35 0 0 0" />
-                        <Button x:Name="btnSearchSubmit" Content="Search" FontSize="18" Grid.Column="2" Grid.Row="7" Width="100" Height="40" HorizontalAlignment="Right" VerticalAlignment="Center" VerticalContentAlignment="Center" Margin="0 0 0 10"/>
+                        <Button x:Name="btnSearchSubmit" Content="Search" FontSize="18" Grid.Column="2" Grid.Row="7" Width="100" Height="40" HorizontalAlignment="Right" VerticalAlignment="Center" VerticalContentAlignment="Center" Margin="0 0 0 10" Click="btnSearchSubmit_Click"/>
                         <ListBox x:Name="lstSearchResults" Grid.Column="4" Grid.Row="1" Grid.RowSpan="7" />
                         <Image x:Name="imgSearch" Grid.Row="1" Grid.Column="6" Grid.RowSpan="7" Width="245" Height="350"/>
                         <TextBlock x:Name="txtResultTitle" Grid.Row="1" Grid.Column="8" Text="Title" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center" TextWrapping="Wrap"/>

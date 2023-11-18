@@ -15,7 +15,7 @@ namespace DataObjects
         public static List<MovieVM> searchByTitle(List<MovieVM> movies, string term) 
         {
             List<MovieVM> results = new List<MovieVM>();
-            results = movies.Where(m => m.title.Contains(term)).ToList();
+            results = movies.Where(m => m.title.ToLower().Contains(term.ToLower())).ToList();
             return results;
         }
 

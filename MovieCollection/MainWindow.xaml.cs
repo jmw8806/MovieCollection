@@ -94,6 +94,8 @@ namespace MovieCollection
             cboAddLanguage.ItemsSource = _languages;
             cboAddRating.ItemsSource = _ratings;
             cboAddFormat.ItemsSource = _formats;
+            cboSearchGenre.ItemsSource = _genres;
+            cboSearchLanguage.ItemsSource = _languages;
             cboSearchYear.ItemsSource = getYears(1888);
 
 
@@ -413,6 +415,41 @@ namespace MovieCollection
             string url = txtAddURL.Text;
             BitmapImage img = displayImageFromURL(url);
             imgAddImage.Source = img;
+        }
+
+        private void btnSearchSubmit_Click(object sender, RoutedEventArgs e)
+        {
+            List<MovieVM> searchResults = _movieManager.GetAllMovieVMs();
+            string searchTitle = txtSearchTitle.Text;
+            try
+            {
+
+                if (chkSearchTitle.IsChecked == true && searchTitle != null)
+                {
+                    searchResults = searchByTitle(searchResults, searchTitle);
+                }
+                if (chkSearchYear.IsChecked == true && cboSearchYear.SelectedValue != null)
+                {
+                    int searchYear = Convert.ToInt32(cboSearchYear.SelectedValue.ToString());
+                    searchResults = searchByYear(searchResults, searchYear);
+                }
+                
+
+                if(searchResults.Count == 0)
+                {
+                    MessageBox.Show("No results found");
+                }
+                
+            }
+            catch
+            {
+                MessageBox.Show("Error with your query");
+            }
+            lstSearchResults.Items.Clear();
+            foreach (var result in searchResults)
+            {
+                lstSearchResults.Items.Add(result.title);
+            }
         }
     }
 }
