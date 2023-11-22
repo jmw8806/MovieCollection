@@ -1,6 +1,7 @@
 ﻿using DataAccessInterfaces;
 using DataAccessLayer;
 using DataObjects;
+using Microsoft.SqlServer.Server;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -291,6 +292,97 @@ namespace LogicLayer
             return success;
         }
 
+        public bool UpdateMovie(MovieVM movie, string newTitle, int newYear, string newRating, int newRuntime, bool newCriterion,
+            string newNotes, List<string> newLanguages, List<string> newGenres, string newURL)
+        {
+            bool success = false;
 
+            try
+            {
+               int rows = 0;
+               rows = _movieAccessor.UpdateTitleByMovieID(movie.titleID, newTitle, newYear, newRating, newRuntime, newCriterion, newNotes,
+                    movie.title, movie.year, movie.rating, movie.runtime, movie.isCriterion, movie.notes);
+               if(rows == 0)
+                {
+                    throw new ApplicationException("Error adding title at sp_update_title_by_titleID");
+                }
+
+                rows = 0;
+                rows = _movieAccessor.RemoveMovieGenre(movie.titleID);
+                if (rows == 0)
+                {
+                    throw new ApplicationException("Error removing old genres");
+                }
+
+                rows = 0;
+                foreach(string genre in  newGenres) 
+                {
+                    rows = _movieAccessor.AddMovieGenre(movie.titleID, genre);
+                }
+                if (rows == 0)
+                {
+                    throw new ApplicationException("Error adding new genres");
+                }
+
+                rows = 0;
+                rows = _movieAccessor.RemoveMovieLanguage(movie.titleID);
+                if (rows == 0)
+                {
+                    throw new ApplicationException("Error removing old languages");
+                }
+
+                rows = 0;
+                foreach (string language in newLanguages)
+                {
+                    rows = _movieAccessor.AddMovieLanguage(movie.titleID, language);
+                }
+                if (rows == 0)
+                {
+                    throw new ApplicationException("Error adding new languages");
+                }
+
+                rows = 0;
+                rows = _movieAccessor.UpdateMovieImageURL(movie.titleID, newURL, movie.imgName);
+                if(rows == 0)
+                {
+                    throw new ApplicationException("Error updating image url");
+                    
+                } else
+                {
+                    success = true;
+                }
+                
+
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Error updating title", ex);
+            }
+            return success;
+        }
+
+        public bool UpdateMovieIsActive(int id, bool isActive)
+        {
+            bool success = false;
+            int rows = 0;
+           
+            try
+            {
+                rows = _movieAccessor.UpdateMovieIsActive(id, isActive);
+                if(rows == 0) 
+                {
+                    throw new ApplicationException("Updating movie failed");
+                }
+                else
+                {
+                    success = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return success;
+        }
     }
 }

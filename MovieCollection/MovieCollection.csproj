@@ -56,6 +56,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="EditMovie.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -63,6 +67,9 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="EditMovie.xaml.cs">
+      <DependentUpon>EditMovie.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -133,31 +140,7 @@
     <None Include="bin\Debug\data\movieImg\zero.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\five.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\four.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\one.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\three.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\two.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\zero.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="one.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="blank.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\blank.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -6,9 +6,17 @@
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         Title="Movie Collection " Height="700" Width="1200" ResizeMode="NoResize" Loaded="Window_Loaded">
+    <Window.Background>
+        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+            <GradientStop Color="#FFF0F4FD"/>
+            <GradientStop Color="#FF86A2E9" Offset="0.21"/>
+        </LinearGradientBrush>
+    </Window.Background>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="559*"/>
+            <ColumnDefinition Width="9*"/>
+            <ColumnDefinition Width="102*"/>
+            <ColumnDefinition Width="1048*"/>
             <ColumnDefinition Width="41"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
@@ -18,27 +26,33 @@
             <RowDefinition />
             <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
-        <Menu Grid.Row="0" Padding="20px 0px" Grid.ColumnSpan="2">
+        <Menu Grid.Row="0" Padding="20px 0px" Grid.ColumnSpan="4">
+            <Menu.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FFC7D6FC"/>
+                    <GradientStop Color="#FFD9E4FA" Offset="0.557"/>
+                </LinearGradientBrush>
+            </Menu.Background>
             <MenuItem x:Name="mnuFile" Header="File">
-                <MenuItem x:Name="mnuExit" Header="Exit"></MenuItem>
+                <MenuItem x:Name="mnuExit" Header="Exit" Click="mnuExit_Click"></MenuItem>
             </MenuItem>
             <MenuItem x:Name="mnuEdit" Header="Edit">
-                <MenuItem x:Name="mnuAddMovie" Header="Add Movie"></MenuItem>
-                <MenuItem x:Name="mnuAddCollection" Header="Add Collection"></MenuItem>
-                <MenuItem x:Name="mnuChangePassword" Header="Change Password"></MenuItem>
+                <MenuItem x:Name="mnuAddMovie" Header="Add Movie" Click="mnuAddMovie_Click"></MenuItem>
+                <MenuItem x:Name="mnuAddCollection" Header="Add Collection" Click="mnuAddCollection_Click"></MenuItem>
+                <MenuItem x:Name="mnuChangePassword" Header="Change Password" ></MenuItem>
             </MenuItem>
             <MenuItem x:Name="mnuView" Header="View">
-                <MenuItem x:Name="mnuAll" Header="All"></MenuItem>
-                <MenuItem x:Name="mnuSearch" Header="Search"></MenuItem>
-                <MenuItem x:Name="mnuCollections" Header="Collections"></MenuItem>
-                <MenuItem x:Name="mnuProfile" Header="Profile"></MenuItem>
+                <MenuItem x:Name="mnuAll" Header="All" Click="mnuAll_Click"></MenuItem>
+                <MenuItem x:Name="mnuSearch" Header="Search" Click="mnuSearch_Click"></MenuItem>
+                <MenuItem x:Name="mnuCollections" Header="Collections" Click="mnuCollections_Click"></MenuItem>
+                <MenuItem x:Name="mnuProfile" Header="Profile" Click="mnuProfile_Click"></MenuItem>
             </MenuItem>
             <MenuItem x:Name="mnuHelp" Header="Help">
                 <MenuItem x:Name="mnuAbout" Header="About"></MenuItem>
                 <MenuItem x:Name="mnuTest" Header="Test" Click="mnuTest_Click"></MenuItem>
             </MenuItem>
         </Menu>
-        <Grid Grid.Row="1" Grid.ColumnSpan="2">
+        <Grid Grid.Row="1" Grid.ColumnSpan="4">
             <!-- Greetings/Login Grid -->
             <Grid.RowDefinitions>
                 <RowDefinition/>
@@ -59,13 +73,25 @@
             <TextBox x:Name="txtEmail" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" Width="250          "/>
             <Label x:Name="lblPassword" Content="Password:" Grid.Row="1" Grid.Column="2" FontSize="14" FontWeight="Bold" HorizontalAlignment="Left" Margin="14,0,0,0"/>
             <PasswordBox x:Name="pwdPassword" Grid.Row="1"  Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" Width="250"/>
-            <Button x:Name="btnLoginSubmit" Grid.Row="2" Grid.Column="3" HorizontalAlignment="Left" Width="100" Content="Log In" Click="btnLoginSubmit_Click"/>
-            <Button x:Name="btnLoginCancel" Grid.Row="2" Grid.Column="3" HorizontalAlignment="Left" Width="100" Content="Cancel" Margin="150,0,0,0" Click="btnLoginCancel_Click"/>
+            <Button x:Name="btnLoginSubmit" Grid.Row="2" Grid.Column="3" HorizontalAlignment="Left" Width="100" Content="Log In" Click="btnLoginSubmit_Click" Background="#FFC1F6C1" BorderBrush="#FF18FF27"/>
+            <Button x:Name="btnLoginCancel" Grid.Row="2" Grid.Column="3" HorizontalAlignment="Left" Width="100" Content="Cancel" Margin="150,0,0,0" Click="btnLoginCancel_Click" Background="#FFFFFDBE" BorderBrush="#FFFFF009"/>
         </Grid>
-        <StackPanel Name="tabContainer" Grid.Row="3" Grid.ColumnSpan="2" Margin="20 0 20 0" Height="510">
-            <TabControl x:Name="tabsetMain" >
+        <StackPanel Name="tabContainer" Grid.Row="3" Grid.ColumnSpan="3" Margin="11,0,20,49" Height="510" Grid.RowSpan="2" Grid.Column="1">
+            <TabControl x:Name="tabsetMain" Background="{x:Null}" BorderBrush="{x:Null}" >
                 <TabItem x:Name="tabHome" Header="Home">
-                    <Grid x:Name="grdHome" Background="#FFF3ECEC" Height="480">
+                    <TabItem.Background>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="#FFF4F6F6"/>
+                            <GradientStop Color="#FFB2EEEE" Offset="1"/>
+                        </LinearGradientBrush>
+                    </TabItem.Background>
+                    <Grid x:Name="grdHome" Height="480">
+                        <Grid.Background>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="#FFFCFCFC"/>
+                                <GradientStop Color="#FFE3EBEB" Offset="0.039"/>
+                            </LinearGradientBrush>
+                        </Grid.Background>
                         <Grid.RowDefinitions>
                             <RowDefinition  />
                             <RowDefinition Height="50"/>
@@ -102,7 +128,7 @@
                                 </TransformGroup>
                             </Label.RenderTransform>
                         </Label>
-                        <Image x:Name="imgHome" Grid.Column="8" Grid.RowSpan="8" Width="300" Height="352" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,64,0,0"/>
+                        <Image x:Name="imgHome" Grid.Column="8" Grid.RowSpan="8" Width="300" Height="352" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,64,0,0" OpacityMask="Black"/>
                         <Label x:Name="lblHomeTitle" Grid.Column="10" Grid.Row="1" Grid.ColumnSpan="4" Content="Title" FontSize="28" FontWeight="Bold" Margin="5,0,0,0"/>
                         <Label x:Name="lblHomeRuntime" Grid.Row="2" Grid.Column="10" Content="Runtime:" FontSize="25" HorizontalAlignment="Left"
                                FontWeight="Bold" Margin="23,0,0,0"/>
@@ -123,7 +149,19 @@
                     </Grid>
                 </TabItem>
                 <TabItem x:Name="tabSearch" Header="Search">
-                    <Grid Height="500" Width="1100">
+                    <TabItem.Background>
+                        <LinearGradientBrush EndPoint="0,1">
+                            <GradientStop Color="#FFF0F0F0"/>
+                            <GradientStop Color="#FFF7D9F5" Offset="1"/>
+                        </LinearGradientBrush>
+                    </TabItem.Background>
+                    <Grid Height="500" Width="1205">
+                        <Grid.Background>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="White" Offset="0"/>
+                                <GradientStop Color="#FFFDF3FD" Offset="0.039"/>
+                            </LinearGradientBrush>
+                        </Grid.Background>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
                             <ColumnDefinition Width="130"/>
@@ -172,22 +210,35 @@
                         <TextBox x:Name="txtSearchRuntime" Grid.Column="2" Grid.Row="6" Width="75" Height="40" VerticalContentAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0 0 0 5" Padding="2"/>
                         <Label Grid.Column="2" Grid.Row="7" Content="Yes" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10 0 0 0"/>
                         <CheckBox x:Name="chkSearchCriterion" Grid.Column="2" Grid.Row="7" Width="50" Height="40" VerticalAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Left" Margin="35 0 0 0" />
-                        <Button x:Name="btnSearchSubmit" Content="Search" FontSize="18" Grid.Column="2" Grid.Row="7" Width="100" Height="40" HorizontalAlignment="Right" VerticalAlignment="Center" VerticalContentAlignment="Center" Margin="0 0 0 10" Click="btnSearchSubmit_Click"/>
-                        <ListBox x:Name="lstSearchResults" Grid.Column="4" Grid.Row="1" Grid.RowSpan="7" />
+                        <Button x:Name="btnSearchSubmit" Content="Search" FontSize="18" Grid.Column="2" Grid.Row="7" Width="100" Height="40" HorizontalAlignment="Right" VerticalAlignment="Center" VerticalContentAlignment="Center" Margin="0 0 0 10" Click="btnSearchSubmit_Click" Background="#FFC1F6C1" BorderBrush="#FF18FF27"/>
+                        <ListBox x:Name="lstSearchResults" Grid.Column="4" Grid.Row="1" Grid.RowSpan="7" MouseDoubleClick="lstSearchResults_MouseDoubleClick" />
                         <Image x:Name="imgSearch" Grid.Row="1" Grid.Column="6" Grid.RowSpan="7" Width="245" Height="350"/>
-                        <TextBlock x:Name="txtResultTitle" Grid.Row="1" Grid.Column="8" Text="Title" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center" TextWrapping="Wrap"/>
-                        <TextBlock x:Name="txtResultYear" Grid.Row="2" Grid.Column="8" Text="Year" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center" />
-                        <TextBlock x:Name="txtResultRating" Grid.Row="2" Grid.Column="8" Text="Rating" FontSize="20" HorizontalAlignment="Right" VerticalAlignment="Center"  Margin="0 0 10 0"/>
-                        <TextBlock x:Name="txtResultFormats" Grid.Row="3" Grid.Column="8" Text="Formats" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center" />
-                        <TextBlock x:Name="txtResultLanguages" Grid.Row="4" Grid.Column="8" Text="Languages" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center" />
-                        <TextBlock x:Name="txtResultGenres" Grid.Row="5" Grid.Column="8" Text="Genres" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center" />
-                        <TextBlock x:Name="txtResultRuntime" Grid.Row="6" Grid.Column="8" Text="Runtime" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center" />
-                        <TextBlock x:Name="txtResultCriterion" Grid.Row="6" Grid.Column="8" Text="Criterion: " FontSize="20" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0 0 10 0" />
-                        <Button x:Name="btnResultEdit" Content="Edit" FontSize="18" Grid.Column="8" Grid.Row="7" Width="100" Height="40" HorizontalAlignment="Right" VerticalAlignment="Center" VerticalContentAlignment="Center" Margin="0 0 10 0"/>
+                        <TextBlock x:Name="txtResultTitle" Grid.Row="1" Grid.Column="8" Text="Title" FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Center" TextWrapping="Wrap"/>
+                        <TextBlock x:Name="txtResultYear" Grid.Row="2" Grid.Column="8" Text="Year" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                        <TextBlock x:Name="txtResultRating" Grid.Row="2" Grid.Column="8" Text="Rating" FontSize="16" HorizontalAlignment="Right" VerticalAlignment="Center"  Margin="0 0 10 0"/>
+                        <TextBlock x:Name="txtResultFormats" Grid.Row="3" Grid.Column="8" Text="Formats" FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                        <TextBlock x:Name="txtResultLanguages" Grid.Row="4" Grid.Column="8" Text="Languages" FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                        <TextBlock x:Name="txtResultGenres" Grid.Row="5" Grid.Column="8" Text="Genres" FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                        <TextBlock x:Name="txtResultRuntime" Grid.Row="6" Grid.Column="8" Text="Runtime" FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                        <TextBlock x:Name="txtResultCriterion" Grid.Row="6" Grid.Column="8" Text="Criterion: " FontSize="18" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0 0 10 0" />
+                        <Button x:Name="btnResultEdit" Content="Edit" FontSize="18" Grid.Column="8" Grid.Row="7" Width="85" Height="40" HorizontalAlignment="Right" VerticalAlignment="Center" VerticalContentAlignment="Center" Margin="0 0 10 0" Click="btnResultEdit_Click" Background="#FFDAF7FF" BorderBrush="#FF475FFD"/>
+                        <Button x:Name="btnResultRemove" Content="Remove" FontSize="18" Grid.Column="8" Grid.Row="7" Width="85" Height="40" HorizontalAlignment="Left" VerticalAlignment="Center" VerticalContentAlignment="Center" Margin="0 0 10 0" Click="btnResultRemove_Click" Background="#FFFFC8C8" BorderBrush="#FFF16C6C" />
                     </Grid>
                 </TabItem>
                 <TabItem x:Name="tabAll" Header="All" GotFocus="tabAll_GotFocus">
-                    <Grid Height="500" Width="1100">
+                    <TabItem.Background>
+                        <LinearGradientBrush EndPoint="0,1">
+                            <GradientStop Color="#FFF0F0F0"/>
+                            <GradientStop Color="#FFFDF2E2" Offset="1"/>
+                        </LinearGradientBrush>
+                    </TabItem.Background>
+                    <Grid Height="500" Width="1200">
+                        <Grid.Background>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="White"/>
+                                <GradientStop Color="#FFF4E8D7" Offset="0.039"/>
+                            </LinearGradientBrush>
+                        </Grid.Background>
                         <Grid.RowDefinitions>
                             <RowDefinition/>
                             <RowDefinition Height="Auto"/>
@@ -221,16 +272,30 @@
                         <Label x:Name="lblAllMoviesLanguages" Grid.Row="6" Grid.Column="4" Content="Languages"  FontSize="20" />
                         <Label x:Name="lblAllMoviesRuntime" Grid.Row="7" Grid.Column="4" Content="Runtime: mins"  FontSize="20" />
                         <Label x:Name="lblAllMoviesCriterion" Grid.Row="8" Grid.Column="4" Content="Criterion: "  FontSize="20" />
-
+                        <Button x:Name="btnAllAdd" Content="Add" Grid.Row="9" Grid.Column="4" Width="100" Height="35" HorizontalAlignment="Left" Margin="0 0 10 0" Click="btnAllAdd_Click" Background="#FFC1F6C1" BorderBrush="#FF18FF27"/>
+                        <Button x:Name="btnAllEdit" Content="Edit" Grid.Row="9" Grid.Column="4" Width="100" Height="35" HorizontalAlignment="Center" Click="btnAllEdit_Click" Background="#FFDAF7FF" BorderBrush="#FF475FFD"/>
+                        <Button x:Name="btnAllRemove" Content="Remove" Grid.Row="9" Grid.Column="4" Width="100" Height="35" HorizontalAlignment="Right" Click="btnAllRemove_Click" Background="#FFFFC8C8" BorderBrush="#FFF16C6C"/>
                     </Grid>
                 </TabItem>
                 <TabItem x:Name="tabCollections" Header="Collections">
                     <Label Content="Collections"/>
                 </TabItem>
-                <TabItem x:Name="tabAdd" Header="Add" GotFocus="tabAdd_GotFocus">
-                    <Grid Height="450" Width="1100">
+                <TabItem x:Name="tabAdd" Header="Add">
+                    <TabItem.Background>
+                        <LinearGradientBrush EndPoint="0,1">
+                            <GradientStop Color="#FFF0F0F0"/>
+                            <GradientStop Color="#FF86F191" Offset="1"/>
+                        </LinearGradientBrush>
+                    </TabItem.Background>
+                    <Grid Height="450" Width="1150">
+                        <Grid.Background>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="White"/>
+                                <GradientStop Color="#FFF3FFF4" Offset="0.039"/>
+                            </LinearGradientBrush>
+                        </Grid.Background>
                         <Grid.RowDefinitions>
-                            <RowDefinition/>
+                            <RowDefinition Height="75"/>
                             <RowDefinition Height="40"/>
                             <RowDefinition Height="40"/>
                             <RowDefinition Height="40"/>
@@ -239,7 +304,7 @@
                             <RowDefinition Height="40"/>
                             <RowDefinition Height="40"/>
                             <RowDefinition Height="80"/>
-                            <RowDefinition Height="80"/>
+                            <RowDefinition />
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
@@ -254,7 +319,7 @@
 
                         <Image x:Name="imgAddImage" Grid.Row="1" Grid.Column="2" Width="200" Height="260" Grid.RowSpan="7" />
                         <TextBox x:Name="txtAddURL" Grid.Row="8" Grid.Column="2" VerticalAlignment="Top"  Margin="3,3,20,5" Height="32" VerticalContentAlignment="Center" Padding="5"  HorizontalAlignment="Center" Width="260"/>
-                        <Button x:Name="btnAddMovieImage" Content="Preview Image URL"  Grid.Row="8"  Grid.Column="1" VerticalAlignment="Bottom" Width="125" Height="35" Grid.ColumnSpan="2" Click="btnAddMovieImage_Click"/>
+                        <Button x:Name="btnAddMovieImage" Content="Preview Image URL"  Grid.Row="8"  Grid.Column="1" VerticalAlignment="Bottom" Width="125" Height="35" Grid.ColumnSpan="2" Click="btnAddMovieImage_Click" Background="#FFEED2FF" BorderBrush="#FFA23DFF"/>
                         <Label Content="Name:" HorizontalAlignment="Right" VerticalAlignment="Top" Grid.Row="2" Grid.Column="3" FontSize="12" FontWeight="Bold" Margin="0 3 5 0"/>
                         <Label Content="Year:" HorizontalAlignment="Right" VerticalAlignment="Top" Grid.Row="3" Grid.Column="3" FontSize="12" FontWeight="Bold" Margin="0 3 5 0"/>
                         <Label Content="Runtime" HorizontalAlignment="Right" VerticalAlignment="Top" Grid.Row="4" Grid.Column="3" FontSize="12" FontWeight="Bold" Margin="0 3 5 0"/>
@@ -273,8 +338,8 @@
                         <ComboBox x:Name="cboAddRating" VerticalContentAlignment="Center" Grid.Row="6" Grid.Column="4" Margin="3,3,20,5"/>
                         <CheckBox x:Name="chkAddCriterion" Grid.Row="7" Grid.Column="4" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                         <TextBox x:Name="txtAddNotes" Grid.Row="4" Grid.Column="6" Grid.RowSpan="3" Margin="3,3,20,5" Padding="3"/>
-                        <Button x:Name="btnAddMovie" Grid.Row="9" Grid.Column="6" Content="Add" Width="125" Height="35" FontSize="14" FontWeight="Bold" HorizontalAlignment="Left" Margin="0,15,0,15" Click="btnAddMovie_Click"/>
-                        <Button x:Name="btnAddCancel" Grid.Row="9" Grid.Column="6" Content="Cancel" Width="125" Height="35" FontSize="14" FontWeight="Bold" HorizontalAlignment="Right" Margin="0,15,20,18" Click="btnAddCancel_Click"/>
+                        <Button x:Name="btnAddMovie" Grid.Row="8" Grid.Column="6" Content="Add" Width="125" Height="35" FontSize="14" FontWeight="Bold" HorizontalAlignment="Left" Margin="0,15,0,15" Click="btnAddMovie_Click" Background="#FF80FF80" BorderBrush="#FF18FF27"/>
+                        <Button x:Name="btnAddCancel" Grid.Row="8" Grid.Column="6" Content="Cancel" Width="125" Height="35" FontSize="14" FontWeight="Bold" HorizontalAlignment="Right" Margin="0,15,20,18" Click="btnAddCancel_Click" Background="#FFFFFDBE" BorderBrush="#FFFFF009"/>
                     </Grid>
                 </TabItem>
                 <TabItem x:Name="tabProfile" Header="Profile">

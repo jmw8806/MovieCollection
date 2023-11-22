@@ -303,5 +303,30 @@ namespace DataAccessFakes
         {
             throw new NotImplementedException();
         }
+
+        public int RemoveMovieGenre(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int RemoveMovieLanguage(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int UpdateMovieImageURL(int id, string newURL, string oldURL)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int UpdateTitleByMovieID(int id, string newTitle, int newYear, string newRating, int newRuntime, bool newCriterion, string newNotes, string oldTitle, int oldYear, string oldRating, int oldRuntime, bool oldCriterion, string oldNotes)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int UpdateMovieIsActive(int id, bool isActive)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

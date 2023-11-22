@@ -22,6 +22,8 @@ namespace LogicLayer
         List<MovieVM> GetAllMovieVMs();
         List<string> GetAllRatings();
         bool AddMovie(string title, int year, string rating, int runtime, bool isCriterion, string notes, string language, string genre, string fileName, string format);
-        
+        bool UpdateMovie(MovieVM movie, string newTitle, int newYear, string newRating, int newRuntime, bool newCriterion, string newNotes,
+            List<string> newLanguages, List<string> newGenres, string newURL);
+        bool UpdateMovieIsActive(int id,  bool isActive);
     }
 }

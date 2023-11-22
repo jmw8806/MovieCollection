@@ -1,5 +1,6 @@
 ﻿using DataAccessInterfaces;
 using DataObjects;
+using Microsoft.SqlServer.Server;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -642,6 +643,200 @@ namespace DataAccessLayer
                 if (rows == 0)
                 {
                     throw new ApplicationException("Format, " + format + ", addition failed");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return rows;
+        }
+
+        public int UpdateTitleByMovieID(int id, string newTitle, int newYear, string newRating, int newRuntime, bool newCriterion, string newNotes, string oldTitle, int oldYear, string oldRating, int oldRuntime, bool oldCriterion, string oldNotes)
+        {
+            int rows = 0;
+
+            var conn = DBConnectionProvider.GetConnection();
+            var cmdText = "sp_update_title_by_titleID";
+            var cmd = new SqlCommand(cmdText, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Add("@titleID", SqlDbType.Int);
+            cmd.Parameters.Add("@newTitle", SqlDbType.NVarChar, 250);
+            cmd.Parameters.Add("@newRelease_year", SqlDbType.Int);
+            cmd.Parameters.Add("@newRating", SqlDbType.NVarChar, 5);
+            cmd.Parameters.Add("@newRuntime", SqlDbType.Int);
+            cmd.Parameters.Add("@newCriterion", SqlDbType.Bit);
+            cmd.Parameters.Add("@newNotes", SqlDbType.NVarChar, 250);
+
+            cmd.Parameters.Add("@oldTitle", SqlDbType.NVarChar, 250);
+            cmd.Parameters.Add("@oldRelease_year", SqlDbType.Int);
+            cmd.Parameters.Add("@oldRating", SqlDbType.NVarChar, 5);
+            cmd.Parameters.Add("@oldRuntime", SqlDbType.Int);
+            cmd.Parameters.Add("@oldCriterion", SqlDbType.Bit);
+            cmd.Parameters.Add("@oldNotes", SqlDbType.NVarChar, 250);
+
+            cmd.Parameters["@titleID"].Value = id;
+            cmd.Parameters["@newTitle"].Value = newTitle;
+            cmd.Parameters["@newRelease_year"].Value = newYear;
+            cmd.Parameters["@newRating"].Value = newRating;
+            cmd.Parameters["@newRuntime"].Value = newRuntime;
+            cmd.Parameters["@newCriterion"].Value = newCriterion;
+            cmd.Parameters["@newNotes"].Value = newNotes;
+
+            cmd.Parameters["@oldTitle"].Value = oldTitle;
+            cmd.Parameters["@oldRelease_year"].Value = oldYear;
+            cmd.Parameters["@oldRating"].Value = oldRating;
+            cmd.Parameters["@oldRuntime"].Value = oldRuntime;
+            cmd.Parameters["@oldCriterion"].Value = oldCriterion;
+            cmd.Parameters["@oldNotes"].Value = oldNotes;
+
+            try
+            {
+                conn.Open();
+                rows = cmd.ExecuteNonQuery();
+                if (rows == 0)
+                {
+                    throw new ApplicationException("Title update failed");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return rows;
+        }
+
+        public int RemoveMovieGenre(int id)
+        {
+            int rows = 0;
+
+            var conn = DBConnectionProvider.GetConnection();
+            var cmdText = "sp_remove_title_genres";
+            var cmd = new SqlCommand(cmdText, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Add("@titleID", SqlDbType.Int);
+
+            cmd.Parameters["@titleID"].Value = id;
+
+            try
+            {
+                conn.Open();
+                rows = cmd.ExecuteNonQuery();
+                if (rows == 0)
+                {
+                    throw new ApplicationException("Title genre removal failed");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return rows;
+        }
+
+        public int RemoveMovieLanguage(int id)
+        {
+            int rows = 0;
+
+            var conn = DBConnectionProvider.GetConnection();
+            var cmdText = "sp_remove_title_language";
+            var cmd = new SqlCommand(cmdText, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Add("@titleID", SqlDbType.Int);
+
+            cmd.Parameters["@titleID"].Value = id;
+            
+
+            try
+            {
+                conn.Open();
+                rows = cmd.ExecuteNonQuery();
+                if (rows == 0)
+                {
+                    throw new ApplicationException("Title language removal failed");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return rows;
+        }
+
+        public int UpdateMovieImageURL(int id, string newURL, string oldURL)
+        {
+            int rows = 0;
+
+            var conn = DBConnectionProvider.GetConnection();
+            var cmdText = "sp_update_TitleImage";
+            var cmd = new SqlCommand(cmdText, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Add("@titleID", SqlDbType.Int);
+            cmd.Parameters.Add("@newURL", SqlDbType.NVarChar, 255);
+            cmd.Parameters.Add("@oldURL", SqlDbType.NVarChar, 255);
+            
+            cmd.Parameters["@titleID"].Value = id;
+            cmd.Parameters["@newURL"].Value = newURL;
+            cmd.Parameters["@oldURL"].Value = oldURL;
+
+
+            try
+            {
+                conn.Open();
+                rows = cmd.ExecuteNonQuery();
+                if (rows == 0)
+                {
+                    throw new ApplicationException("Title image url update failed");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return rows;
+        }
+
+        public int UpdateMovieIsActive(int id, bool isActive)
+        {
+            int rows = 0;
+
+            var conn = DBConnectionProvider.GetConnection();
+            var cmdText = "sp_update_title_isActive";
+            var cmd = new SqlCommand(cmdText, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Add("@titleID", SqlDbType.Int);
+            cmd.Parameters.Add("@isActive", SqlDbType.Bit);
+            
+            cmd.Parameters["@titleID"].Value = id;
+            cmd.Parameters["@isActive"].Value = isActive;
+            
+            try
+            {
+                conn.Open();
+                rows = cmd.ExecuteNonQuery();
+                if (rows == 0)
+                {
+                    throw new ApplicationException("Title isActive update failed");
                 }
             }
             catch (Exception ex)

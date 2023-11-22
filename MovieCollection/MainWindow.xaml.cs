@@ -10,6 +10,7 @@ using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using static DataObjects.DisplayHelpers;
 using static DataObjects.MovieSearchHelpers;
+using static DataObjects.UtilityHelpers;
 
 
 namespace MovieCollection
@@ -32,7 +33,8 @@ namespace MovieCollection
         List<string> _languages = null;
         List<string> _ratings = null;
         List<string> _formats = null;
-
+        List<MovieVM> _searchResults = null;
+        int _selectedID = 0;
         public MainWindow()
         {
             InitializeComponent();
@@ -87,6 +89,7 @@ namespace MovieCollection
             if (_loggedInUser == null)
             {
                 hideTabs();
+                hideMenuItems();
             }
             refreshMovieList();
             resetForms();
@@ -134,26 +137,7 @@ namespace MovieCollection
             }
         }
 
-        private void updateUIForLogin()
-        {
-            if (_loggedInUser.roles.ToString() == "User")
-            {
-                lblGreeting.Content = "Hello, " + _loggedInUser.fName.ToString() + ".";
-            }
-            else if (_loggedInUser.roles.ToString() == "Administrator")
-            {
-                lblGreeting.Content = "Welcome back boss!";
-            };
-            btnLoginCancel.Content = "Log Out";
-            btnLoginSubmit.Visibility = Visibility.Hidden;
-            txtEmail.Clear();
-            pwdPassword.Clear();
-            lblEmail.Visibility = Visibility.Hidden;
-            lblPassword.Visibility = Visibility.Hidden;
-            txtEmail.Visibility = Visibility.Hidden;
-            pwdPassword.Visibility = Visibility.Hidden;
-            btnLoginSubmit.IsDefault = false;
-        }
+       
 
         private void btnLoginCancel_Click(object sender, RoutedEventArgs e)
         {
@@ -175,68 +159,12 @@ namespace MovieCollection
                 btnLoginCancel.Content = "Cancel";
                 lblEmail.Visibility = Visibility.Visible;
                 lblPassword.Visibility = Visibility.Visible;
+                hideMenuItems();
                 hideTabs();
             }
         }
 
-        //hides all tabs except home
-        private void hideTabs()
-        {
-            tabsetMain.SelectedIndex = 0;
 
-            foreach (var tab in tabsetMain.Items)
-            {
-                if (tab != tabHome)
-                {
-
-                    ((TabItem)tab).Visibility = Visibility.Collapsed;
-                }
-            }
-        }
-
-        private void showTabs()
-        {
-            if (_loggedInUser != null || _loggedInUser.roles != "Guest")
-            {
-                string role = _loggedInUser.roles;
-                foreach (var tab in tabsetMain.Items)
-                {
-                    if (role != "Administrator")
-                    {
-                        if (tab != tabAdministration)
-                        {
-                            ((TabItem)tab).Visibility = Visibility.Visible;
-                        }
-                    }
-                    if (role == "Administrator")
-                    {
-                        ((TabItem)tab).Visibility = Visibility.Visible;
-                    }
-                }
-            }
-        }
-
-        private int generate_random_id(int count)
-        {
-            int num = 0;
-            var random = new Random();
-            num = random.Next(0, count) + 10000;
-            return num;
-        }
-
-        private void display_home_movie(MovieVM movie)
-        {
-            lblHomeTitle.Content = movie.title.ToString();
-            txtHomeRuntime.Text = movie.runtime.ToString();
-            txtHomeRating.Text = movie.rating.ToString();
-            txtHomeLanguage.Text = displayList(movie.languages);
-            txtHomeGenres.Text = displayList(movie.genres);
-            txtHomeFormat.Text = displayList(movie.formats);
-            BitmapImage bitmap = displayImageFromURL(movie.imgName);
-            imgHome.Source = bitmap;
-           
-
-        }
 
 
 
@@ -257,12 +185,13 @@ namespace MovieCollection
         {
 
             MovieVM movie = null;
-
+            
             foreach (MovieVM movieVM in _movieVMs)
             {
                 if (lstAllMovies.SelectedValue.ToString() == movieVM.title)
                 {
                     movie = movieVM;
+                    _selectedID = movie.titleID;
                 }
             }
 
@@ -270,18 +199,14 @@ namespace MovieCollection
             lblAllMoviesYear.Content = movie.year;
             lblAllMoviesRating.Content = movie.rating;
             lblAllMoviesRuntime.Content = movie.runtime.ToString() + " mins";
-            lblAllMoviesCriterion.Content = criterionOutputConverter(movie.isCriterion);
+            lblAllMoviesCriterion.Content = "Criterion: " + criterionOutputConverter(movie.isCriterion);
             imgAllMoviesImage.Source = displayImageFromURL(movie.imgName);
             lblAllMoviesFormats.Content = displayList(movie.formats);
             lblAllMoviesGenres.Content = displayList(movie.genres);
             lblAllMoviesLanguages.Content = displayList(movie.languages);
         }
 
-        private void tabAdd_GotFocus(object sender, RoutedEventArgs e)
-        {
-           
-        }
-
+        
         private void btnAddMovie_Click(object sender, RoutedEventArgs e)
         {
 
@@ -358,63 +283,17 @@ namespace MovieCollection
 
         }
 
-        private void resetForms()
-        {
-
-            txtAddName.Clear();
-            txtAddYear.Clear();
-            txtAddRuntime.Clear();
-            cboAddLanguage.SelectedIndex = 0;
-            cboAddGenre.SelectedIndex = 0;
-            cboAddFormat.SelectedIndex = 0;
-            cboAddRating.SelectedIndex = 0;
-            txtAddNotes.Clear();
-            chkAddCriterion.IsChecked = false;
-            txtAddURL.Clear();
-            imgAddImage.Source = null;
-        }
-
-        private void refreshMovieList()
-        {
-            lstAllMovies.Items.Clear();
-            _movieVMs = _movieManager.GetAllMovieVMs();
-            foreach (var movie in _movieVMs)
-            {
-                lstAllMovies.Items.Add(movie.title);
-            }
-        }
-
         private void btnAddCancel_Click(object sender, RoutedEventArgs e)
         {
             resetForms();
         }
 
-        private BitmapImage displayImageFromURL(string url)
-        {
-            string imageUrl = url;
-            BitmapImage bitmap = new BitmapImage();
-            bitmap.BeginInit();
-            try
-            {
-                bitmap.UriSource = new Uri(imageUrl);
-                bitmap.EndInit();
-            }
-            catch
-            {
-                bitmap = null;
-            }
-            return bitmap;
-        }
-
-
-       
 
         private void btnAddMovieImage_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show(txtAddURL.Text);   
-            string url = txtAddURL.Text;
-            BitmapImage img = displayImageFromURL(url);
-            imgAddImage.Source = img;
+
+
+            imgAddImage.Source = displayImageFromURL(txtAddURL.Text);
         }
 
         private void btnSearchSubmit_Click(object sender, RoutedEventArgs e)
@@ -433,7 +312,31 @@ namespace MovieCollection
                     int searchYear = Convert.ToInt32(cboSearchYear.SelectedValue.ToString());
                     searchResults = searchByYear(searchResults, searchYear);
                 }
-                
+                if(chkSearchGenre.IsChecked == true && cboSearchGenre.SelectedValue != null) 
+                { 
+                    searchResults = searchByGenre(searchResults, cboSearchGenre.SelectedValue.ToString());
+                }
+                if(chkSearchLanguage.IsChecked == true && cboSearchLanguage.SelectedValue != null)
+                {
+                    searchResults = searchByLanguage(searchResults, cboSearchLanguage.SelectedValue.ToString());
+                }
+                if(chkSearchRuntime.IsChecked == true && txtSearchRuntime != null)
+                {
+                    int searchRuntime = Convert.ToInt32(txtSearchRuntime.Text);
+                    if(radioSearchLessThan.IsChecked == true)
+                    {
+                        searchResults = searchByLessThanRuntime(searchResults, searchRuntime);
+                    }
+                    if(radioSearchGreaterThan.IsChecked == true)
+                    {
+                        searchResults = searchByGreaterThanRuntime(searchResults, searchRuntime);
+                    }
+                }
+                if(chkSearchIncludeCriterion.IsChecked == true)
+                {
+                    searchResults = chkSearchCriterion.IsChecked == true ? searchByCriterion(searchResults, true) : searchByCriterion(searchResults, false);
+                 
+                }
 
                 if(searchResults.Count == 0)
                 {
@@ -450,6 +353,303 @@ namespace MovieCollection
             {
                 lstSearchResults.Items.Add(result.title);
             }
+            _searchResults = searchResults;
+        }
+
+        private void lstSearchResults_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            MovieVM movie = null;
+
+            foreach (MovieVM movieVM in _searchResults)
+            {
+                if (lstSearchResults.SelectedValue.ToString() == movieVM.title)
+                {
+                    movie = movieVM;
+                    _selectedID = movieVM.titleID;
+                }
+            }
+
+            txtResultTitle.Text = movie.title;
+            txtResultYear.Text = "Year: "+ movie.year.ToString();
+            txtResultRating.Text = "Rating: " + movie.rating;
+            txtResultFormats.Text = displayList(movie.formats);
+            txtResultLanguages.Text = displayList(movie.languages);
+            txtResultGenres.Text = displayList(movie.genres);
+            txtResultRuntime.Text = movie.runtime.ToString() +"mins";
+            txtResultCriterion.Text = "Criterion: " + criterionOutputConverter(movie.isCriterion);
+            imgSearch.Source = displayImageFromURL(movie.imgName);
+        }
+
+        private void mnuExit_Click(object sender, RoutedEventArgs e)
+        {
+           this.Close();
+        }
+
+        private void mnuAddMovie_Click(object sender, RoutedEventArgs e)
+        {
+            if(tabAdd.Visibility == Visibility.Visible) 
+            { 
+                tabAdd.Focus();
+            }           
+        }
+
+
+        private void mnuAddCollection_Click(object sender, RoutedEventArgs e)
+        {
+            tabCollections.Focus();
+        }
+
+        private void mnuAll_Click(object sender, RoutedEventArgs e)
+        {
+            tabAll.Focus();
+        }
+
+        private void mnuSearch_Click(object sender, RoutedEventArgs e)
+        {
+            tabSearch.Focus();
+        }
+
+        private void mnuCollections_Click(object sender, RoutedEventArgs e)
+        {
+            tabCollections.Focus();
+        }
+
+        private void mnuProfile_Click(object sender, RoutedEventArgs e)
+        {
+            tabProfile.Focus();
+        }
+
+        private void btnResultEdit_Click(object sender, RoutedEventArgs e)
+        {
+            if (_selectedID != 0)
+            {
+                var editMovie = new EditMovie(_selectedID);
+                editMovie.ShowDialog();
+                if(editMovie.editResult)
+                {
+                    refreshMovieList();
+                    resetForms();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Please select a title to edit");
+            }
+            
+            
+        }
+
+        private void btnResultRemove_Click(object sender, RoutedEventArgs e)
+        {
+            bool isDeactivated = false;
+            if(_selectedID != 0)
+            {
+                try
+                {
+                    isDeactivated = _movieManager.UpdateMovieIsActive(_selectedID, false);
+                    refreshMovieList();
+                    resetForms();
+                    MessageBox.Show("Removal successful");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Movie removal failed. \n\n" + ex.InnerException.Message);
+                }
+            }
+        }
+
+        private void btnAllAdd_Click(object sender, RoutedEventArgs e)
+        {
+            tabAdd.Focus();
+        }
+
+        private void btnAllEdit_Click(object sender, RoutedEventArgs e)
+        {
+            if (_selectedID != 0)
+            {
+                var editMovie = new EditMovie(_selectedID);
+                editMovie.ShowDialog();
+                if (editMovie.editResult)
+                {
+                    refreshMovieList();
+                    resetForms();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Please select a title to edit");
+            }
+        }
+
+        private void btnAllRemove_Click(object sender, RoutedEventArgs e)
+        {
+            bool isDeactivated = false;
+            if (_selectedID != 0)
+            {
+                try
+                {
+                    isDeactivated = _movieManager.UpdateMovieIsActive(_selectedID, false);
+                    refreshMovieList();
+                    resetForms();
+                    MessageBox.Show("Removal successful");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Movie removal failed. \n\n" + ex.InnerException.Message);
+                }
+            }
+        }
+
+
+
+        // utility methods start
+        private void updateUIForLogin()
+        {
+            if (_loggedInUser.roles.ToString() == "User")
+            {
+                lblGreeting.Content = "Hello, " + _loggedInUser.fName.ToString() + ".";
+            }
+            else if (_loggedInUser.roles.ToString() == "Administrator")
+            {
+                lblGreeting.Content = "Welcome back boss!";
+            };
+            btnLoginCancel.Content = "Log Out";
+            btnLoginSubmit.Visibility = Visibility.Hidden;
+            txtEmail.Clear();
+            pwdPassword.Clear();
+            lblEmail.Visibility = Visibility.Hidden;
+            lblPassword.Visibility = Visibility.Hidden;
+            txtEmail.Visibility = Visibility.Hidden;
+            pwdPassword.Visibility = Visibility.Hidden;
+            btnLoginSubmit.IsDefault = false;
+            showMenuItems();
+        }
+
+        //hides all tabs except home
+        private void hideTabs()
+        {
+            tabsetMain.SelectedIndex = 0;
+
+            foreach (var tab in tabsetMain.Items)
+            {
+                if (tab != tabHome)
+                {
+
+                    ((TabItem)tab).Visibility = Visibility.Collapsed;
+                }
+            }
+        }
+
+        private void showTabs()
+        {
+            if (_loggedInUser != null || _loggedInUser.roles != "Guest")
+            {
+                string role = _loggedInUser.roles;
+                foreach (var tab in tabsetMain.Items)
+                {
+                    if (role != "Administrator")
+                    {
+                        if (tab != tabAdministration)
+                        {
+                            ((TabItem)tab).Visibility = Visibility.Visible;
+                        }
+                    }
+                    if (role == "Administrator")
+                    {
+                        ((TabItem)tab).Visibility = Visibility.Visible;
+                    }
+                }
+            }
+        }
+
+        //Displays the movie that is shown on home tab
+        private void display_home_movie(MovieVM movie)
+        {
+            lblHomeTitle.Content = movie.title.ToString();
+            txtHomeRuntime.Text = movie.runtime.ToString();
+            txtHomeRating.Text = movie.rating.ToString();
+            txtHomeLanguage.Text = displayList(movie.languages);
+            txtHomeGenres.Text = displayList(movie.genres);
+            txtHomeFormat.Text = displayList(movie.formats);
+            BitmapImage bitmap = displayImageFromURL(movie.imgName);
+            imgHome.Source = bitmap;
+        }
+
+        // When called, clears all data from forms and labels.
+        private void resetForms()
+        {
+            txtAddName.Clear();
+            txtAddYear.Clear();
+            txtAddRuntime.Clear();
+            cboAddLanguage.SelectedIndex = 0;
+            cboAddGenre.SelectedIndex = 0;
+            cboAddFormat.SelectedIndex = 0;
+            cboAddRating.SelectedIndex = 0;
+            txtAddNotes.Clear();
+            chkAddCriterion.IsChecked = false;
+            txtAddURL.Clear();
+            imgAddImage.Source = null;
+            txtResultTitle.Text = string.Empty;
+            txtResultYear.Text = string.Empty;
+            txtResultRating.Text = string.Empty;
+            txtResultFormats.Text = string.Empty;
+            txtResultLanguages.Text = string.Empty;
+            txtResultGenres.Text = string.Empty;
+            txtResultRuntime.Text = string.Empty;
+            txtResultCriterion.Text = string.Empty;
+            imgSearch.Source = null;
+        }
+
+        // clears lists that display all movies, gets all movies from database and adds them to _movieVMs list.
+        public void refreshMovieList()
+        {
+            lstAllMovies.Items.Clear();
+            lstSearchResults.Items.Clear();
+            _movieVMs = _movieManager.GetAllMovieVMs();
+            foreach (var movie in _movieVMs)
+            {
+                lstAllMovies.Items.Add(movie.title);
+            }
+        }
+
+        //Takes in a url string, returns the link as a BitmapImage.
+        private BitmapImage displayImageFromURL(string url)
+        {
+            string imageUrl = url;
+            BitmapImage bitmap = new BitmapImage();
+            bitmap.BeginInit();
+            try
+            {
+                bitmap.UriSource = new Uri(imageUrl);
+                bitmap.EndInit();
+            }
+            catch
+            {
+                bitmap = null;
+            }
+            return bitmap;
+        }
+
+        private void hideMenuItems()
+        {
+            mnuAddCollection.Visibility = Visibility.Hidden;
+            mnuAddMovie.Visibility = Visibility.Hidden;
+            mnuChangePassword.Visibility = Visibility.Hidden;
+            mnuAll.Visibility = Visibility.Hidden;
+            mnuSearch.Visibility = Visibility.Hidden;
+            mnuCollections.Visibility = Visibility.Hidden;
+            mnuProfile.Visibility = Visibility.Hidden;
+        }
+
+        private void showMenuItems()
+        {
+            mnuAddCollection.Visibility = Visibility.Visible;
+            mnuAddMovie.Visibility = Visibility.Visible;
+            mnuChangePassword.Visibility = Visibility.Visible;
+            mnuAll.Visibility = Visibility.Visible;
+            mnuSearch.Visibility = Visibility.Visible;
+            mnuCollections.Visibility = Visibility.Visible;
+            mnuProfile.Visibility = Visibility.Visible;
         }
     }
 }

@@ -26,5 +26,11 @@ namespace DataAccessInterfaces
         int AddMovieGenre(int id, string genre);
         int AddMovieImage(int id, string url);
         int AddMovieFormat(int id, string format);
+        int UpdateTitleByMovieID(int id, string newTitle, int newYear, string newRating, int newRuntime, bool newCriterion, string newNotes,
+                    string oldTitle, int oldYear, string oldRating, int oldRuntime, bool oldCriterion, string oldNotes);
+        int RemoveMovieGenre(int id);
+        int RemoveMovieLanguage(int id);
+        int UpdateMovieImageURL(int id, string newURL, string oldURL);
+        int UpdateMovieIsActive(int id, bool isActive);
     }
 }
