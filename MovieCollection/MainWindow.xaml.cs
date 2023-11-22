@@ -15,9 +15,7 @@ using static DataObjects.UtilityHelpers;
 
 namespace MovieCollection
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
+   
     public partial class MainWindow : Window
     {
         UserManager _userManager = null;
@@ -159,6 +157,7 @@ namespace MovieCollection
                 btnLoginCancel.Content = "Cancel";
                 lblEmail.Visibility = Visibility.Visible;
                 lblPassword.Visibility = Visibility.Visible;
+                imgProfilePic.Visibility = Visibility.Hidden;
                 hideMenuItems();
                 hideTabs();
             }
@@ -522,6 +521,12 @@ namespace MovieCollection
             txtEmail.Visibility = Visibility.Hidden;
             pwdPassword.Visibility = Visibility.Hidden;
             btnLoginSubmit.IsDefault = false;
+            imgProfilePic.Visibility = Visibility.Visible;
+            imgProfilePic.Source = displayImageFromURL(_loggedInUser.imgURL);
+            imgProfileTab.Source = displayImageFromURL(_loggedInUser.imgURL);
+            txtProfileFirstName.Text = _loggedInUser.fName;
+            txtProfileLasttName.Text = _loggedInUser.lName;
+            txtProfileEmail.Text = _loggedInUser.email;
             showMenuItems();
         }
 

@@ -45,7 +45,8 @@ namespace DataAccessLayer
                         lName = reader.GetString(2),
                         email = reader.GetString(3),
                         passwordHash = reader.GetString(4),
-                        isActive = reader.GetBoolean(5)
+                        isActive = reader.GetBoolean(5),
+                        imgURL = reader.GetString(6)
                     };
                 }
                 else

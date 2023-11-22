@@ -70,9 +70,10 @@
                    VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Grid.RowSpan="3" 
                    FontWeight="Bold" FontSize="20" HorizontalAlignment="Left"/>
             <Label x:Name="lblEmail" Content="Email:" Grid.Column="2" FontSize="14" FontWeight="Bold" HorizontalAlignment="Left" Margin="40,0,0,0"/>
-            <TextBox x:Name="txtEmail" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" Width="250          "/>
+            <TextBox x:Name="txtEmail" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" Width="250"/>
             <Label x:Name="lblPassword" Content="Password:" Grid.Row="1" Grid.Column="2" FontSize="14" FontWeight="Bold" HorizontalAlignment="Left" Margin="14,0,0,0"/>
             <PasswordBox x:Name="pwdPassword" Grid.Row="1"  Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" Width="250"/>
+            <Image x:Name="imgProfilePic" Grid.Row="0" Grid.RowSpan="3" Grid.Column="3" Width="90" Height="90" HorizontalAlignment="Left" Margin="50 0 0 0" Visibility="Hidden"/>
             <Button x:Name="btnLoginSubmit" Grid.Row="2" Grid.Column="3" HorizontalAlignment="Left" Width="100" Content="Log In" Click="btnLoginSubmit_Click" Background="#FFC1F6C1" BorderBrush="#FF18FF27"/>
             <Button x:Name="btnLoginCancel" Grid.Row="2" Grid.Column="3" HorizontalAlignment="Left" Width="100" Content="Cancel" Margin="150,0,0,0" Click="btnLoginCancel_Click" Background="#FFFFFDBE" BorderBrush="#FFFFF009"/>
         </Grid>
@@ -343,7 +344,48 @@
                     </Grid>
                 </TabItem>
                 <TabItem x:Name="tabProfile" Header="Profile">
-                    <Label Content="Profile"/>
+                    <TabItem.Background>
+                        <LinearGradientBrush EndPoint="0,1">
+                            <GradientStop Color="#FFF0F0F0"/>
+                            <GradientStop Color="#FFC698FF" Offset="1"/>
+                        </LinearGradientBrush>
+                    </TabItem.Background>
+                    <Grid Height="520" Width="1150">
+                        <Grid.Background>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="#FFFFFCFC"/>
+                                <GradientStop Color="#FFCAA3FA" Offset="0.039"/>
+                            </LinearGradientBrush>
+                        </Grid.Background>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="105"/>
+                            <RowDefinition Height="55"/>
+                            <RowDefinition Height="55"/>
+                            <RowDefinition Height="55"/>
+                            <RowDefinition Height="100"/>
+                            <RowDefinition Height="35"/>
+                            <RowDefinition Height="100"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="300"/>
+                            <ColumnDefinition Width="75"/>
+                            <ColumnDefinition Width="125"/>
+                            <ColumnDefinition Width="300"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Image x:Name="imgProfileTab" Grid.Row="1" Grid.Column="1" Grid.RowSpan="4"/>
+                        <Label x:Name="lblProfileFirstName" Content="First Name:" FontSize="20" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="1" Grid.Column="3"/>
+                        <TextBox x:Name="txtProfileFirstName" FontSize="15" Width="280" Height="35" Grid.Row="1" Grid.Column="4" HorizontalAlignment="Left" 
+                                 VerticalAlignment="Center" VerticalContentAlignment="Center" Padding="1" Margin="5 0 0 0"/>
+                        <Label x:Name="lblProfileLastName" Content="Last Name:" FontSize="20" HorizontalAlignment="Right" VerticalAlignment="Center"  Grid.Row="2" Grid.Column="3"/>
+                        <TextBox x:Name="txtProfileLasttName" FontSize="15" Width="280" Height="35" Grid.Row="2" Grid.Column="4" HorizontalAlignment="Left" 
+                                 VerticalAlignment="Center" VerticalContentAlignment="Center" Padding="1" Margin="5 0 0 0"/>
+                        <Label x:Name="lblProfileEmail" Content="Email:" FontSize="20" HorizontalAlignment="Right" VerticalAlignment="Center"  Grid.Row="3" Grid.Column="3"/>
+                        <TextBox x:Name="txtProfileEmail" FontSize="15" Width="280" Height="35" Grid.Row="3" Grid.Column="4" HorizontalAlignment="Left" 
+                                 VerticalAlignment="Center" VerticalContentAlignment="Center" Padding="1" Margin="5 0 0 0"/>
+                    </Grid>
                 </TabItem>
                 <TabItem x:Name="tabAdministration" Header="Administration">
                     <Label Content="Administration"/>
