@@ -103,7 +103,10 @@ namespace MovieCollection
             cboSearchLanguage.ItemsSource = _languages;
             cboSearchYear.ItemsSource = getYears(1888);
             cboAddYear.ItemsSource = getYears(1888);
-
+            foreach(var movie in _movieVMs)
+            {
+                lstAdmin.Items.Add(movie.title);
+            }
         }
 
         private void btnLoginSubmit_Click(object sender, RoutedEventArgs e)
