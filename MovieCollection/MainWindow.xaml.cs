@@ -801,5 +801,25 @@ namespace MovieCollection
         {
             imgProfileTab.Source = displayImageFromURL(txtProfileImgURL.Text);
         }
+
+        private void lstAdmin_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if(cboAdminType.SelectedValue == cboAdminTypeMovie)
+            {
+                MovieVM movie = null;
+                foreach (MovieVM movieVM in _movieVMs)
+                {
+                    if (lstAdmin.SelectedValue.ToString() == movieVM.title)
+                    {
+                        movie = movieVM;
+                        _selectedID = movie.titleID;
+                    }
+                }
+                txtAdminID.Text = movie.titleID.ToString();
+                txtAdminOther.Text = movie.title;
+                imgAdminMovie.Source = displayImageFromURL(movie.imgName);
+
+            }
+        }
     }
 }
