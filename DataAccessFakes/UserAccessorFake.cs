@@ -95,5 +95,10 @@ namespace DataAccessFakes
             return role;
            
         }
+
+        public int UpdateUser(int userID, string newFName, string newLName, string newEmail, string newImgURL, string oldFName, string oldLName, string oldEmail)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

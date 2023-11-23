@@ -6,6 +6,7 @@ using System.Drawing;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media.Effects;
 using System.Windows.Media.Imaging;
@@ -542,7 +543,7 @@ namespace MovieCollection
             imgProfilePic.Source = displayImageFromURL(_loggedInUser.imgURL);
             imgProfileTab.Source = displayImageFromURL(_loggedInUser.imgURL);
             txtProfileFirstName.Text = _loggedInUser.fName;
-            txtProfileLasttName.Text = _loggedInUser.lName;
+            txtProfileLastName.Text = _loggedInUser.lName;
             txtProfileEmail.Text = _loggedInUser.email;
             showMenuItems();
         }
@@ -687,6 +688,115 @@ namespace MovieCollection
             BlurEffect blur = new BlurEffect();         
             blur.Radius = blurAmnt;          
             this.Effect = blur;
+        }
+
+        private void btnProfileUpdate_Click(object sender, RoutedEventArgs e)
+        {
+            lblProfileImgURL.Visibility = Visibility.Visible;
+            txtProfileImgURL.Visibility = Visibility.Visible;
+            btnProfileImgPreview.Visibility = Visibility.Visible;
+            txtProfileImgURL.Text = _loggedInUser.imgURL;
+            txtProfileImgURL.IsReadOnly = false;
+
+            txtProfileFirstName.ClearValue(Border.BorderBrushProperty);
+            txtProfileFirstName.ClearValue(BackgroundProperty);
+            txtProfileFirstName.IsReadOnly = false;
+    
+            txtProfileLastName.ClearValue(Border.BorderBrushProperty);
+            txtProfileLastName.ClearValue(BackgroundProperty);
+            txtProfileLastName.IsReadOnly = false;
+
+            txtProfileEmail.ClearValue(Border.BorderBrushProperty);
+            txtProfileEmail.ClearValue(BackgroundProperty);
+            txtProfileEmail.IsReadOnly = false;
+
+            btnProfileUpdate.Visibility = Visibility.Hidden;
+            btnProfileDeactivate.Visibility = Visibility.Hidden;
+
+            btnProfileSubmit.Visibility = Visibility.Visible;
+            btnProfileCancel.Visibility = Visibility.Visible;
+        }
+
+        private void btnProfileCancel_Click(object sender, RoutedEventArgs e)
+        {
+            txtProfileFirstName.Text = _loggedInUser.fName;
+            txtProfileLastName.Text = _loggedInUser.lName;
+            txtProfileEmail.Text = _loggedInUser.email;
+            txtProfileLastName.Text = _loggedInUser.imgURL;
+
+            txtProfileFirstName.Background = null;
+            txtProfileLastName.Background = null;
+            txtProfileEmail.Background = null;
+
+            txtProfileFirstName.IsReadOnly = true;
+            txtProfileLastName.IsReadOnly = true;
+            txtProfileEmail.IsReadOnly = true;
+            txtProfileImgURL.IsReadOnly = true;
+
+            lblProfileImgURL.Visibility = Visibility.Hidden;
+            txtProfileImgURL.Visibility = Visibility.Hidden;
+            btnProfileSubmit.Visibility = Visibility.Hidden;
+            btnProfileCancel.Visibility = Visibility.Hidden;
+            btnProfileImgPreview.Visibility = Visibility.Hidden;
+            btnProfileDeactivate.Visibility = Visibility.Visible;
+            btnProfileUpdate.Visibility = Visibility.Visible;
+        }
+
+        private void btnProfileSubmit_Click(object sender, RoutedEventArgs e)
+        {
+            string newFName = txtProfileFirstName.Text;
+            string newLName = txtProfileLastName.Text;
+            string newEmail = txtProfileEmail.Text;
+            string newImgURL = txtProfileImgURL.Text;
+
+            try
+            {
+                bool result = false;
+
+                result = _userManager.UpdateUser(_loggedInUser, newFName, newLName, newEmail, newImgURL);
+                if(result == false)
+                {
+                    MessageBox.Show("User information not updated");
+                }
+                else
+                {
+                    MessageBox.Show("Success! User information is updated");
+                    _loggedInUser = _userManager.SelectUserByEmail(newEmail);
+                    lblGreeting.Content = "Hello, " + _loggedInUser.fName + ".";
+                    txtProfileFirstName.Text = _loggedInUser.fName;
+                    txtProfileLastName.Text = _loggedInUser.lName;
+                    txtProfileEmail.Text = _loggedInUser.email;
+                    txtProfileImgURL.Text = _loggedInUser.imgURL;
+                    imgProfileTab.Source = displayImageFromURL(_loggedInUser.imgURL);
+                    imgProfilePic.Source = displayImageFromURL(_loggedInUser.imgURL);
+                    txtProfileFirstName.Background = null;
+                    txtProfileLastName.Background = null;
+                    txtProfileEmail.Background = null;
+
+                    txtProfileFirstName.IsReadOnly = true;
+                    txtProfileLastName.IsReadOnly = true;
+                    txtProfileEmail.IsReadOnly = true;
+                    txtProfileImgURL.IsReadOnly = true;
+
+                    lblProfileImgURL.Visibility = Visibility.Hidden;
+                    txtProfileImgURL.Visibility = Visibility.Hidden;
+                    btnProfileSubmit.Visibility = Visibility.Hidden;
+                    btnProfileCancel.Visibility = Visibility.Hidden;
+                    btnProfileImgPreview.Visibility = Visibility.Hidden;
+                    btnProfileDeactivate.Visibility = Visibility.Visible;
+                    btnProfileUpdate.Visibility = Visibility.Visible;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Something went wrong \n\n" + ex.InnerException.Message);
+            }
+
+        }
+
+        private void btnProfileImgPreview_Click(object sender, RoutedEventArgs e)
+        {
+            imgProfileTab.Source = displayImageFromURL(txtProfileImgURL.Text);
         }
     }
 }

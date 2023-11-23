@@ -369,7 +369,7 @@
                             <RowDefinition Height="55"/>
                             <RowDefinition Height="55"/>
                             <RowDefinition Height="100"/>
-                            <RowDefinition Height="35"/>
+                            <RowDefinition Height="75"/>
                             <RowDefinition Height="100"/>
                             <RowDefinition/>
                         </Grid.RowDefinitions>
@@ -384,13 +384,24 @@
                         <Image x:Name="imgProfileTab" Grid.Row="1" Grid.Column="1" Grid.RowSpan="4"/>
                         <Label x:Name="lblProfileFirstName" Content="First Name:" FontSize="20" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="1" Grid.Column="3"/>
                         <TextBox x:Name="txtProfileFirstName" IsReadOnly="True" FontSize="15" Width="280" Height="35" Grid.Row="1" Grid.Column="4" HorizontalAlignment="Left" 
-                                 VerticalAlignment="Center" VerticalContentAlignment="Center" Padding="1" Margin="5 0 0 0"/>
+                                 VerticalAlignment="Center" VerticalContentAlignment="Center" Padding="1" Margin="5 0 0 0" Background="{x:Null}" BorderBrush="{x:Null}"/>
                         <Label x:Name="lblProfileLastName" Content="Last Name:" FontSize="20" HorizontalAlignment="Right" VerticalAlignment="Center"  Grid.Row="2" Grid.Column="3"/>
-                        <TextBox x:Name="txtProfileLasttName" IsReadOnly="True" FontSize="15" Width="280" Height="35" Grid.Row="2" Grid.Column="4" HorizontalAlignment="Left" 
-                                 VerticalAlignment="Center" VerticalContentAlignment="Center" Padding="1" Margin="5 0 0 0"/>
+                        <TextBox x:Name="txtProfileLastName" IsReadOnly="True" FontSize="15" Width="280" Height="35" Grid.Row="2" Grid.Column="4" HorizontalAlignment="Left" 
+                                 VerticalAlignment="Center" VerticalContentAlignment="Center" Padding="1" Margin="5 0 0 0" Background="{x:Null}" BorderBrush="{x:Null}"/>
                         <Label x:Name="lblProfileEmail" Content="Email:" FontSize="20" HorizontalAlignment="Right" VerticalAlignment="Center"  Grid.Row="3" Grid.Column="3"/>
+                        
                         <TextBox x:Name="txtProfileEmail" IsReadOnly="True" FontSize="15" Width="280" Height="35" Grid.Row="3" Grid.Column="4" HorizontalAlignment="Left" 
-                                 VerticalAlignment="Center" VerticalContentAlignment="Center" Padding="1" Margin="5 0 0 0"/>
+                                 VerticalAlignment="Center" VerticalContentAlignment="Center" Padding="1" Margin="5 0 0 0" Background="{x:Null}" BorderBrush="{x:Null}"/>
+                        <Label x:Name="lblProfileImgURL" Content="Image URL:" FontSize="20" HorizontalAlignment="Right" VerticalAlignment="Top"  Grid.Row="4" Grid.Column="3" Visibility="Hidden"/>
+                        <TextBox x:Name="txtProfileImgURL" IsReadOnly="True" FontSize="15" Width="280" Height="35" Grid.Row="4" Grid.Column="4" HorizontalAlignment="Left" 
+                                 VerticalAlignment="Top" VerticalContentAlignment="Center" Padding="1" Margin="5 0 0 0" Visibility="Hidden"/>
+                        <Button x:Name="btnProfileImgPreview" Content="Preview Image" Grid.Row="4" Grid.Column="4" Width="100" Height="45" 
+                                HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0 0 0 10" Visibility="Hidden" Click="btnProfileImgPreview_Click" Background="#FFEED2FF" BorderBrush="#FFA23DFF" />
+                        <Button x:Name="btnProfileUpdate" Content="Update" Grid.Row="5" Grid.Column="4" Width="100" Height="45" HorizontalAlignment="Left" Click="btnProfileUpdate_Click" Background="#FFDAF7FF" BorderBrush="#FF475FFD"/>
+                        <Button x:Name="btnProfileDeactivate" Content="Deactivate" Grid.Row="5" Grid.Column="4" Width="100" Height="45" HorizontalAlignment="Right" Margin=" 0 0 15 0" Background="#FFFFC8C8" BorderBrush="#FFF16C6C"/>
+
+                        <Button x:Name="btnProfileSubmit" Content="Submit" Grid.Row="5" Grid.Column="4" Width="100" Height="45" HorizontalAlignment="Left" Visibility="Hidden" Click="btnProfileSubmit_Click" Background="#FFC1F6C1" BorderBrush="#FF18FF27"/>
+                        <Button x:Name="btnProfileCancel" Content="Cancel" Grid.Row="5" Grid.Column="4" Width="100" Height="45" HorizontalAlignment="Right" Margin=" 0 0 15 0" Visibility="Hidden" Click="btnProfileCancel_Click" Background="#FFFFFDBE" BorderBrush="#FFFFF009"/>
                     </Grid>
                 </TabItem>
                 <TabItem x:Name="tabAdministration" Header="Administration">

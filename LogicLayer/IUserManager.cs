@@ -12,6 +12,6 @@ namespace LogicLayer
         string HashSha256(string source);
         UserVM SelectUserByEmail(string email);
         bool VerifyUser(string email, string passwordHash);
-
+        bool UpdateUser(UserVM userVM, string newFName, string newLName, string newEmail, string newImageURL);
     }
 }

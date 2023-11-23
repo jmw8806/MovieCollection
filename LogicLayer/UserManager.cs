@@ -124,6 +124,30 @@ namespace LogicLayer
             return result;
         }
 
+        public bool UpdateUser(UserVM userVM, string newFName, string newLName, string newEmail, string newImageURL)
+        {
+            bool result = false;
+            int rows = 0;
+            try
+            {
+                rows = _userAccessor.UpdateUser(userVM.userID, newFName, newLName, newEmail, newImageURL, userVM.fName, userVM.lName, userVM.email);
+                if(rows == 0)
+                {
+                    throw new ArgumentException("Incorrect input, user update failed");
+                }
+                else
+                {
+                    result = true;
+                }
+            }
+            catch (Exception ex)
+            {
 
+                throw new ApplicationException("User update failed", ex);
+            }
+
+            return result;
+
+        }
     }
 }

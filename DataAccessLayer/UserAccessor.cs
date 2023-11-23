@@ -132,5 +132,57 @@ namespace DataAccessLayer
             }
             return role;
         }
+
+        public int UpdateUser(int userID, string newFName, string newLName, string newEmail, string newImgURL, string oldFName, string oldLName, string oldEmail)
+        {
+            int rows = 0;
+
+            var conn = DBConnectionProvider.GetConnection();
+
+            var cmdText = "sp_update_user";
+
+            var cmd = new SqlCommand(cmdText, conn);
+
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.Add("@userID", SqlDbType.Int);
+            cmd.Parameters.Add("@newFName", SqlDbType.NVarChar, 50);
+            cmd.Parameters.Add("@newLName", SqlDbType.NVarChar, 100);
+            cmd.Parameters.Add("@newEmail", SqlDbType.NVarChar, 250);
+            cmd.Parameters.Add("@newImgURL", SqlDbType.NVarChar, 250);
+            cmd.Parameters.Add("@oldFName", SqlDbType.NVarChar, 50);
+            cmd.Parameters.Add("@oldLName", SqlDbType.NVarChar, 100);
+            cmd.Parameters.Add("@oldEmail", SqlDbType.NVarChar, 250);
+
+            cmd.Parameters["@userID"].Value = userID;          
+            cmd.Parameters["@newFName"].Value = newFName;
+            cmd.Parameters["@newLName"].Value = newLName;
+            cmd.Parameters["@newEmail"].Value = newEmail;
+            cmd.Parameters["@newImgURL"].Value = newImgURL;
+            cmd.Parameters["@oldFName"].Value = oldFName;
+            cmd.Parameters["@oldLName"].Value = oldLName;
+            cmd.Parameters["@oldEmail"].Value = oldEmail;
+
+
+            try
+            {
+                conn.Open();
+                rows = cmd.ExecuteNonQuery();
+                if (rows == 0)
+                {
+                    throw new ApplicationException("User update failed");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return rows;
+        }
     }
 }
