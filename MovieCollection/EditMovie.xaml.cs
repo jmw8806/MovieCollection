@@ -12,6 +12,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Effects;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
@@ -58,7 +59,7 @@ namespace MovieCollection
             chkEditCriterion.IsChecked = _movie.isCriterion;
             txtEditURL.Text = _movie.imgName;
             imgEditImage.Source = displayImageFromURL(_movie.imgName);
-            
+
         }
 
         private BitmapImage displayImageFromURL(string url)
@@ -126,5 +127,7 @@ namespace MovieCollection
                 this.Close();                
             }
         }
+
+
     }
 }

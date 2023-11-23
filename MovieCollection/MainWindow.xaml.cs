@@ -7,6 +7,7 @@ using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media.Effects;
 using System.Windows.Media.Imaging;
 using static DataObjects.DisplayHelpers;
 using static DataObjects.MovieSearchHelpers;
@@ -33,8 +34,10 @@ namespace MovieCollection
         List<string> _formats = null;
         List<MovieVM> _searchResults = null;
         int _selectedID = 0;
+        
         public MainWindow()
         {
+            
             InitializeComponent();
         }
 
@@ -98,7 +101,7 @@ namespace MovieCollection
             cboSearchGenre.ItemsSource = _genres;
             cboSearchLanguage.ItemsSource = _languages;
             cboSearchYear.ItemsSource = getYears(1888);
-
+            cboAddYear.ItemsSource = getYears(1888);
 
         }
 
@@ -210,16 +213,7 @@ namespace MovieCollection
         {
 
             string addTitle = txtAddName.Text;
-            int addYear = 0;
-            if(int.TryParse(txtAddYear.Text, out int _))
-            {
-                addYear = int.Parse(txtAddYear.Text);
-            }
-            else
-            {
-                MessageBox.Show("Year is in incorrect format");
-                txtAddYear.Clear();
-            }
+            
 
 
             int addRuntime = 0;
@@ -252,7 +246,7 @@ namespace MovieCollection
             {
                 addIsCriterion = true;
             }
-            if (string.IsNullOrEmpty(addTitle) && string.IsNullOrEmpty(txtAddYear.Text) && string.IsNullOrEmpty(txtAddRuntime.Text)
+            if (string.IsNullOrEmpty(addTitle) && string.IsNullOrEmpty(txtAddRuntime.Text)
                 && string.IsNullOrEmpty(addLanguage) && string.IsNullOrEmpty(addGenre) && string.IsNullOrEmpty(addFormat) &&
                 string.IsNullOrEmpty(addRating))
             {
@@ -262,6 +256,7 @@ namespace MovieCollection
             {
                 try
                 {
+                    int addYear = int.Parse(cboAddYear.SelectedValue.ToString());
                     bool newMovie = _movieManager.AddMovie(addTitle, addYear, addRating, addRuntime, addIsCriterion, addNotes, addLanguage, addGenre, addImage, addFormat);
                     if (newMovie)
                     {
@@ -420,10 +415,12 @@ namespace MovieCollection
 
         private void btnResultEdit_Click(object sender, RoutedEventArgs e)
         {
+            
             if (_selectedID != 0)
             {
                 var editMovie = new EditMovie(_selectedID);
-                editMovie.ShowDialog();
+                blurWindow(10);
+                editMovie.ShowDialog();               
                 if(editMovie.editResult)
                 {
                     refreshMovieList();
@@ -434,7 +431,7 @@ namespace MovieCollection
             {
                 MessageBox.Show("Please select a title to edit");
             }
-            
+            blurWindow(0);
             
         }
 
@@ -445,10 +442,19 @@ namespace MovieCollection
             {
                 try
                 {
-                    isDeactivated = _movieManager.UpdateMovieIsActive(_selectedID, false);
-                    refreshMovieList();
-                    resetForms();
-                    MessageBox.Show("Removal successful");
+                    
+                    var warning = MessageBox.Show("Are you sure you want to remove this title?", "!!!", MessageBoxButton.OKCancel, MessageBoxImage.Warning);
+                    if (warning == MessageBoxResult.OK)
+                    {
+                        isDeactivated = _movieManager.UpdateMovieIsActive(_selectedID, false);
+                        refreshMovieList();
+                        resetForms();
+                        MessageBox.Show("So long, farewell, auf Wiedersehen, goodbye! \n\n Movie has been removed.", "Success", MessageBoxButton.OK);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Whew, that was a close call!");
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -466,6 +472,7 @@ namespace MovieCollection
         {
             if (_selectedID != 0)
             {
+                blurWindow(10);
                 var editMovie = new EditMovie(_selectedID);
                 editMovie.ShowDialog();
                 if (editMovie.editResult)
@@ -478,6 +485,7 @@ namespace MovieCollection
             {
                 MessageBox.Show("Please select a title to edit");
             }
+            blurWindow(0);
         }
 
         private void btnAllRemove_Click(object sender, RoutedEventArgs e)
@@ -487,10 +495,19 @@ namespace MovieCollection
             {
                 try
                 {
-                    isDeactivated = _movieManager.UpdateMovieIsActive(_selectedID, false);
-                    refreshMovieList();
-                    resetForms();
-                    MessageBox.Show("Removal successful");
+                    var warning = MessageBox.Show("Are you sure you want to remove this title?", "!!!", MessageBoxButton.OKCancel, MessageBoxImage.Warning);
+                    if (warning == MessageBoxResult.OK)
+                    {
+                        isDeactivated = _movieManager.UpdateMovieIsActive(_selectedID, false);
+                        refreshMovieList();
+                        resetForms();
+                        MessageBox.Show("So long, farewell, auf Wiedersehen, goodbye! \n\n Movie has been removed.", "Success", MessageBoxButton.OK);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Whew, that was a close call!");
+                    }
+                    
                 }
                 catch (Exception ex)
                 {
@@ -584,7 +601,7 @@ namespace MovieCollection
         private void resetForms()
         {
             txtAddName.Clear();
-            txtAddYear.Clear();
+            cboAddYear.SelectedIndex = 112;
             txtAddRuntime.Clear();
             cboAddLanguage.SelectedIndex = 0;
             cboAddGenre.SelectedIndex = 0;
@@ -603,6 +620,14 @@ namespace MovieCollection
             txtResultRuntime.Text = string.Empty;
             txtResultCriterion.Text = string.Empty;
             imgSearch.Source = null;
+            lblAllMoviesTitle.Text = string.Empty;
+            lblAllMoviesYear.Content = string.Empty;
+            lblAllMoviesRating.Content = string.Empty;
+            lblAllMoviesFormats.Content = string.Empty;
+            lblAllMoviesGenres.Content = string.Empty;
+            lblAllMoviesLanguages.Content = string.Empty;
+            lblAllMoviesRuntime.Content = string.Empty;
+            lblAllMoviesCriterion.Content = string.Empty;
         }
 
         // clears lists that display all movies, gets all movies from database and adds them to _movieVMs list.
@@ -655,6 +680,13 @@ namespace MovieCollection
             mnuSearch.Visibility = Visibility.Visible;
             mnuCollections.Visibility = Visibility.Visible;
             mnuProfile.Visibility = Visibility.Visible;
+        }
+
+        private void blurWindow(int blurAmnt)
+        {         
+            BlurEffect blur = new BlurEffect();         
+            blur.Radius = blurAmnt;          
+            this.Effect = blur;
         }
     }
 }

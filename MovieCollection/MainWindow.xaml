@@ -6,6 +6,8 @@
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         Title="Movie Collection " Height="700" Width="1200" ResizeMode="NoResize" Loaded="Window_Loaded">
+
+
     <Window.Background>
         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
             <GradientStop Color="#FFF0F4FD"/>
@@ -16,7 +18,8 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="9*"/>
             <ColumnDefinition Width="102*"/>
-            <ColumnDefinition Width="1048*"/>
+            <ColumnDefinition Width="195*"/>
+            <ColumnDefinition Width="853*"/>
             <ColumnDefinition Width="41"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
@@ -26,7 +29,7 @@
             <RowDefinition />
             <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
-        <Menu Grid.Row="0" Padding="20px 0px" Grid.ColumnSpan="4">
+        <Menu Grid.Row="0" Padding="20px 0px" Grid.ColumnSpan="5">
             <Menu.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="#FFC7D6FC"/>
@@ -52,7 +55,7 @@
                 <MenuItem x:Name="mnuTest" Header="Test" Click="mnuTest_Click"></MenuItem>
             </MenuItem>
         </Menu>
-        <Grid Grid.Row="1" Grid.ColumnSpan="4">
+        <Grid Grid.Row="1" Grid.ColumnSpan="5">
             <!-- Greetings/Login Grid -->
             <Grid.RowDefinitions>
                 <RowDefinition/>
@@ -77,13 +80,13 @@
             <Button x:Name="btnLoginSubmit" Grid.Row="2" Grid.Column="3" HorizontalAlignment="Left" Width="100" Content="Log In" Click="btnLoginSubmit_Click" Background="#FFC1F6C1" BorderBrush="#FF18FF27"/>
             <Button x:Name="btnLoginCancel" Grid.Row="2" Grid.Column="3" HorizontalAlignment="Left" Width="100" Content="Cancel" Margin="150,0,0,0" Click="btnLoginCancel_Click" Background="#FFFFFDBE" BorderBrush="#FFFFF009"/>
         </Grid>
-        <StackPanel Name="tabContainer" Grid.Row="3" Grid.ColumnSpan="3" Margin="11,0,20,49" Height="510" Grid.RowSpan="2" Grid.Column="1">
+        <StackPanel Name="tabContainer" Grid.Row="3" Grid.ColumnSpan="4" Margin="11,0,20,49" Height="510" Grid.RowSpan="2" Grid.Column="1">
             <TabControl x:Name="tabsetMain" Background="{x:Null}" BorderBrush="{x:Null}" >
                 <TabItem x:Name="tabHome" Header="Home">
                     <TabItem.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <GradientStop Color="#FFF4F6F6"/>
-                            <GradientStop Color="#FFB2EEEE" Offset="1"/>
+                            <GradientStop Color="#FF83F9F9" Offset="1"/>
                         </LinearGradientBrush>
                     </TabItem.Background>
                     <Grid x:Name="grdHome" Height="480">
@@ -99,7 +102,7 @@
                             <RowDefinition Height="40"/>
                             <RowDefinition Height="40"/>
                             <RowDefinition Height="40"/>
-                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="50"/>
                             <RowDefinition Height="40"/>
                             <RowDefinition/>
                         </Grid.RowDefinitions>
@@ -153,18 +156,19 @@
                     <TabItem.Background>
                         <LinearGradientBrush EndPoint="0,1">
                             <GradientStop Color="#FFF0F0F0"/>
-                            <GradientStop Color="#FFF7D9F5" Offset="1"/>
+                            <GradientStop Color="#FFFF94F8" Offset="1"/>
                         </LinearGradientBrush>
                     </TabItem.Background>
                     <Grid Height="500" Width="1205">
                         <Grid.Background>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="White" Offset="0"/>
-                                <GradientStop Color="#FFFDF3FD" Offset="0.039"/>
+                                <GradientStop Color="#FFFDE2FD" Offset="0.039"/>
                             </LinearGradientBrush>
                         </Grid.Background>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition/>
+                            <ColumnDefinition Width="23*"/>
+                            <ColumnDefinition Width="7*"/>
                             <ColumnDefinition Width="130"/>
                             <ColumnDefinition Width="200"/>
                             <ColumnDefinition Width="15"/>
@@ -173,7 +177,7 @@
                             <ColumnDefinition Width="250"/>
                             <ColumnDefinition Width="15"/>
                             <ColumnDefinition Width="200"/>
-                            <ColumnDefinition/>
+                            <ColumnDefinition Width="30*"/>
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition/>
@@ -186,51 +190,51 @@
                             <RowDefinition Height="50"/>
                             <RowDefinition/>
                         </Grid.RowDefinitions>
-                        <Label Content="Filter" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.ColumnSpan="2" Grid.RowSpan="2" Margin="0 35 85 0"/>
-                        <Label Content="Collection:" Grid.Row="1" Grid.Column="1" FontSize="18" FontWeight="Bold" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0 0 25 0"/>
-                        <CheckBox x:Name="chkSearchCollection" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="1" Grid.Column="1" />
-                        <CheckBox x:Name="chkSearchTitle" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="2" Grid.Column="1" />
-                        <Label Content="Title:" Grid.Row="2" Grid.Column="1" FontSize="18" FontWeight="Bold" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0 0 25 0"/>
-                        <Label Content="Year:" Grid.Row="3" Grid.Column="1" FontSize="18" FontWeight="Bold" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0 0 25 0"/>
-                        <CheckBox x:Name="chkSearchYear" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="3" Grid.Column="1" />
-                        <Label Content="Genre:" Grid.Row="4" Grid.Column="1" FontSize="18" FontWeight="Bold" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0 0 25 0"/>
-                        <CheckBox x:Name="chkSearchGenre" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="4" Grid.Column="1" />
-                        <Label Content="Language:" Grid.Row="5" Grid.Column="1" FontSize="18" FontWeight="Bold" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0 0 25 0"/>
-                        <CheckBox x:Name="chkSearchLanguage" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="5" Grid.Column="1" />
-                        <Label Content="Runtime:" Grid.Row="6" Grid.Column="1" FontSize="18" FontWeight="Bold" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0 0 25 0"/>
-                        <CheckBox x:Name="chkSearchRuntime" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="6" Grid.Column="1" />
-                        <Label Content="Criterion:" Grid.Row="7" Grid.Column="1" FontSize="18" FontWeight="Bold" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0 0 25 0"/>
-                        <CheckBox x:Name="chkSearchIncludeCriterion" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="7" Grid.Column="1" />
-                        <ComboBox x:Name="cboSearchCollection" Grid.Column="2" Grid.Row="1" Width="180" Height="38" VerticalContentAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0 0 0 5" Padding="2"/>
-                        <TextBox x:Name="txtSearchTitle" Grid.Column="2" Grid.Row="2" Width="180" Height="40" VerticalContentAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0 0 0 5" Padding="2"/>
-                        <ComboBox x:Name="cboSearchYear" Grid.Column="2" Grid.Row="3" Width="180" Height="40" VerticalContentAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0 0 0 5" Padding="2"/>
-                        <ComboBox x:Name="cboSearchGenre" Grid.Column="2" Grid.Row="4" Width="180" Height="40" VerticalContentAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0 0 0 5" Padding="2"/>
-                        <ComboBox x:Name="cboSearchLanguage" Grid.Column="2" Grid.Row="5" Width="180" Height="40" VerticalContentAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0 0 0 5" Padding="2"/>
-                        <RadioButton x:Name="radioSearchLessThan" Grid.Column="2" Content="&lt;=" FontSize="15" Grid.Row="6" Width="50" Height="40" VerticalAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Left" Margin="10 0 0 0" />
-                        <RadioButton x:Name="radioSearchGreaterThan" Grid.Column="2" Content="&gt;=" FontSize="15" Grid.Row="6" Width="50" Height="40" VerticalAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center" Margin="0 0 10 0" />
-                        <TextBox x:Name="txtSearchRuntime" Grid.Column="2" Grid.Row="6" Width="75" Height="40" VerticalContentAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0 0 0 5" Padding="2"/>
-                        <Label Grid.Column="2" Grid.Row="7" Content="Yes" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10 0 0 0"/>
-                        <CheckBox x:Name="chkSearchCriterion" Grid.Column="2" Grid.Row="7" Width="50" Height="40" VerticalAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Left" Margin="35 0 0 0" />
-                        <Button x:Name="btnSearchSubmit" Content="Search" FontSize="18" Grid.Column="2" Grid.Row="7" Width="100" Height="40" HorizontalAlignment="Right" VerticalAlignment="Center" VerticalContentAlignment="Center" Margin="0 0 0 10" Click="btnSearchSubmit_Click" Background="#FFC1F6C1" BorderBrush="#FF18FF27"/>
-                        <ListBox x:Name="lstSearchResults" Grid.Column="4" Grid.Row="1" Grid.RowSpan="7" MouseDoubleClick="lstSearchResults_MouseDoubleClick" />
-                        <Image x:Name="imgSearch" Grid.Row="1" Grid.Column="6" Grid.RowSpan="7" Width="245" Height="350"/>
-                        <TextBlock x:Name="txtResultTitle" Grid.Row="1" Grid.Column="8" Text="Title" FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Center" TextWrapping="Wrap"/>
-                        <TextBlock x:Name="txtResultYear" Grid.Row="2" Grid.Column="8" Text="Year" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Center" />
-                        <TextBlock x:Name="txtResultRating" Grid.Row="2" Grid.Column="8" Text="Rating" FontSize="16" HorizontalAlignment="Right" VerticalAlignment="Center"  Margin="0 0 10 0"/>
-                        <TextBlock x:Name="txtResultFormats" Grid.Row="3" Grid.Column="8" Text="Formats" FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Center" />
-                        <TextBlock x:Name="txtResultLanguages" Grid.Row="4" Grid.Column="8" Text="Languages" FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Center" />
-                        <TextBlock x:Name="txtResultGenres" Grid.Row="5" Grid.Column="8" Text="Genres" FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Center" />
-                        <TextBlock x:Name="txtResultRuntime" Grid.Row="6" Grid.Column="8" Text="Runtime" FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Center" />
-                        <TextBlock x:Name="txtResultCriterion" Grid.Row="6" Grid.Column="8" Text="Criterion: " FontSize="18" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0 0 10 0" />
-                        <Button x:Name="btnResultEdit" Content="Edit" FontSize="18" Grid.Column="8" Grid.Row="7" Width="85" Height="40" HorizontalAlignment="Right" VerticalAlignment="Center" VerticalContentAlignment="Center" Margin="0 0 10 0" Click="btnResultEdit_Click" Background="#FFDAF7FF" BorderBrush="#FF475FFD"/>
-                        <Button x:Name="btnResultRemove" Content="Remove" FontSize="18" Grid.Column="8" Grid.Row="7" Width="85" Height="40" HorizontalAlignment="Left" VerticalAlignment="Center" VerticalContentAlignment="Center" Margin="0 0 10 0" Click="btnResultRemove_Click" Background="#FFFFC8C8" BorderBrush="#FFF16C6C" />
+                        <Label Content="Filter" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.ColumnSpan="2" Grid.RowSpan="2" Margin="104,67,0,0"/>
+                        <Label Content="Collection:" Grid.Row="1" Grid.Column="2" FontSize="18" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0"/>
+                        <CheckBox x:Name="chkSearchCollection" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="1" Grid.Column="2" Margin="114,0,0,0" />
+                        <CheckBox x:Name="chkSearchTitle" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="2" Grid.Column="2" Margin="114,0,0,0" />
+                        <Label Content="Title:" Grid.Row="2" Grid.Column="2" FontSize="18" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="53,0,0,0"/>
+                        <Label Content="Year:" Grid.Row="3" Grid.Column="2" FontSize="18" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="54,0,0,0"/>
+                        <CheckBox x:Name="chkSearchYear" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="3" Grid.Column="2" Margin="114,0,0,0" />
+                        <Label Content="Genre:" Grid.Row="4" Grid.Column="2" FontSize="18" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="40,0,0,0"/>
+                        <CheckBox x:Name="chkSearchGenre" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="4" Grid.Column="2" Margin="114,0,0,0" />
+                        <Label Content="Language:" Grid.Row="5" Grid.Column="2" FontSize="18" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="8,0,0,0"/>
+                        <CheckBox x:Name="chkSearchLanguage" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="5" Grid.Column="2" Margin="114,0,0,0" />
+                        <Label Content="Runtime:" Grid.Row="6" Grid.Column="2" FontSize="18" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="18,0,0,0"/>
+                        <CheckBox x:Name="chkSearchRuntime" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="6" Grid.Column="2" Margin="114,0,0,0" />
+                        <Label Content="Criterion:" Grid.Row="7" Grid.Column="2" FontSize="18" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="16,0,0,0"/>
+                        <CheckBox x:Name="chkSearchIncludeCriterion" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="7" Grid.Column="2" Margin="114,0,0,0" />
+                        <ComboBox x:Name="cboSearchCollection" Grid.Column="3" Grid.Row="1" Width="180" Height="38" VerticalContentAlignment="Center" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,4,0,0" Padding="2"/>
+                        <TextBox x:Name="txtSearchTitle" Grid.Column="3" Grid.Row="2" Width="180" Height="40" VerticalContentAlignment="Center" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,3,0,0" Padding="2"/>
+                        <ComboBox x:Name="cboSearchYear" Grid.Column="3" Grid.Row="3" Width="180" Height="40" VerticalContentAlignment="Center" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,3,0,0" Padding="2"/>
+                        <ComboBox x:Name="cboSearchGenre" Grid.Column="3" Grid.Row="4" Width="180" Height="40" VerticalContentAlignment="Center" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,3,0,0" Padding="2"/>
+                        <ComboBox x:Name="cboSearchLanguage" Grid.Column="3" Grid.Row="5" Width="180" Height="40" VerticalContentAlignment="Center" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,3,0,0" Padding="2"/>
+                        <RadioButton x:Name="radioSearchLessThan" Grid.Column="3" Content="&lt;=" FontSize="15" Grid.Row="6" Width="50" Height="40" VerticalAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0" />
+                        <RadioButton x:Name="radioSearchGreaterThan" Grid.Column="3" Content="&gt;=" FontSize="15" Grid.Row="6" Width="50" Height="40" VerticalAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Left" Margin="70,0,0,0" />
+                        <TextBox x:Name="txtSearchRuntime" Grid.Column="3" Grid.Row="6" Width="75" Height="40" VerticalContentAlignment="Center" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,3,0,0" Padding="2"/>
+                        <Label Grid.Column="3" Grid.Row="7" Content="Yes" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0"/>
+                        <CheckBox x:Name="chkSearchCriterion" Grid.Column="3" Grid.Row="7" Width="50" Height="40" VerticalAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Left" Margin="35,0,0,0" />
+                        <Button x:Name="btnSearchSubmit" Content="Search" FontSize="18" Grid.Column="3" Grid.Row="7" Width="100" Height="40" HorizontalAlignment="Right" VerticalAlignment="Top" VerticalContentAlignment="Center" Click="btnSearchSubmit_Click" Background="#FFFFC0FF" BorderBrush="#FF832A7D"/>
+                        <ListBox x:Name="lstSearchResults" Grid.Column="5" Grid.Row="1" Grid.RowSpan="7" MouseDoubleClick="lstSearchResults_MouseDoubleClick" />
+                        <Image x:Name="imgSearch" Grid.Row="1" Grid.Column="7" Grid.RowSpan="7" Width="245" Height="350" Margin="2,0,2,0"/>
+                        <TextBlock x:Name="txtResultTitle" Grid.Row="1" Grid.Column="9" Text="Title" FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Center" TextWrapping="Wrap"/>
+                        <TextBlock x:Name="txtResultYear" Grid.Row="2" Grid.Column="9" Text="Year" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                        <TextBlock x:Name="txtResultRating" Grid.Row="2" Grid.Column="9" Text="Rating" FontSize="16" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                        <TextBlock x:Name="txtResultFormats" Grid.Row="3" Grid.Column="9" Text="Formats" FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                        <TextBlock x:Name="txtResultLanguages" Grid.Row="4" Grid.Column="9" Text="Languages" FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                        <TextBlock x:Name="txtResultGenres" Grid.Row="5" Grid.Column="9" Text="Genres" FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                        <TextBlock x:Name="txtResultRuntime" Grid.Row="6" Grid.Column="9" Text="Runtime" FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                        <TextBlock x:Name="txtResultCriterion" Grid.Row="6" Grid.Column="9" Text="Criterion: " FontSize="18" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,0,0" />
+                        <Button x:Name="btnResultEdit" Content="Edit" FontSize="18" Grid.Column="9" Grid.Row="7" Width="85" Height="40" HorizontalAlignment="Left" VerticalAlignment="Center" VerticalContentAlignment="Center" Margin="105,0,0,0" Click="btnResultEdit_Click" Background="#FFDAF7FF" BorderBrush="#FF475FFD"/>
+                        <Button x:Name="btnResultRemove" Content="Remove" FontSize="18" Grid.Column="9" Grid.Row="7" Width="85" Height="40" HorizontalAlignment="Left" VerticalAlignment="Center" VerticalContentAlignment="Center" Click="btnResultRemove_Click" Background="#FFFFC8C8" BorderBrush="#FFF16C6C" />
                     </Grid>
                 </TabItem>
                 <TabItem x:Name="tabAll" Header="All" GotFocus="tabAll_GotFocus">
                     <TabItem.Background>
                         <LinearGradientBrush EndPoint="0,1">
                             <GradientStop Color="#FFF0F0F0"/>
-                            <GradientStop Color="#FFFDF2E2" Offset="1"/>
+                            <GradientStop Color="#FFFFDCA9" Offset="1"/>
                         </LinearGradientBrush>
                     </TabItem.Background>
                     <Grid Height="500" Width="1200">
@@ -311,7 +315,7 @@
                             <ColumnDefinition/>
                             <ColumnDefinition Width="4.6"/>
                             <ColumnDefinition Width="300"/>
-                            <ColumnDefinition Width="75"/>
+                            <ColumnDefinition Width="90"/>
                             <ColumnDefinition Width="300"/>
                             <ColumnDefinition Width="75"/>
                             <ColumnDefinition Width="300"/>
@@ -319,28 +323,30 @@
 
 
                         <Image x:Name="imgAddImage" Grid.Row="1" Grid.Column="2" Width="200" Height="260" Grid.RowSpan="7" />
-                        <TextBox x:Name="txtAddURL" Grid.Row="8" Grid.Column="2" VerticalAlignment="Top"  Margin="3,3,20,5" Height="32" VerticalContentAlignment="Center" Padding="5"  HorizontalAlignment="Center" Width="260"/>
-                        <Button x:Name="btnAddMovieImage" Content="Preview Image URL"  Grid.Row="8"  Grid.Column="1" VerticalAlignment="Bottom" Width="125" Height="35" Grid.ColumnSpan="2" Click="btnAddMovieImage_Click" Background="#FFEED2FF" BorderBrush="#FFA23DFF"/>
+                        <TextBox x:Name="txtAddURL" VerticalContentAlignment="Center" Grid.Row="7" Grid.Column="4" Margin="3,3,20,5"/>
+                        <Label Content="Image URl:" HorizontalAlignment="Right" VerticalAlignment="Top" Grid.Row="7" Grid.Column="3" FontSize="12" FontWeight="Bold" Margin="0 3 5 0"/>
+                        <Button x:Name="btnAddMovieImage" Content="Preview Image"  Grid.Row="8"  Grid.Column="4"  HorizontalAlignment="Right" VerticalAlignment="Center" Width="125" Height="35" 
+                                 Click="btnAddMovieImage_Click" Background="#FFEED2FF" BorderBrush="#FFA23DFF" Margin="3 3 20 5"/>
                         <Label Content="Name:" HorizontalAlignment="Right" VerticalAlignment="Top" Grid.Row="2" Grid.Column="3" FontSize="12" FontWeight="Bold" Margin="0 3 5 0"/>
                         <Label Content="Year:" HorizontalAlignment="Right" VerticalAlignment="Top" Grid.Row="3" Grid.Column="3" FontSize="12" FontWeight="Bold" Margin="0 3 5 0"/>
                         <Label Content="Runtime" HorizontalAlignment="Right" VerticalAlignment="Top" Grid.Row="4" Grid.Column="3" FontSize="12" FontWeight="Bold" Margin="0 3 5 0"/>
                         <Label Content="Language:" HorizontalAlignment="Right" VerticalAlignment="Top" Grid.Row="5" Grid.Column="3" FontSize="12" FontWeight="Bold" Margin="0 3 5 0"/>
                         <Label Content="Genre:" HorizontalAlignment="Right" VerticalAlignment="Top" Grid.Row="2" Grid.Column="5" FontSize="12" FontWeight="Bold" Margin="0 3 5 0"/>
                         <Label Content="Rating:" HorizontalAlignment="Right" VerticalAlignment="Top" Grid.Row="6" Grid.Column="3" FontSize="12" FontWeight="Bold" Margin="0 3 5 0"/>
-                        <Label Content="Criterion:" HorizontalAlignment="Right" VerticalAlignment="Top" Grid.Row="7" Grid.Column="3" FontSize="12" FontWeight="Bold" Margin="0 3 5 0"/>
+                        <Label Content="Criterion:" HorizontalAlignment="Right" VerticalAlignment="Top" Grid.Row="7" Grid.Column="5" FontSize="12" FontWeight="Bold" Margin="0 3 5 0"/>
                         <Label Content="Notes:" HorizontalAlignment="Right" VerticalAlignment="Top" Grid.Row="4" Grid.Column="5" FontSize="12" FontWeight="Bold" Margin="0,3,5,0"/>
                         <Label Content="Format:" HorizontalAlignment="Right" VerticalAlignment="Top" Grid.Row="3" Grid.Column="5" FontSize="12" FontWeight="Bold" Margin="0,3,5,0"/>
                         <TextBox x:Name="txtAddName" VerticalContentAlignment="Center" Grid.Row="2" Grid.Column="4" Margin="3,3,20,5"/>
-                        <TextBox x:Name="txtAddYear" VerticalContentAlignment="Center" Grid.Row="3" Grid.Column="4" Margin="3,3,20,5"/>
+                        <ComboBox x:Name="cboAddYear" VerticalContentAlignment="Center" Grid.Row="3" Grid.Column="4" Margin="3,3,20,5"/>
                         <TextBox x:Name="txtAddRuntime" VerticalContentAlignment="Center" Grid.Row="4" Grid.Column="4" Margin="3,3,20,5"/>
                         <ComboBox x:Name="cboAddLanguage" VerticalContentAlignment="Center"  Grid.Row="5" Grid.Column="4" Margin="3,3,20,5"/>
                         <ComboBox x:Name="cboAddGenre" VerticalContentAlignment="Center" Grid.Row="2" Grid.Column="6" Margin="3,3,20,5"/>
                         <ComboBox x:Name="cboAddFormat" VerticalContentAlignment="Center" Grid.Row="3" Grid.Column="6" Margin="3,3,20,5"/>
                         <ComboBox x:Name="cboAddRating" VerticalContentAlignment="Center" Grid.Row="6" Grid.Column="4" Margin="3,3,20,5"/>
-                        <CheckBox x:Name="chkAddCriterion" Grid.Row="7" Grid.Column="4" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                        <CheckBox x:Name="chkAddCriterion" Grid.Row="7" Grid.Column="6" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                         <TextBox x:Name="txtAddNotes" Grid.Row="4" Grid.Column="6" Grid.RowSpan="3" Margin="3,3,20,5" Padding="3"/>
-                        <Button x:Name="btnAddMovie" Grid.Row="8" Grid.Column="6" Content="Add" Width="125" Height="35" FontSize="14" FontWeight="Bold" HorizontalAlignment="Left" Margin="0,15,0,15" Click="btnAddMovie_Click" Background="#FF80FF80" BorderBrush="#FF18FF27"/>
-                        <Button x:Name="btnAddCancel" Grid.Row="8" Grid.Column="6" Content="Cancel" Width="125" Height="35" FontSize="14" FontWeight="Bold" HorizontalAlignment="Right" Margin="0,15,20,18" Click="btnAddCancel_Click" Background="#FFFFFDBE" BorderBrush="#FFFFF009"/>
+                        <Button x:Name="btnAddMovie" Grid.Row="8" Grid.Column="6" Content="Add" Width="125" Height="35" FontSize="12"  HorizontalAlignment="Left" Margin="0,15,0,15" Click="btnAddMovie_Click" Background="#FF80FF80" BorderBrush="#FF18FF27"/>
+                        <Button x:Name="btnAddCancel" Grid.Row="8" Grid.Column="6" Content="Cancel" Width="125" Height="35" FontSize="12"  HorizontalAlignment="Right" Margin="0,15,20,18" Click="btnAddCancel_Click" Background="#FFFFFDBE" BorderBrush="#FFFFF009"/>
                     </Grid>
                 </TabItem>
                 <TabItem x:Name="tabProfile" Header="Profile">
@@ -377,13 +383,13 @@
                         </Grid.ColumnDefinitions>
                         <Image x:Name="imgProfileTab" Grid.Row="1" Grid.Column="1" Grid.RowSpan="4"/>
                         <Label x:Name="lblProfileFirstName" Content="First Name:" FontSize="20" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="1" Grid.Column="3"/>
-                        <TextBox x:Name="txtProfileFirstName" FontSize="15" Width="280" Height="35" Grid.Row="1" Grid.Column="4" HorizontalAlignment="Left" 
+                        <TextBox x:Name="txtProfileFirstName" IsReadOnly="True" FontSize="15" Width="280" Height="35" Grid.Row="1" Grid.Column="4" HorizontalAlignment="Left" 
                                  VerticalAlignment="Center" VerticalContentAlignment="Center" Padding="1" Margin="5 0 0 0"/>
                         <Label x:Name="lblProfileLastName" Content="Last Name:" FontSize="20" HorizontalAlignment="Right" VerticalAlignment="Center"  Grid.Row="2" Grid.Column="3"/>
-                        <TextBox x:Name="txtProfileLasttName" FontSize="15" Width="280" Height="35" Grid.Row="2" Grid.Column="4" HorizontalAlignment="Left" 
+                        <TextBox x:Name="txtProfileLasttName" IsReadOnly="True" FontSize="15" Width="280" Height="35" Grid.Row="2" Grid.Column="4" HorizontalAlignment="Left" 
                                  VerticalAlignment="Center" VerticalContentAlignment="Center" Padding="1" Margin="5 0 0 0"/>
                         <Label x:Name="lblProfileEmail" Content="Email:" FontSize="20" HorizontalAlignment="Right" VerticalAlignment="Center"  Grid.Row="3" Grid.Column="3"/>
-                        <TextBox x:Name="txtProfileEmail" FontSize="15" Width="280" Height="35" Grid.Row="3" Grid.Column="4" HorizontalAlignment="Left" 
+                        <TextBox x:Name="txtProfileEmail" IsReadOnly="True" FontSize="15" Width="280" Height="35" Grid.Row="3" Grid.Column="4" HorizontalAlignment="Left" 
                                  VerticalAlignment="Center" VerticalContentAlignment="Center" Padding="1" Margin="5 0 0 0"/>
                     </Grid>
                 </TabItem>
