@@ -35,6 +35,9 @@ namespace MovieCollection
         List<string> _formats = null;
         List<MovieVM> _searchResults = null;
         int _selectedID = 0;
+        List<int> _movieYears = null;
+        List<string> _searchLanguages = null;
+        List<string> _searchGenres = null;
         
         public MainWindow()
         {
@@ -68,6 +71,9 @@ namespace MovieCollection
             _genres = new List<string>();
             _languages = new List<string>();
             _ratings = new List<string>();
+            _movieYears = new List<int>();
+            _searchLanguages = new List<string>();
+            _searchGenres = new List<string>();
 
             try
             {
@@ -79,7 +85,9 @@ namespace MovieCollection
                 _languages = _movieManager.GetAllLanguages();
                 _ratings = _movieManager.GetAllRatings();
                 _formats = _movieManager.GetAllFormats();
-
+                _movieYears = getMovieYears(_movieVMs);
+                _searchLanguages = getCurrentMovieLanguages(_movieVMs);
+                _searchGenres = getCurrentMovieGenres(_movieVMs);
             }
             catch (Exception ex)
             {
@@ -95,13 +103,14 @@ namespace MovieCollection
             }
             refreshMovieList();
             resetForms();
+            _movieYears = getMovieYears(_movieVMs);
             cboAddGenre.ItemsSource = _genres;
             cboAddLanguage.ItemsSource = _languages;
             cboAddRating.ItemsSource = _ratings;
             cboAddFormat.ItemsSource = _formats;
-            cboSearchGenre.ItemsSource = _genres;
-            cboSearchLanguage.ItemsSource = _languages;
-            cboSearchYear.ItemsSource = getYears(1888);
+            cboSearchGenre.ItemsSource = _searchGenres;
+            cboSearchLanguage.ItemsSource = _searchLanguages;
+            cboSearchYear.ItemsSource = _movieYears;
             cboAddYear.ItemsSource = getYears(1888);
             foreach(var movie in _movieVMs)
             {
@@ -267,6 +276,7 @@ namespace MovieCollection
                         MessageBox.Show("Success! " + addTitle + " was added.");
                         refreshMovieList();
                         resetForms();
+                        refreshSearchCBOs();
                     }
                     else
                     {
@@ -429,6 +439,7 @@ namespace MovieCollection
                 {
                     refreshMovieList();
                     resetForms();
+                    refreshSearchCBOs();
                 }
             }
             else
@@ -453,6 +464,7 @@ namespace MovieCollection
                         isDeactivated = _movieManager.UpdateMovieIsActive(_selectedID, false);
                         refreshMovieList();
                         resetForms();
+                        refreshSearchCBOs();
                         MessageBox.Show("So long, farewell, auf Wiedersehen, goodbye! \n\n Movie has been removed.", "Success", MessageBoxButton.OK);
                     }
                     else
@@ -483,6 +495,7 @@ namespace MovieCollection
                 {
                     refreshMovieList();
                     resetForms();
+                    refreshSearchCBOs();
                 }
             }
             else
@@ -505,6 +518,7 @@ namespace MovieCollection
                         isDeactivated = _movieManager.UpdateMovieIsActive(_selectedID, false);
                         refreshMovieList();
                         resetForms();
+                        refreshSearchCBOs();
                         MessageBox.Show("So long, farewell, auf Wiedersehen, goodbye! \n\n Movie has been removed.", "Success", MessageBoxButton.OK);
                     }
                     else
@@ -642,7 +656,7 @@ namespace MovieCollection
             _movieVMs = _movieManager.GetAllMovieVMs();
             foreach (var movie in _movieVMs)
             {
-                lstAllMovies.Items.Add(movie.title);
+                lstAllMovies.Items.Add(movie.title);            
             }
         }
 
@@ -820,6 +834,24 @@ namespace MovieCollection
                 imgAdminMovie.Source = displayImageFromURL(movie.imgName);
 
             }
+        }
+
+        private void refreshSearchCBOs()
+        {
+            _movieYears.Clear();
+            _movieYears = new List<int>();
+            _movieYears = getMovieYears(_movieVMs);
+            cboSearchYear.ItemsSource = _movieYears;
+
+            _searchLanguages.Clear();
+            _searchLanguages = new List<string>();
+            _searchLanguages = getCurrentMovieLanguages(_movieVMs);
+            cboSearchLanguage.ItemsSource = _searchLanguages;
+
+            _searchGenres.Clear();
+            _searchGenres = new List<string>();
+            _searchGenres = getCurrentMovieGenres(_movieVMs);
+            cboSearchGenre.ItemsSource = _searchGenres;
         }
     }
 }
