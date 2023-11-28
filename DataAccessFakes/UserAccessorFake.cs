@@ -12,8 +12,11 @@ namespace DataAccessFakes
     {
         private List<UserVM> fakeUsers = new List<UserVM>();
         private List<string> passwordHashes = new List<string>();
+        private List<User> fakeUser = new List<User>();
 
         public UserAccessorFake() {
+
+            // UserVM data
             fakeUsers.Add(new UserVM()
             {
                 userID = 10003,
@@ -34,6 +37,29 @@ namespace DataAccessFakes
                 roles = "User"
 
             });
+
+
+            //User data
+            fakeUser.Add(new User()
+            {
+                userID = 10003,
+                fName = "Jane",
+                lName = "Smith",
+                email = "jane@gmail.com",
+                isActive = true
+                
+
+            });
+            fakeUser.Add(new User()
+            {
+                userID = 10001,
+                fName = "Joe",
+                lName = "Dude",
+                email = "joeDude@mmail.com",
+                isActive = false
+               
+            });
+
             passwordHashes.Add("5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8");
             passwordHashes.Add("bad hash");
 
@@ -99,6 +125,25 @@ namespace DataAccessFakes
         public int UpdateUser(int userID, string newFName, string newLName, string newEmail, string newImgURL, string oldFName, string oldLName, string oldEmail)
         {
             throw new NotImplementedException();
+        }
+
+        public List<User> GetInactiveUsers()
+        {
+            List<User> users = new List<User>();
+
+            foreach (var user in fakeUser) 
+            { 
+                if(user.isActive == false)
+                {
+                    users.Add(user);
+                }
+            }
+            if(users == null)
+            {
+                throw new ArgumentException("No inactive users found");
+            }
+            return users;
+
         }
     }
 }

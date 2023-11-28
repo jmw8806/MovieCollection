@@ -849,6 +849,57 @@ namespace DataAccessLayer
             }
             return rows;
         }
+
+        public List<Movie> GetAllInactiveMovies()
+        {
+            List<Movie> movies = new List<Movie>();
+
+
+            var conn = DBConnectionProvider.GetConnection();
+            var cmd = new SqlCommand("sp_select_inactive_movie", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            try
+            {
+                conn.Open();
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+
+                    reader.Read();
+                    while (reader.Read())
+                    {
+                        movies.Add(new Movie()
+                        {
+                            titleID = reader.GetInt32(0),
+                            title = reader.GetString(1),
+                            year = reader.GetInt32(2),
+                            rating = reader.GetString(3),
+                            runtime = reader.GetInt32(4),
+                            isCriterion = reader.GetBoolean(5),
+                            notes = reader.GetString(6),
+                            isActive = reader.GetBoolean(7)
+                        });
+                    }
+
+                }
+                else
+                {
+                    throw new ArgumentException("No movies found");
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return movies;
+        }
     }
 
 }

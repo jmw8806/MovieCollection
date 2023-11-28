@@ -34,5 +34,6 @@ namespace LogicLayer
         bool UpdateMovie(MovieVM movie, string newTitle, int newYear, string newRating, int newRuntime, bool newCriterion, string newNotes,
             List<string> newLanguages, List<string> newGenres, string newURL);
         bool UpdateMovieIsActive(int id,  bool isActive);
+        List<Movie> GetAllInactiveMovies();
     }
 }

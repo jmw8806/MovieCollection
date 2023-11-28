@@ -96,7 +96,7 @@ namespace DataAccessFakes
                 rating = "PG-13",
                 isCriterion = false,
                 notes = "This is the third",
-                isActive = true,
+                isActive = false,
             });
 
           
@@ -459,6 +459,21 @@ namespace DataAccessFakes
             }
 
             return rows;
+        }
+
+        public List<Movie> GetAllInactiveMovies()
+        {
+            List<Movie> movies = new List<Movie>();
+
+            foreach (Movie movie in fakeMovie)
+            {
+                if(movie.isActive == false)
+                {
+                    movies.Add(movie);
+                }
+            }
+
+            return movies;
         }
     }
 }

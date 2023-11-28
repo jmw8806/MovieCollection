@@ -184,5 +184,53 @@ namespace DataAccessLayer
 
             return rows;
         }
+
+        public List<User> GetInactiveUsers()
+        {
+            List<User> users = new List<User>();
+
+
+            var conn = DBConnectionProvider.GetConnection();
+            var cmd = new SqlCommand("sp_get_inactive_users", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            try
+            {
+                conn.Open();
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+
+                    reader.Read();
+                    while (reader.Read())
+                    {
+                        users.Add(new User()
+                        {
+                            userID = reader.GetInt32(0),
+                            fName = reader.GetString(1),
+                            lName = reader.GetString(2),
+                            email = reader.GetString(3),
+                            imgURL = reader.GetString(4)
+                        }); 
+                    }
+
+                }
+                else
+                {
+                    throw new ArgumentException("No inactive users found");
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return users;
+        }
     }
 }

@@ -550,6 +550,23 @@ namespace LogicLayer
             randomID = movieIDs[randomIndex];
             return randomID;
         }
-        
+
+        public List<Movie> GetAllInactiveMovies()
+        {
+            List<Movie> movies = null;
+            try
+            {
+                movies = _movieAccessor.GetAllInactiveMovies();
+                if(movies == null)
+                {
+                    throw new ArgumentException("No inactive movies found");
+                }
+            }
+            catch (Exception ex) 
+            {
+                throw new ApplicationException("Error during inactive movie retrieval.", ex);
+            }
+            return movies;
+        }
     }
 }

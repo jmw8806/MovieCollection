@@ -149,5 +149,23 @@ namespace LogicLayer
             return result;
 
         }
+
+        public List<User> GetInactiveUsers()
+        {
+            List<User> users = null;
+            try
+            {
+                users = _userAccessor.GetInactiveUsers();
+                if(users == null)
+                {
+                    throw new ArgumentException("No inactive users found");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Error retrieving users", ex);
+            }
+            return users;
+        }
     }
 }

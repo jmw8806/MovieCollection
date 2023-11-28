@@ -362,6 +362,30 @@ namespace LogicLayerTests
             
         }
 
+        [TestMethod]
+        public void TestGetInactiveMoviesPasses()
+        {
+            int expected = 1;
+            int actual = 0;
+            List<Movie> movies = null;
+            movies = _movieManager.GetAllInactiveMovies();
+            actual = movies.Count;
+            Assert.AreEqual(expected, actual);
+        }
+
+
+        [TestMethod]
+        public void TestGetInactiveMoviesFails()
+        {
+            int expected = 2;
+            int actual = 0;
+            List<Movie> movies = null;
+            movies = _movieManager.GetAllInactiveMovies();
+            actual = movies.Count;
+            Assert.AreNotEqual(expected, actual);
+        }
+
+
     }
 
 }

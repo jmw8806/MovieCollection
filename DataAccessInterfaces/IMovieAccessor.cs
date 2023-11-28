@@ -33,5 +33,6 @@ namespace DataAccessInterfaces
         int RemoveMovieLanguage(int id);
         int UpdateMovieImageURL(int id, string newURL, string oldURL);
         int UpdateMovieIsActive(int id, bool isActive);
+        List<Movie> GetAllInactiveMovies();
     }
 }

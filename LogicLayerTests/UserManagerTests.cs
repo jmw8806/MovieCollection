@@ -3,7 +3,7 @@ using System;
 using LogicLayer;
 using DataAccessFakes;
 using DataObjects;
-
+using System.Collections.Generic;
 
 namespace LogicLayerTests
 {
@@ -100,6 +100,28 @@ namespace LogicLayerTests
             actualResult = _userManager.VerifyUser(email, password);
 
             Assert.AreEqual(expectedResult, actualResult);
+        }
+
+        [TestMethod]
+        public void TestGetInactiveUsersCountPasses()
+        {
+            List<User> users = null;
+            int expectedResult = 1;
+            int actualResult = 0;
+            users = _userManager.GetInactiveUsers();
+            actualResult = users.Count;
+            Assert.AreEqual(expectedResult, actualResult); 
+        }
+
+        [TestMethod]
+        public void TestGetInactiveUsersCountFails()
+        {
+            List<User> users = null;
+            int expectedResult = 2;
+            int actualResult = 0;
+            users = _userManager.GetInactiveUsers();
+            actualResult = users.Count;
+            Assert.AreNotEqual(expectedResult, actualResult);
         }
     }
 }

@@ -13,5 +13,6 @@ namespace DataAccessInterfaces
         string SelectRoleByUserID(int userID);
         int VerifyUserWithEmailAndPasswordHash(string email, string passwordHash);
         int UpdateUser(int userID, string newFName, string newLName, string newEmail, string newImgURL, string oldFName, string oldLName, string oldEmail);
+        List<User> GetInactiveUsers();
     }
 }

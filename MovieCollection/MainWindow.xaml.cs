@@ -28,7 +28,7 @@ namespace MovieCollection
         List<Movie> _movies = null;
         List<MovieVM> _movieVMs = null;
         MovieVM _selectedMovie = null;
-        
+        List<Movie> _inactiveMovies = null;
         List<string> _genres = null;
         List<string> _languages = null;
         List<string> _ratings = null;
@@ -88,6 +88,7 @@ namespace MovieCollection
                 _searchLanguages = getCurrentMovieLanguages(_movieVMs);
                 _searchGenres = getCurrentMovieGenres(_movieVMs);
                 _homeMovie = _movieManager.GetMovieByTitleID(_movieManager.randomMovieID(_movieVMs));
+                _inactiveMovies = _movieManager.GetAllInactiveMovies();
                 display_home_movie(_homeMovie);
             }
             catch (Exception ex)
@@ -848,7 +849,29 @@ namespace MovieCollection
                 txtAdminID.Text = movie.titleID.ToString();
                 txtAdminOther.Text = movie.title;
                 imgAdminMovie.Source = displayImageFromURL(movie.imgName);
-
+            }
+            if (cboAdminType.SelectedValue == cboAdminTypeMovie && cboAdminStatus.SelectedValue == cboAdminStatusInactive)
+            {
+                Movie movie = null;
+                try
+                {
+                    foreach (Movie inactiveMovie in _inactiveMovies)
+                    {
+                        if (lstAdmin.SelectedValue.ToString() == inactiveMovie.title)
+                        {
+                            movie = inactiveMovie;
+                            _selectedID = inactiveMovie.titleID;
+                        }
+                    }
+                    txtAdminID.Text = movie.titleID.ToString();
+                    txtAdminOther.Text = movie.title;
+                    string imgURL = _movieManager.GetImageURLByMovieID(movie.titleID);
+                    imgAdminMovie.Source = displayImageFromURL(imgURL);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error processing your request \n\n" + ex.InnerException.Message);
+                }
             }
         }
 
@@ -874,15 +897,77 @@ namespace MovieCollection
 
         private void cboAdminType_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-           
+           if(cboAdminType.SelectedValue == cboAdminTypeDefault)
+            {
+               
+            }
             if (cboAdminType.SelectedValue == cboAdminTypeMovie)
             {
-             
+                lblAdminOther.Content = "Name:";
+                imgAdminMovie.Visibility = Visibility.Visible;
+                imgAdminUser.Visibility = Visibility.Hidden;
             }
             if (cboAdminType.SelectedValue == cboAdminTypeUser)
             {
-                MessageBox.Show("User");
+                lblAdminOther.Content = "Email:";
+                imgAdminMovie.Visibility = Visibility.Hidden;
+                imgAdminUser.Visibility = Visibility.Visible;
             }
+        }
+
+        private void cboAdminStatus_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            
+            if (cboAdminStatus.SelectedValue == cboAdminStatusDefault)
+            {
+                if(lstAdmin != null)
+                {
+                    lstAdmin.Items.Clear();
+                    
+                    txtAdminID.Text = "";
+                    txtAdminOther.Text = "";
+                    imgAdminMovie.Source = null;
+                    imgAdminUser.Source = null;
+                
+                }
+            }
+            if(cboAdminStatus.SelectedValue == cboAdminStatusActive)
+            {
+                txtAdminID.Text = "";
+                txtAdminOther.Text = "";
+                imgAdminMovie.Source = null;
+                imgAdminUser.Source = null;
+                btnAdminLeft.Content = "Deactivate";
+                
+                if (lstAdmin != null)
+                {
+                    lstAdmin.Items.Clear();
+                }
+                foreach(MovieVM movie in _movieVMs)
+                {
+                    lstAdmin.Items.Add(movie.title);
+                }
+            }
+            if(cboAdminStatus.SelectedValue == cboAdminStatusInactive)
+            {
+                txtAdminID.Text = "";
+                txtAdminOther.Text = "";
+                imgAdminMovie.Source = null;
+                imgAdminUser.Source = null;
+                btnAdminLeft.Content = "Reactivate";
+                
+                if (lstAdmin != null)
+                {
+                    lstAdmin.Items.Clear();
+                }
+                foreach (Movie movie in _inactiveMovies)
+                {
+                    lstAdmin.Items.Add(movie.title);
+                }
+            }
+
+            
+
         }
     }
 }
