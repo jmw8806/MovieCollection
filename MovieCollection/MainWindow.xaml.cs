@@ -65,7 +65,7 @@ namespace MovieCollection
         {
             _userManager = new UserManager();
             _movieManager = new MovieManager();
-            _random_id = generate_random_id(_movieManager.count_all_titles());
+           
             _movies = new List<Movie>();
             _movieVMs = new List<MovieVM>();
             _genres = new List<string>();
@@ -77,8 +77,7 @@ namespace MovieCollection
 
             try
             {
-                _homeMovie = _movieManager.GetMovieByTitleID(_random_id);
-                display_home_movie(_homeMovie);
+               
                 _movies = _movieManager.GetAllMovies();
                 _movieVMs = _movieManager.GetAllMovieVMs();
                 _genres = _movieManager.GetAllGenres();
@@ -88,6 +87,8 @@ namespace MovieCollection
                 _movieYears = getMovieYears(_movieVMs);
                 _searchLanguages = getCurrentMovieLanguages(_movieVMs);
                 _searchGenres = getCurrentMovieGenres(_movieVMs);
+                _homeMovie = _movieManager.GetMovieByTitleID(_movieManager.randomMovieID(_movieVMs));
+                display_home_movie(_homeMovie);
             }
             catch (Exception ex)
             {
@@ -112,10 +113,7 @@ namespace MovieCollection
             cboSearchLanguage.ItemsSource = _searchLanguages;
             cboSearchYear.ItemsSource = _movieYears;
             cboAddYear.ItemsSource = getYears(1888);
-            foreach(var movie in _movieVMs)
-            {
-                lstAdmin.Items.Add(movie.title);
-            }
+          
         }
 
         private void btnLoginSubmit_Click(object sender, RoutedEventArgs e)
@@ -199,26 +197,37 @@ namespace MovieCollection
         private void lstAllMovies_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
 
-            MovieVM movie = null;
             
-            foreach (MovieVM movieVM in _movieVMs)
+            
+                MovieVM movie = null;
+            try
             {
-                if (lstAllMovies.SelectedValue.ToString() == movieVM.title)
-                {
-                    movie = movieVM;
-                    _selectedID = movie.titleID;
-                }
-            }
 
-            lblAllMoviesTitle.Text = movie.title;
-            lblAllMoviesYear.Content = movie.year;
-            lblAllMoviesRating.Content = movie.rating;
-            lblAllMoviesRuntime.Content = movie.runtime.ToString() + " mins";
-            lblAllMoviesCriterion.Content = "Criterion: " + criterionOutputConverter(movie.isCriterion);
-            imgAllMoviesImage.Source = displayImageFromURL(movie.imgName);
-            lblAllMoviesFormats.Content = displayList(movie.formats);
-            lblAllMoviesGenres.Content = displayList(movie.genres);
-            lblAllMoviesLanguages.Content = displayList(movie.languages);
+                foreach (MovieVM movieVM in _movieVMs)
+                {
+                    if (lstAllMovies.SelectedItem != null && lstAllMovies.SelectedValue.ToString() == movieVM.title)
+                    {
+                        movie = movieVM;
+                        _selectedID = movie.titleID;
+                        lblAllMoviesTitle.Text = movie.title;
+                        lblAllMoviesYear.Content = movie.year;
+                        lblAllMoviesRating.Content = movie.rating;
+                        lblAllMoviesRuntime.Content = movie.runtime.ToString() + " mins";
+                        lblAllMoviesCriterion.Content = "Criterion: " + criterionOutputConverter(movie.isCriterion);
+                        imgAllMoviesImage.Source = displayImageFromURL(movie.imgName);
+                        lblAllMoviesFormats.Content = displayList(movie.formats);
+                        lblAllMoviesGenres.Content = displayList(movie.genres);
+                        lblAllMoviesLanguages.Content = displayList(movie.languages);
+                    }
+                }
+
+               
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("No Movie Selected");
+            }
+            
         }
 
         
@@ -370,22 +379,23 @@ namespace MovieCollection
 
             foreach (MovieVM movieVM in _searchResults)
             {
-                if (lstSearchResults.SelectedValue.ToString() == movieVM.title)
+                if (lstSearchResults.SelectedItem != null && lstSearchResults.SelectedValue.ToString() == movieVM.title)
                 {
                     movie = movieVM;
                     _selectedID = movieVM.titleID;
+                    txtResultTitle.Text = movie.title;
+                    txtResultYear.Text = "Year: " + movie.year.ToString();
+                    txtResultRating.Text = "Rating: " + movie.rating;
+                    txtResultFormats.Text = displayList(movie.formats);
+                    txtResultLanguages.Text = displayList(movie.languages);
+                    txtResultGenres.Text = displayList(movie.genres);
+                    txtResultRuntime.Text = movie.runtime.ToString() + "mins";
+                    txtResultCriterion.Text = "Criterion: " + criterionOutputConverter(movie.isCriterion);
+                    imgSearch.Source = displayImageFromURL(movie.imgName);
                 }
             }
 
-            txtResultTitle.Text = movie.title;
-            txtResultYear.Text = "Year: "+ movie.year.ToString();
-            txtResultRating.Text = "Rating: " + movie.rating;
-            txtResultFormats.Text = displayList(movie.formats);
-            txtResultLanguages.Text = displayList(movie.languages);
-            txtResultGenres.Text = displayList(movie.genres);
-            txtResultRuntime.Text = movie.runtime.ToString() +"mins";
-            txtResultCriterion.Text = "Criterion: " + criterionOutputConverter(movie.isCriterion);
-            imgSearch.Source = displayImageFromURL(movie.imgName);
+           
         }
 
         private void mnuExit_Click(object sender, RoutedEventArgs e)
@@ -462,9 +472,14 @@ namespace MovieCollection
                     if (warning == MessageBoxResult.OK)
                     {
                         isDeactivated = _movieManager.UpdateMovieIsActive(_selectedID, false);
+                        
                         refreshMovieList();
                         resetForms();
                         refreshSearchCBOs();
+                        
+                       
+
+                        
                         MessageBox.Show("So long, farewell, auf Wiedersehen, goodbye! \n\n Movie has been removed.", "Success", MessageBoxButton.OK);
                     }
                     else
@@ -646,6 +661,7 @@ namespace MovieCollection
             lblAllMoviesLanguages.Content = string.Empty;
             lblAllMoviesRuntime.Content = string.Empty;
             lblAllMoviesCriterion.Content = string.Empty;
+            cboAdminType.SelectedIndex = -1;
         }
 
         // clears lists that display all movies, gets all movies from database and adds them to _movieVMs list.
@@ -818,7 +834,7 @@ namespace MovieCollection
 
         private void lstAdmin_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            if(cboAdminType.SelectedValue == cboAdminTypeMovie)
+            if(cboAdminType.SelectedValue == cboAdminTypeMovie && cboAdminStatus.SelectedValue == cboAdminStatusActive)
             {
                 MovieVM movie = null;
                 foreach (MovieVM movieVM in _movieVMs)
@@ -852,6 +868,21 @@ namespace MovieCollection
             _searchGenres = new List<string>();
             _searchGenres = getCurrentMovieGenres(_movieVMs);
             cboSearchGenre.ItemsSource = _searchGenres;
+        }
+
+     
+
+        private void cboAdminType_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+           
+            if (cboAdminType.SelectedValue == cboAdminTypeMovie)
+            {
+             
+            }
+            if (cboAdminType.SelectedValue == cboAdminTypeUser)
+            {
+                MessageBox.Show("User");
+            }
         }
     }
 }

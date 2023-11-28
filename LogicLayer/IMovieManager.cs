@@ -21,6 +21,15 @@ namespace LogicLayer
         string GetImageURLByMovieID(int movieID);
         List<MovieVM> GetAllMovieVMs();
         List<string> GetAllRatings();
+        int AddMovieGetNewID(string title, int year, string rating, int runtime, bool isCriterion, string notes);
+        int AddLanguage(int movieID, string language);
+        int AddGenre(int movieID, string genre);
+        int AddMovieImage(int movieID, string imageURL);
+        int AddMovieFormat(int movieID, string format);
+        int RemoveMovieGenre(int movieID);
+        int RemoveMovieLanguage(int movieID);
+        int UpdateMovieImage(int movieID, string newURL, string oldURL);
+        
         bool AddMovie(string title, int year, string rating, int runtime, bool isCriterion, string notes, string language, string genre, string fileName, string format);
         bool UpdateMovie(MovieVM movie, string newTitle, int newYear, string newRating, int newRuntime, bool newCriterion, string newNotes,
             List<string> newLanguages, List<string> newGenres, string newURL);

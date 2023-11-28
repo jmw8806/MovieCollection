@@ -46,7 +46,7 @@ namespace LogicLayer
         public int count_all_titles()
         {
             int count = 0;
-            count = _movieAccessor.count_all_titles();
+            count = _movieAccessor.count_all_titles() - 1;
             return count;
         }
 
@@ -384,5 +384,172 @@ namespace LogicLayer
             }
             return success;
         }
+
+        public int AddMovieGetNewID(string title, int year, string rating, int runtime, bool isCriterion, string notes)
+        {
+            int newID = 0;
+
+            try
+            {
+                newID = _movieAccessor.AddMovieReturnNewID(title, year, rating, runtime, isCriterion, notes);
+                if (newID == 0)
+                {
+                    throw new ArgumentException("Movie not added, no ID returned");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Error adding movie and retrieving new ID");
+            }
+       
+            return newID;
+        }
+
+        public int AddLanguage(int movieID, string language)
+        {
+            int rows = 0;
+            try
+            {
+               rows = _movieAccessor.AddMovieLanguage(movieID, language);
+               if(rows == 0)
+                {
+                    throw new ArgumentException("Language not added at this time");
+                }
+            }
+            catch(Exception ex)
+            {
+               throw new ApplicationException("Error adding language", ex);
+            }
+
+            return rows;
+        }
+
+        public int AddGenre(int movieID, string genre)
+        {
+            int rows = 0;
+            try
+            {
+                rows = _movieAccessor.AddMovieGenre(movieID, genre);
+                if(rows == 0)
+                {
+                    throw new ArgumentException("Genre not added at this time");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Error adding genre", ex);
+            }
+            return rows;
+        }
+
+        public int AddMovieImage(int movieID, string imageURL)
+        {
+            int rows = 0;
+            try
+            {
+                rows = _movieAccessor.AddMovieGenre(movieID, imageURL);
+                if (rows == 0)
+                {
+                    throw new ArgumentException("Image not added at this time");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Error adding image", ex);
+            }
+
+            return rows;
+        }
+
+        public int AddMovieFormat(int movieID, string format)
+        {
+            int rows = 0;
+            try
+            {
+                rows = _movieAccessor.AddMovieGenre(movieID, format);
+                if (rows == 0)
+                {
+                    throw new ArgumentException("Format not added at this time");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Error adding format", ex);
+            }
+            return rows;
+        }
+
+        public int RemoveMovieGenre(int movieID) 
+        {
+            int rows = 0;
+            try
+            {
+
+                rows = _movieAccessor.RemoveMovieGenre(movieID);
+                if (rows == 0)
+                {
+                    throw new ArgumentException("Genre not removed at this time");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Error removing genre", ex);
+            }
+            return rows;
+        }
+
+        public int RemoveMovieLanguage(int movieID)
+        {
+            int rows = 0;
+            try
+            {
+
+                rows = _movieAccessor.RemoveMovieLanguage(movieID);
+                if (rows == 0)
+                {
+                    throw new ArgumentException("Language not removed at this time");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Error removing language", ex);
+            }
+            return rows;
+        }
+
+        public int UpdateMovieImage(int movieID, string newURL, string oldURL)
+        {
+            int rows = 0;
+
+            try
+            {
+                rows = _movieAccessor.UpdateMovieImageURL(movieID, newURL, oldURL);
+                
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Could not change image at this time.", ex);
+            }
+            if(rows == 0)
+            {
+                throw new ArgumentException("Not able to change image at this time");
+            }
+            return rows;
+        }
+
+        public int randomMovieID(List<MovieVM> movies)
+        {
+            Random random = new Random();
+            int randomID = 0;
+            List<int> movieIDs = new List<int>();
+            foreach(MovieVM movie in movies) 
+            {
+                movieIDs.Add(movie.titleID);
+            }
+            int randomIndex = random.Next(movieIDs.Count);
+            randomID = movieIDs[randomIndex];
+            return randomID;
+        }
+        
     }
 }

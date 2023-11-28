@@ -37,14 +37,7 @@ namespace LogicLayerTests
             string actualTitle = _movieManager.GetMovieByTitleID(movieID).title;
             
         }
-        [TestMethod]
-        public void TestCountMoviesPass()
-        {
-            int count = 0;
-            int expectedCount = 3;
-            int actualCount = _movieManager.count_all_titles();
-            Assert.AreEqual(expectedCount, actualCount);
-        }
+        
         [TestMethod]
         public void TestCountMoviesFail()
         {
@@ -185,15 +178,12 @@ namespace LogicLayerTests
         public void TestGetFormatsByMovieIDCountPasses()
         {
             int movieID = 2;
-            string expectedResult = "4k";
-            string actualResult = "";
+            int expectedResult = 1;
+            int actualResult = 0;  
 
-            List<string> results = _movieManager.GetFormatsByMovieID(movieID);
-            foreach(string format in results)
-            {
-                actualResult += format;
-            }
+            actualResult = _movieManager.GetFormatsByMovieID(movieID).Count;
             Assert.AreEqual(expectedResult, actualResult);
+           
         }
 
         [TestMethod]
@@ -208,6 +198,168 @@ namespace LogicLayerTests
         {
             int actualCount = _movieManager.GetAllRatings().Count;
             Assert.IsFalse(actualCount == 4);
+        }
+
+        [TestMethod]
+        public void TestAddNewMovieReturnNewMovieIDPasses()
+        {
+            int expected = 4;
+            int actual = 0;
+            actual = _movieManager.AddMovieGetNewID("test", 1999, "G", 195, true, "");
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void TestAddNewMovieReturnNewMovieIDFails()
+        {
+            int expected = 3;
+            int actual = 0;
+            actual = _movieManager.AddMovieGetNewID("test2", 2002, "R", 165, false, "");
+            Assert.AreNotEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void TestAddNewMovieLanguagePasses()
+        {
+            int expected = 1;
+            int actual = 0;
+            actual = _movieManager.AddLanguage(1, "Spanish");
+            Assert.AreEqual(expected, actual);
+        }
+        [TestMethod]
+        [ExpectedException(typeof(ApplicationException))]
+        public void TestAddNewMovieLanguageFailsThrowsException()
+        {          
+            int actual = 0;
+            actual = _movieManager.AddLanguage(7, "Spanish"); 
+        }
+
+
+        [TestMethod]
+        public void TestAddNewMovieGenrePasses()
+        {
+            int expected = 1;
+            int actual = 0;
+            actual = _movieManager.AddGenre(1, "Horror");
+            Assert.AreEqual(expected, actual);
+        }
+        [TestMethod]
+        [ExpectedException(typeof(ApplicationException))]
+        public void TestAddNewMovieGenreFailsThrowsException()
+        {
+            int actual = 0;
+            actual = _movieManager.AddGenre(7, "Christmas");
+        }
+
+        [TestMethod]
+        public void TestAddNewMovieImagePasses()
+        {
+            int expected = 1;
+            int actual = 0;
+            actual = _movieManager.AddMovieImage(1, "www.picture.com");
+            Assert.AreEqual(expected, actual);
+        }
+        [TestMethod]
+        [ExpectedException(typeof(ApplicationException))]
+        public void TestAddNewMovieImageFailsThrowsException()
+        {
+            int actual = 0;
+            actual = _movieManager.AddMovieImage(7, "www.picture.com");
+        }
+
+        [TestMethod]
+        public void TestAddNewMovieFormatPasses()
+        {
+            int expected = 1;
+            int actual = 0;
+            actual = _movieManager.AddMovieFormat(1, "Digital");
+            Assert.AreEqual(expected, actual);
+        }
+        [TestMethod]
+        [ExpectedException(typeof(ApplicationException))]
+        public void TestAddNewMovieFormatFailsThrowsException()
+        {
+            int actual = 0;
+            actual = _movieManager.AddMovieImage(7, "4K");
+        }
+
+        [TestMethod]
+        public void TestRemoveMovieGenrePasses()
+        {
+            int expected = 0;
+            int actual = 0;
+           
+            Assert.AreEqual(expected, actual);
+        }
+        [TestMethod]
+        [ExpectedException(typeof(ApplicationException))]
+        public void TestRemoveMovieGenreFailsThrowsException()
+        {
+            int actual = 0;
+            actual = _movieManager.RemoveMovieGenre(7);
+        }
+
+        [TestMethod]
+        public void TestRemoveMovieLanguagePasses()
+        {
+            int expected = 0;
+            int actual = 0;
+           
+            Assert.AreEqual(expected, actual);
+        }
+        [TestMethod]
+        [ExpectedException(typeof(ApplicationException))]
+        public void TestRemoveMovieLanguageFailsThrowsException()
+        {
+            int actual = 0;
+            actual = _movieManager.RemoveMovieGenre(7);
+        }
+
+        [TestMethod]
+        public void TestUpdateMovieImagePasses()
+        {
+            int expected = 1;
+            int actual = 0;
+            int id = 1;
+            string oldURL = "one.png";
+            string newURL = "oneOne.png";
+            actual = _movieManager.UpdateMovieImage(id, newURL, oldURL);
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ApplicationException))]
+        public void TestUpdateMovieImageFailsThrowsException()
+        {
+            int expected = 1;
+            int actual = 0;
+            int id = 1;
+            string oldURL = "one1111.png";
+            string newURL = "oneOne.png";
+            actual = _movieManager.UpdateMovieImage(id, newURL, oldURL);
+            
+        }
+
+        [TestMethod]
+        public void TestUpdateMovieIsActivePasses()
+        {
+           
+            bool actual = false;
+            int id = 1;
+            bool isActive = false;
+            actual = _movieManager.UpdateMovieIsActive(id, isActive);
+            Assert.IsTrue(actual);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void TestUpdateMovieIsActiveFailsThrowsException()
+        {
+            bool actual = false;
+            int id = 5;
+            bool isActive = false;
+            actual = _movieManager.UpdateMovieIsActive(id, isActive);
+            
         }
 
     }

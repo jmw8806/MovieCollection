@@ -433,7 +433,7 @@
                         </Grid.ColumnDefinitions>
                         <Label Content="Type:" Grid.Row="1" Grid.Column="1" FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0 0 5 0"/>
                         <ComboBox x:Name="cboAdminType" Grid.Row="1" Grid.Column="2" Height="35" VerticalAlignment="Center" Margin="0 0 5 0" Padding="2" 
-                                  VerticalContentAlignment="Center" HorizontalContentAlignment="Center" SelectedIndex="0">
+                                  VerticalContentAlignment="Center" HorizontalContentAlignment="Center" SelectedIndex="0"  SelectionChanged="cboAdminType_SelectionChanged">
                             <ComboBoxItem x:Name="cboAdminTypeMovie" Content="Movie"/>
                             <ComboBoxItem x:Name="cboAdminTypeUser" Content="User"/>
                         </ComboBox>

@@ -17,6 +17,7 @@ namespace DataAccessFakes
         private List<string> formats = new List<string>();
         private List<string> locations = new List<string>();
         private List<string> ratings = new List<string>();
+        private int movieCount = 0;
         public MovieAccessorFake() {
             //MovieVM
             fakeMovies.Add(new MovieVM()
@@ -132,9 +133,11 @@ namespace DataAccessFakes
             languages.Add("English");
             languages.Add("Spanish");
             languages.Add("French");
+
+            movieCount = fakeMovies.Count;
         }
 
-
+        
 
         public MovieVM SelectMovieByID(int movieID)
         {
@@ -232,15 +235,18 @@ namespace DataAccessFakes
             {
                 if (movie.titleID == movieID)
                 {
-                    formats = movie.formats;
-                    break;
+                    foreach(string format in movie.formats)
+                    {
+                        formats.Add(format);
+                    }
+                    
                 }
                 else
                 {
                     throw new ArgumentException("Movie not found");
                 }
             }
-            if (languages == null)
+            if (formats == null)
             {
                 throw new ArgumentException("No formats found");
             }
@@ -281,42 +287,153 @@ namespace DataAccessFakes
 
         public int AddMovieReturnNewID(string title, int year, string rating, int runtime, bool criterion, string notes)
         {
-            throw new NotImplementedException();
+            int newID = movieCount + 1;
+            fakeMovie.Add(new Movie()
+            {
+                titleID = 1,
+                title = title,
+                year = year,
+                rating = rating,
+                isCriterion = criterion,
+                notes = "",
+                isActive = true,
+            });
+            return newID;
         }
 
         public int AddMovieLanguage(int id, string language)
         {
-            throw new NotImplementedException();
+            int rows = 0;
+
+            foreach(MovieVM movie in fakeMovies)
+            {
+                if(movie.titleID == id)
+                {
+                    movie.languages.Add(language);
+                    rows++;
+                }
+              
+            }
+            if(rows == 0)
+            {
+                throw new ApplicationException("Error adding language");
+            }
+
+            return rows;
         }
 
         public int AddMovieGenre(int id, string genre)
         {
-            throw new NotImplementedException();
+            int rows = 0;
+
+            foreach (MovieVM movie in fakeMovies)
+            {
+                if (movie.titleID == id)
+                {
+                    movie.genres.Add(genre);
+                    rows++;
+                }
+
+            }
+            if (rows == 0)
+            {
+                throw new ApplicationException("Error adding genre");
+            }
+
+            return rows;
         }
 
         public int AddMovieImage(int id, string fileName)
         {
-            throw new NotImplementedException();
+            int rows = 0;
+
+            foreach (MovieVM movie in fakeMovies)
+            {
+                if (movie.titleID == id)
+                {
+                    movie.imgName = fileName;
+                    rows++;
+                }
+
+            }
+            if (rows == 0)
+            {
+                throw new ApplicationException("Error adding genre");
+            }
+
+            return rows;
         }
 
         public int AddMovieFormat(int id, string format)
         {
-            throw new NotImplementedException();
+            int rows = 0;
+
+            foreach (MovieVM movie in fakeMovies)
+            {
+                if (movie.titleID == id)
+                {
+                    movie.formats.Add(format);
+                    rows++;
+                }
+
+            }
+            if (rows == 0)
+            {
+                throw new ApplicationException("Error adding genre");
+            }
+
+            return rows;
         }
 
         public int RemoveMovieGenre(int id)
         {
-            throw new NotImplementedException();
+            int genreCount = 0;
+
+            foreach(MovieVM movie in fakeMovies)
+            {
+                if(movie.titleID == id)
+                {
+                    movie.genres.Clear();
+                    genreCount = movie.genres.Count;
+                }
+            }
+            
+            return genreCount;
         }
 
         public int RemoveMovieLanguage(int id)
         {
-            throw new NotImplementedException();
+            int languageCount = 0;
+
+            foreach (MovieVM movie in fakeMovies)
+            {
+                if (movie.titleID == id)
+                {
+                    movie.genres.Clear();
+                    languageCount = movie.genres.Count;
+                }
+            }
+
+            return 0;
         }
 
         public int UpdateMovieImageURL(int id, string newURL, string oldURL)
         {
-            throw new NotImplementedException();
+            int rows = 0;
+            foreach (MovieVM movie in fakeMovies)
+            {
+                if(movie.titleID == id && movie.imgName == oldURL)
+                {
+                    movie.imgName = newURL;
+                    rows++;
+                }
+            }
+            if(rows == 0)
+            {
+                throw new ArgumentException("Movie image not updated at this time");
+            }
+
+            return rows;
         }
 
         public int UpdateTitleByMovieID(int id, string newTitle, int newYear, string newRating, int newRuntime, bool newCriterion, string newNotes, string oldTitle, int oldYear, string oldRating, int oldRuntime, bool oldCriterion, string oldNotes)
@@ -326,7 +443,22 @@ namespace DataAccessFakes
 
         public int UpdateMovieIsActive(int id, bool isActive)
         {
-            throw new NotImplementedException();
+            int rows = 0;
+
+            foreach (MovieVM movie in fakeMovies)
+            {
+                if (movie.titleID == id)
+                {
+                    movie.isActive = isActive;
+                    rows++;
+                }
+            }
+            if (rows == 0)
+            {
+                throw new ArgumentException("Movie status not updated");
+            }
+
+            return rows;
         }
     }
 }
