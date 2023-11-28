@@ -40,7 +40,7 @@ namespace MovieCollection
         List<string> _searchGenres = null;
         List<User> _activeUsers = null;
         List<User> _inactiveUsers = null;
-
+        int _selectedUserID = 0;
         public MainWindow()
         {
 
@@ -876,6 +876,45 @@ namespace MovieCollection
                         imgAdminMovie.Source = displayImageFromURL(imgURL);
                     }
                 }
+                if(cboAdminType.SelectedValue == cboAdminTypeUser)
+                {
+                    if(cboAdminStatus.SelectedValue == cboAdminStatusActive)
+                    {
+                        User selectedUser = null;
+                        foreach(User user in _activeUsers)
+                        {
+                            if(lstAdmin.SelectedValue.ToString() == user.email)
+                            {
+                                selectedUser = user;
+                            }                            
+                        }
+                        if(selectedUser != null) 
+                        {
+                            txtAdminID.Text = selectedUser.userID.ToString();
+                            txtAdminOther.Text = selectedUser.email;
+                            imgAdminUser.Source = displayImageFromURL(selectedUser.imgURL);
+                            _selectedUserID = selectedUser.userID;
+                        }
+                    }
+                    if (cboAdminStatus.SelectedValue == cboAdminStatusInactive)
+                    {
+                        User selectedUser = null;
+                        foreach (User user in _inactiveUsers)
+                        {
+                            if (lstAdmin.SelectedValue.ToString() == user.email)
+                            {
+                                selectedUser = user;
+                            }
+                        }
+                        if (selectedUser != null)
+                        {
+                            txtAdminID.Text = selectedUser.userID.ToString();
+                            txtAdminOther.Text = selectedUser.email;
+                            imgAdminUser.Source = displayImageFromURL(selectedUser.imgURL);
+                            _selectedUserID = selectedUser.userID;
+                        }
+                    }
+                }
                 
             }
             catch (Exception ex)
@@ -1078,6 +1117,38 @@ namespace MovieCollection
                         _movieVMs.Clear();
                         _movieVMs = _movieManager.GetAllMovieVMs();
                         _inactiveMovies = _movieManager.GetAllInactiveMovies();
+                    }
+                }
+                if (cboAdminType.SelectedValue == cboAdminTypeUser)
+                {
+                    
+                    if(cboAdminStatus.SelectedValue == cboAdminStatusActive)
+                    {
+                        _userManager.UpdateUserIsActive(_selectedUserID, false);
+                        MessageBox.Show("User has been deactivated");
+                        _activeUsers.Clear();
+                        _inactiveUsers.Clear();
+                        _activeUsers = _userManager.GetActiveUsers();
+                        _inactiveUsers = _userManager.GetInactiveUsers();
+                        lstAdmin.Items.Clear();
+                        foreach(var user in _activeUsers) 
+                        {
+                            lstAdmin.Items.Add(user.email);
+                        }
+                    }
+                    if (cboAdminStatus.SelectedValue == cboAdminStatusInactive)
+                    {
+                        _userManager.UpdateUserIsActive(_selectedUserID, true);
+                        MessageBox.Show("User has been reactivated");
+                        _activeUsers.Clear();
+                        _inactiveUsers.Clear();
+                        _activeUsers = _userManager.GetActiveUsers();
+                        _inactiveUsers = _userManager.GetInactiveUsers();
+                        lstAdmin.Items.Clear();
+                        foreach (var user in _inactiveUsers)
+                        {
+                            lstAdmin.Items.Add(user.email);
+                        }
                     }
                 }
             }

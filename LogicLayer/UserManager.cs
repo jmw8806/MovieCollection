@@ -185,5 +185,28 @@ namespace LogicLayer
             }
             return users;
         }
+
+        public bool UpdateUserIsActive(int userID, bool isActive)
+        {
+            int rows = 0;
+            bool result = false;
+            try
+            {
+                rows = _userAccessor.UpdateUserIsActive(userID, isActive);
+                if(rows != 0)
+                {
+                    result = true;
+                }
+                else
+                {
+                    throw new ArgumentException("Error updating user");
+                }
+            }
+            catch(Exception ex)
+            {
+                throw new ApplicationException("Error updating user status", ex);
+            }
+            return result;
+        }
     }
 }

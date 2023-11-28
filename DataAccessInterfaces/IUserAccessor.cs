@@ -15,5 +15,6 @@ namespace DataAccessInterfaces
         int UpdateUser(int userID, string newFName, string newLName, string newEmail, string newImgURL, string oldFName, string oldLName, string oldEmail);
         List<User> GetInactiveUsers();
         List<User> GetActiveUsers();
+        int UpdateUserIsActive(int userID, bool isActive);
     }
 }

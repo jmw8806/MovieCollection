@@ -15,5 +15,6 @@ namespace LogicLayer
         bool UpdateUser(UserVM userVM, string newFName, string newLName, string newEmail, string newImageURL);
         List<User> GetInactiveUsers();
         List<User> GetActiveUsers();
+        bool UpdateUserIsActive(int userID, bool isActive);
     }
 }

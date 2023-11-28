@@ -163,5 +163,24 @@ namespace DataAccessFakes
             }
             return users;
         }
+
+        public int UpdateUserIsActive(int userID, bool isActive)
+        {
+            int rows = 0;
+            foreach(User user in fakeUser)
+            {
+                if(user.userID == userID) 
+                { 
+                    user.isActive = isActive;
+                    rows++;
+                    break;
+                }
+                else
+                {
+                    throw new ArgumentException("No such user found");
+                }
+            }
+            return rows;
+        }
     }
 }

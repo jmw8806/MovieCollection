@@ -145,5 +145,14 @@ namespace LogicLayerTests
             actualResult = users.Count;
             Assert.AreNotEqual(expectedResult, actualResult);
         }
+
+        [TestMethod]
+        public void TestUpdateUserIsActivePasses()
+        {
+            bool result = false;
+            int userID = 10001;
+            result = _userManager.UpdateUserIsActive(userID, true);
+            Assert.IsTrue(result);
+        }
     }
 }

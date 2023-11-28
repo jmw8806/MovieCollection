@@ -280,5 +280,39 @@ namespace DataAccessLayer
             }
             return users;
         }
+
+        public int UpdateUserIsActive(int userID, bool isActive)
+        {
+            int rows = 0;
+
+            var conn = DBConnectionProvider.GetConnection();
+            var cmdText = "sp_update_users_isActive";
+            var cmd = new SqlCommand(cmdText, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Add("@userID", SqlDbType.Int);
+            cmd.Parameters.Add("@isActive", SqlDbType.Bit);
+
+            cmd.Parameters["@userID"].Value = userID;
+            cmd.Parameters["@isActive"].Value = isActive;
+
+            try
+            {
+                conn.Open();
+                rows = cmd.ExecuteNonQuery();
+                if (rows == 0)
+                {
+                    throw new ApplicationException("User isActive status change failed");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return rows;
+        }
     }
 }
