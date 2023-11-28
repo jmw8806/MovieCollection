@@ -167,5 +167,23 @@ namespace LogicLayer
             }
             return users;
         }
+
+        public List<User> GetActiveUsers()
+        {
+            List<User> users = null;
+            try
+            {
+                users = _userAccessor.GetActiveUsers();
+                if (users == null)
+                {
+                    throw new ArgumentException("No active users found");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Error retrieving users", ex);
+            }
+            return users;
+        }
     }
 }

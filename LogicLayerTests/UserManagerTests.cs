@@ -123,5 +123,27 @@ namespace LogicLayerTests
             actualResult = users.Count;
             Assert.AreNotEqual(expectedResult, actualResult);
         }
+
+        [TestMethod]
+        public void TestGetActiveUsersCountPasses()
+        {
+            List<User> users = null;
+            int expectedResult = 1;
+            int actualResult = 0;
+            users = _userManager.GetActiveUsers();
+            actualResult = users.Count;
+            Assert.AreEqual(expectedResult, actualResult);
+        }
+
+        [TestMethod]
+        public void TestGetActiveUsersCountFails()
+        {
+            List<User> users = null;
+            int expectedResult = 2;
+            int actualResult = 0;
+            users = _userManager.GetActiveUsers();
+            actualResult = users.Count;
+            Assert.AreNotEqual(expectedResult, actualResult);
+        }
     }
 }

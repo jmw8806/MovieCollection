@@ -145,5 +145,23 @@ namespace DataAccessFakes
             return users;
 
         }
+
+        public List<User> GetActiveUsers()
+        {
+            List<User> users = new List<User>();
+
+            foreach (var user in fakeUser)
+            {
+                if (user.isActive == true)
+                {
+                    users.Add(user);
+                }
+            }
+            if (users == null)
+            {
+                throw new ArgumentException("No inactive users found");
+            }
+            return users;
+        }
     }
 }

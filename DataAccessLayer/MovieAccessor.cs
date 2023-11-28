@@ -867,7 +867,7 @@ namespace DataAccessLayer
                 if (reader.HasRows)
                 {
 
-                    reader.Read();
+                    
                     while (reader.Read())
                     {
                         movies.Add(new Movie()
