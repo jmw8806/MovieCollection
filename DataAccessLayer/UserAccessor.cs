@@ -314,5 +314,39 @@ namespace DataAccessLayer
             }
             return rows;
         }
+
+        public int UpdatePasswordHash(string email, string oldPasswordHash, string newPasswordHash)
+        {
+            int rows = 0;
+            var conn = DBConnectionProvider.GetConnection();
+            var cmdText = "sp_update_user_password";
+            var cmd = new SqlCommand(cmdText, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.Add("@email", SqlDbType.NVarChar, 100);
+            cmd.Parameters.Add("@oldPasswordHash", SqlDbType.NVarChar, 100);
+            cmd.Parameters.Add("@newPasswordHash", SqlDbType.NVarChar, 100);
+
+            cmd.Parameters["@email"].Value = email;
+            cmd.Parameters["@oldPasswordHash"].Value = oldPasswordHash;
+            cmd.Parameters["@newPasswordHash"].Value = newPasswordHash;
+
+            try
+            {
+                conn.Open();
+                rows = cmd.ExecuteNonQuery();
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return rows;
+        }
     }
 }

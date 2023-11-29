@@ -182,5 +182,28 @@ namespace DataAccessFakes
             }
             return rows;
         }
+
+        public int UpdatePasswordHash(string email, string oldPasswordHash, string newPasswordHash)
+        {
+            int rows = 0;
+
+            for (int i = 0; i < fakeUsers.Count; i++)
+            {
+                if (fakeUsers[i].email == email)
+                {
+                    if (passwordHashes[i] == oldPasswordHash)
+                    {
+                        passwordHashes[i] = newPasswordHash;
+                        rows += 1;
+                    }
+                }
+            }
+            if (rows != 1) // user not found
+            {
+                throw new ArgumentException("Bad email or password");
+            }
+
+            return rows;
+        }
     }
 }

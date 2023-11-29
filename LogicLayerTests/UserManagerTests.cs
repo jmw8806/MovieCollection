@@ -154,5 +154,35 @@ namespace LogicLayerTests
             result = _userManager.UpdateUserIsActive(userID, true);
             Assert.IsTrue(result);
         }
+
+        [TestMethod]
+        public void TestResetPasswordWorksCorrectly()
+        {
+           
+            string email = "jane@gmail.com";
+            string password = "password";
+            string newPassword = "password1";
+            bool expectedResult = true;
+            bool actualResult = false;
+
+            actualResult = _userManager.ResetPassword(email, password, newPassword);
+
+    
+            Assert.AreEqual(expectedResult, actualResult);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ApplicationException))]
+        public void TestResetPasswordFailsWithBadPassword()
+        {
+      
+            string email = "jane@gmail.com";
+            string password = "notapassword";
+            string newPassword = "password";
+            bool actualResult = false;
+
+            actualResult = _userManager.ResetPassword(email, password, newPassword);
+
+        }
     }
 }

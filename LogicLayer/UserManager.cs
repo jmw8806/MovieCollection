@@ -208,5 +208,25 @@ namespace LogicLayer
             }
             return result;
         }
+
+        public bool ResetPassword(string email, string oldPassword, string newPassword)
+        {
+            bool result = false;
+
+            oldPassword = HashSha256(oldPassword); 
+            newPassword = HashSha256(newPassword);
+
+            try
+            {
+                result = (1 == _userAccessor.UpdatePasswordHash(email, oldPassword, newPassword));
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Password update failed", ex);
+            }
+
+
+            return result;
+        }
     }
 }

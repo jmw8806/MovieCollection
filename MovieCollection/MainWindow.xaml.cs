@@ -143,7 +143,36 @@ namespace MovieCollection
             try
             {
                 _loggedInUser = _userManager.LoginUser(email, password);
+                if (pwdPassword.Password.ToString() == "password")
+                {
+                    
+                    UpdatePassword passwordUpdate = new UpdatePassword(_loggedInUser.email);
 
+                    var result = passwordUpdate.ShowDialog();
+                    if (result == true)
+                    {
+                        MessageBox.Show("Password Updated.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                    }
+                    else
+                    {
+                        MessageBox.Show("Update Canceled. Logging Out", "Password Not Changed", MessageBoxButton.OK, MessageBoxImage.Hand);
+                        _loggedInUser = null;
+                        lblGreeting.Content = "Please Log In to Continue to the Movie Collection.";
+                        txtEmail.Focus();
+                        txtEmail.Visibility = Visibility.Visible;
+                        pwdPassword.Visibility = Visibility.Visible;
+                        btnLoginSubmit.Visibility = Visibility.Visible;
+                        btnLoginSubmit.IsDefault = true;
+                        btnLoginCancel.Content = "Cancel";
+                        lblEmail.Visibility = Visibility.Visible;
+                        lblPassword.Visibility = Visibility.Visible;
+                        imgProfilePic.Visibility = Visibility.Hidden;
+                        hideMenuItems();
+                        hideTabs();
+                        return;
+                    }
+                }
                 updateUIForLogin();
                 showTabs();
             }
@@ -1155,6 +1184,61 @@ namespace MovieCollection
             catch (Exception ex)
             {
                 MessageBox.Show("Error executing action \n\n" + ex.InnerException.Message);
+            }
+        }
+
+        private void btnProfilePassword_Click(object sender, RoutedEventArgs e)
+        {
+            UpdatePassword updatePassword = new UpdatePassword(_loggedInUser.email);
+            blurWindow(10);
+            updatePassword.ShowDialog();
+            if(updatePassword.DialogResult == true)
+            {
+                MessageBox.Show("Password Successfully Changed");
+            }
+            else
+            {
+                MessageBox.Show("Password not changed, please try again");
+            }
+            blurWindow(0);
+        }
+
+        private void btnProfileDeactivate_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var result = MessageBox.Show("Are you sure?", "Deactivation Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                if (result == MessageBoxResult.Yes)
+                {
+                    _userManager.UpdateUserIsActive(_loggedInUser.userID, false);
+                    _inactiveUsers.Clear();
+                    _activeUsers.Clear();
+                    _inactiveUsers = _userManager.GetInactiveUsers();
+                    _activeUsers = _userManager.GetActiveUsers();
+                    MessageBox.Show("Your account has been deactivated. Please contact james@gmail.com for reactivation");
+                    _loggedInUser = null;
+                    lblGreeting.Content = "Please Log In to Continue to the Movie Collection.";
+                    txtEmail.Focus();
+                    txtEmail.Visibility = Visibility.Visible;
+                    pwdPassword.Visibility = Visibility.Visible;
+                    btnLoginSubmit.Visibility = Visibility.Visible;
+                    btnLoginSubmit.IsDefault = true;
+                    btnLoginCancel.Content = "Cancel";
+                    lblEmail.Visibility = Visibility.Visible;
+                    lblPassword.Visibility = Visibility.Visible;
+                    imgProfilePic.Visibility = Visibility.Hidden;
+                    hideMenuItems();
+                    hideTabs();
+                }
+                else
+                {
+                    MessageBox.Show("Account not deactivated. Please try again later");
+                }
+                
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error with account deactivation. Try again later. \n\n");
             }
         }
     }

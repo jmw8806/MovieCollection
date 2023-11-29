@@ -16,5 +16,6 @@ namespace LogicLayer
         List<User> GetInactiveUsers();
         List<User> GetActiveUsers();
         bool UpdateUserIsActive(int userID, bool isActive);
+        bool ResetPassword(string email, string oldPassword, string newPassword);
     }
 }

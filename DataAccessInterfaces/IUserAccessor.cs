@@ -16,5 +16,6 @@ namespace DataAccessInterfaces
         List<User> GetInactiveUsers();
         List<User> GetActiveUsers();
         int UpdateUserIsActive(int userID, bool isActive);
+        int UpdatePasswordHash(string email, string oldPasswordHash, string newPasswordHash);
     }
 }
