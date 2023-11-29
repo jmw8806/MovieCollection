@@ -779,6 +779,7 @@ namespace MovieCollection
 
             btnProfileUpdate.Visibility = Visibility.Hidden;
             btnProfileDeactivate.Visibility = Visibility.Hidden;
+            btnProfilePassword.Visibility = Visibility.Hidden;
 
             btnProfileSubmit.Visibility = Visibility.Visible;
             btnProfileCancel.Visibility = Visibility.Visible;
@@ -807,6 +808,7 @@ namespace MovieCollection
             btnProfileImgPreview.Visibility = Visibility.Hidden;
             btnProfileDeactivate.Visibility = Visibility.Visible;
             btnProfileUpdate.Visibility = Visibility.Visible;
+            btnProfilePassword.Visibility = Visibility.Visible;
         }
 
         private void btnProfileSubmit_Click(object sender, RoutedEventArgs e)
@@ -852,6 +854,7 @@ namespace MovieCollection
                     btnProfileImgPreview.Visibility = Visibility.Hidden;
                     btnProfileDeactivate.Visibility = Visibility.Visible;
                     btnProfileUpdate.Visibility = Visibility.Visible;
+                    btnProfilePassword.Visibility = Visibility.Visible;
                 }
             }
             catch (Exception ex)

@@ -216,7 +216,7 @@
                         <TextBox x:Name="txtSearchRuntime" Grid.Column="3" Grid.Row="6" Width="75" Height="40" VerticalContentAlignment="Center" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,3,0,0" Padding="2"/>
                         <Label Grid.Column="3" Grid.Row="7" Content="Yes" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0"/>
                         <CheckBox x:Name="chkSearchCriterion" Grid.Column="3" Grid.Row="7" Width="50" Height="40" VerticalAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Left" Margin="35,0,0,0" />
-                        <Button x:Name="btnSearchSubmit" Content="Search" FontSize="18" Grid.Column="3" Grid.Row="7" Width="100" Height="40" HorizontalAlignment="Right" VerticalAlignment="Top" VerticalContentAlignment="Center" Click="btnSearchSubmit_Click" Background="#FFFFC0FF" BorderBrush="#FF832A7D"/>
+                        <Button x:Name="btnSearchSubmit" Content="Search" Grid.Column="3" Grid.Row="7" Width="100" Height="40" HorizontalAlignment="Right" VerticalAlignment="Top" VerticalContentAlignment="Center" Click="btnSearchSubmit_Click" Background="#FFFFC0FF" BorderBrush="#FF832A7D"/>
                         <ListBox x:Name="lstSearchResults" Grid.Column="5" Grid.Row="1" Grid.RowSpan="7" MouseDoubleClick="lstSearchResults_MouseDoubleClick" />
                         <Image x:Name="imgSearch" Grid.Row="1" Grid.Column="7" Grid.RowSpan="7" Width="245" Height="350" Margin="2,0,2,0"/>
                         <TextBlock x:Name="txtResultTitle" Grid.Row="1" Grid.Column="9" Text="Title" FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Center" TextWrapping="Wrap"/>
@@ -227,8 +227,8 @@
                         <TextBlock x:Name="txtResultGenres" Grid.Row="5" Grid.Column="9" Text="Genres" FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Center" />
                         <TextBlock x:Name="txtResultRuntime" Grid.Row="6" Grid.Column="9" Text="Runtime" FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Center" />
                         <TextBlock x:Name="txtResultCriterion" Grid.Row="6" Grid.Column="9" Text="Criterion: " FontSize="18" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,0,0" />
-                        <Button x:Name="btnResultEdit" Content="Edit" FontSize="18" Grid.Column="9" Grid.Row="7" Width="85" Height="40" HorizontalAlignment="Left" VerticalAlignment="Center" VerticalContentAlignment="Center" Margin="105,0,0,0" Click="btnResultEdit_Click" Background="#FFDAF7FF" BorderBrush="#FF475FFD"/>
-                        <Button x:Name="btnResultRemove" Content="Remove" FontSize="18" Grid.Column="9" Grid.Row="7" Width="85" Height="40" HorizontalAlignment="Left" VerticalAlignment="Center" VerticalContentAlignment="Center" Click="btnResultRemove_Click" Background="#FFFFC8C8" BorderBrush="#FFF16C6C" />
+                        <Button x:Name="btnResultEdit" Content="Edit" Grid.Column="9" Grid.Row="7" Width="85" Height="40" HorizontalAlignment="Left" VerticalAlignment="Center" VerticalContentAlignment="Center" Margin="105,0,0,0" Click="btnResultEdit_Click" Background="#FFDAF7FF" BorderBrush="#FF475FFD"/>
+                        <Button x:Name="btnResultRemove" Content="Remove" Grid.Column="9" Grid.Row="7" Width="85" Height="40" HorizontalAlignment="Left" VerticalAlignment="Center" VerticalContentAlignment="Center" Click="btnResultRemove_Click" Background="#FFFFC8C8" BorderBrush="#FFF16C6C" />
                     </Grid>
                 </TabItem>
                 <TabItem x:Name="tabAll" Header="All" GotFocus="tabAll_GotFocus">
@@ -435,6 +435,12 @@
                         <Label Content="Type:" Grid.Row="1" Grid.Column="1" FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0 0 5 0"/>
                         <ComboBox x:Name="cboAdminType" Grid.Row="1" Grid.Column="2" Height="35" VerticalAlignment="Center" Margin="0 0 5 0" Padding="2" 
                                   VerticalContentAlignment="Center" HorizontalContentAlignment="Center" SelectedIndex="0"  SelectionChanged="cboAdminType_SelectionChanged">
+                            <ComboBox.Background>
+                                <LinearGradientBrush EndPoint="0,1">
+                                    <GradientStop Color="#FFF0F0F0"/>
+                                    <GradientStop Color="#FFF1E4D0" Offset="1"/>
+                                </LinearGradientBrush>
+                            </ComboBox.Background>
                             <ComboBoxItem x:Name="cboAdminTypeDefault" Content=""/>
                             <ComboBoxItem x:Name="cboAdminTypeMovie" Content="Movie"/>
                             <ComboBoxItem x:Name="cboAdminTypeUser" Content="User"/>
@@ -456,8 +462,8 @@
                         <Label x:Name="lblAdminOther" Content="Name:" Grid.Row="5" Grid.Column="3" FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0 0 5 0"/>
                         <TextBox x:Name="txtAdminOther" IsReadOnly="True" Grid.Row="5" Grid.Column="4" Height="40" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Padding="2" Text=""/>
 
-                        <Button x:Name="btnAdminLeft" Grid.Row="6" Content="Deactivate" Grid.Column="4" Height="45" Width="120" HorizontalAlignment="Left" Margin="0 0 0 15" Click="btnAdminLeft_Click"/>
-                        <Button x:Name="btnAdminRight" Grid.Row="6" Content="Edit" Grid.Column="4" Height="45" Width="120" HorizontalAlignment="Right" Margin="0 0 0 15" Click="btnAdminRight_Click"/>
+                        <Button x:Name="btnAdminLeft" Grid.Row="6" Content="Deactivate" Grid.Column="4" Height="45" Width="120" HorizontalAlignment="Left" Margin="0 0 0 15" Click="btnAdminLeft_Click" Background="#FFFFC8C8" BorderBrush="Red"/>
+                        <Button x:Name="btnAdminRight" Grid.Row="6" Content="Edit" Grid.Column="4" Height="45" Width="120" HorizontalAlignment="Right" Margin="0 0 0 15" Click="btnAdminRight_Click" Background="#FFFFFDBE" BorderBrush="#FFFFF009"/>
                     </Grid>
                 </TabItem>
             </TabControl>

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MovieCollection"
         mc:Ignorable="d"
-        Title="Edit Movie Information" Height="550" Width="450" Loaded="Window_Loaded" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+        Title="Edit Movie Information" Height="550" Width="450" Loaded="Window_Loaded" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Background="#FF91CFB9">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>
@@ -43,16 +43,19 @@
                  HorizontalAlignment="Left" Margin="8 0 0 0" VerticalContentAlignment="Center" Padding="1"/>
         <Label Content="Criterion:" Grid.Row="4" Grid.Column="3" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="15"/>
         <CheckBox x:Name="chkEditCriterion" Grid.Row="4" Grid.Column="4" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5 0 0 0"/>
-        <Label Content="Image:" Grid.Row="5" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Top" FontSize="15"/>
+        <Label Content="Image:" Grid.Row="5" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Bottom" FontSize="15"/>
         
-        <Image x:Name="imgEditImage" Grid.Row="5" Grid.Column="2" Grid.ColumnSpan="2" Width="145" HorizontalAlignment="Left" Margin="5 0 0 0"/>
-        <TextBox x:Name="txtEditURL" Grid.Row="5" Grid.Column="3" VerticalAlignment="Bottom" HorizontalAlignment="Right" Grid.ColumnSpan="2" Height="25" Width="170" 
-                 Margin="0 0 0 50"/>
-        <Label Content="Notes:" Grid.Row="5" Grid.Column="4" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="15"/>
-        <TextBox x:Name="txtEditNotes" Grid.Row="5" Grid.Column="4" HorizontalAlignment="Right" VerticalAlignment="Center"
-                   Height="75" Width="100" Margin="0 0 0 70"/>
-        <Button x:Name="btnEditPreviewImage" Grid.Row="5" Grid.Column="4" Content="Preview Image" HorizontalAlignment="Left" VerticalAlignment="Bottom"  Height="35" Width="87" Margin="20 70 0 10" Click="btnEditPreviewImage_Click" />
-        <Button x:Name="btnEditSubmit" Content="Submit" Grid.Row="6" Grid.Column="3"  Height="35" Width="87" Click="btnEditSubmit_Click"/>
-        <Button x:Name="btnEditCancel" Content="Cancel" Grid.Row="6" Grid.Column="4" Height="35" Width="87" Click="btnEditCancel_Click"/>
+        <Image x:Name="imgEditImage" Grid.Row="5" Grid.Column="2" Grid.ColumnSpan="2" Width="145" Height="155" HorizontalAlignment="Left" Margin="10 0 0 20"/>
+        <Label Content="Image URL:" Grid.Row="5" Grid.Column="4" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="15" Margin="0 20 0 0"/>
+        <TextBox x:Name="txtEditURL" Grid.Row="5" Grid.Column="2" VerticalAlignment="Bottom" HorizontalAlignment="Left" Grid.ColumnSpan="2" Height="25" Width="135" 
+                 Margin="10 0 0 0"/>
+        <Label Content="Notes:" Grid.Row="5" Grid.Column="3" HorizontalAlignment="Right" VerticalAlignment="Top" FontSize="15"/>
+        <TextBox x:Name="txtEditNotes" Grid.Row="5" Grid.Column="4" HorizontalAlignment="Left" VerticalAlignment="Top"
+                   Height="55" Width="100" Margin="10 10 0 0"/>
+        <Button x:Name="btnEditPreviewImage" Grid.Row="6" Grid.Column="2" Content="Preview Image" HorizontalAlignment="Left" VerticalAlignment="Center"  Height="35" Width="87" Click="btnEditPreviewImage_Click" 
+                Background="#FFEED2FF" BorderBrush="#FFA23DFF" Margin="10 0 0 0" />
+        <Button x:Name="btnEditSubmit" HorizontalAlignment="Center" Content="Submit" Grid.Row="6" Grid.Column="3" Grid.ColumnSpan="2"  Height="35" Width="87" Click="btnEditSubmit_Click" 
+                Background="#FFC1F6C1" BorderBrush="#FF18FF27" Margin="0 0 70 0"/>
+        <Button x:Name="btnEditCancel" HorizontalAlignment="Right" Content="Cancel" Grid.Row="6" Grid.Column="4" Height="35" Width="87" Click="btnEditCancel_Click" Background="#FFFFFDBE" BorderBrush="#FFFFF009"/>
     </Grid>
 </Window>
