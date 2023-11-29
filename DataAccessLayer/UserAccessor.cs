@@ -348,5 +348,35 @@ namespace DataAccessLayer
             }
             return rows;
         }
+
+        public int ResetPasswordAdmin(string email)
+        {
+            int rows = 0;
+            var conn = DBConnectionProvider.GetConnection();
+            var cmdText = "sp_reset_password_admin";
+            var cmd = new SqlCommand(cmdText, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.Add("@email", SqlDbType.NVarChar, 100);
+
+            cmd.Parameters["@email"].Value = email;
+
+            try
+            {
+                conn.Open();
+                rows = cmd.ExecuteNonQuery();
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return rows;
+        }
     }
 }

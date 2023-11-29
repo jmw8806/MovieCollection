@@ -42,7 +42,7 @@
             <MenuItem x:Name="mnuEdit" Header="Edit">
                 <MenuItem x:Name="mnuAddMovie" Header="Add Movie" Click="mnuAddMovie_Click"></MenuItem>
                 <MenuItem x:Name="mnuAddCollection" Header="Add Collection" Click="mnuAddCollection_Click"></MenuItem>
-                <MenuItem x:Name="mnuChangePassword" Header="Change Password" ></MenuItem>
+                <MenuItem x:Name="mnuChangePassword" Header="Change Password" Click="mnuChangePassword_Click" ></MenuItem>
             </MenuItem>
             <MenuItem x:Name="mnuView" Header="View">
                 <MenuItem x:Name="mnuAll" Header="All" Click="mnuAll_Click"></MenuItem>
@@ -457,7 +457,7 @@
                         <TextBox x:Name="txtAdminOther" IsReadOnly="True" Grid.Row="5" Grid.Column="4" Height="40" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Padding="2" Text=""/>
 
                         <Button x:Name="btnAdminLeft" Grid.Row="6" Content="Deactivate" Grid.Column="4" Height="45" Width="120" HorizontalAlignment="Left" Margin="0 0 0 15" Click="btnAdminLeft_Click"/>
-                        <Button x:Name="btnAdminRight" Grid.Row="6" Content="Edit" Grid.Column="4" Height="45" Width="120" HorizontalAlignment="Right" Margin="0 0 0 15"/>
+                        <Button x:Name="btnAdminRight" Grid.Row="6" Content="Edit" Grid.Column="4" Height="45" Width="120" HorizontalAlignment="Right" Margin="0 0 0 15" Click="btnAdminRight_Click"/>
                     </Grid>
                 </TabItem>
             </TabControl>

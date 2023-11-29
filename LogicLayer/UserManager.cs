@@ -228,5 +228,19 @@ namespace LogicLayer
 
             return result;
         }
+
+        public bool ResetPasswordAdmin(string email)
+        {
+            bool result = false;
+            try
+            {
+                result = (1 == _userAccessor.ResetPasswordAdmin(email));
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Password reset failed", ex);
+            }
+            return result;
+        }
     }
 }

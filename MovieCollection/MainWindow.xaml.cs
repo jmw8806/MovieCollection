@@ -1241,5 +1241,40 @@ namespace MovieCollection
                 MessageBox.Show("Error with account deactivation. Try again later. \n\n");
             }
         }
+
+        private void btnAdminRight_Click(object sender, RoutedEventArgs e)
+        {
+            if(btnAdminRight.Content.ToString() == "Reset Password")
+            {
+                try
+                {
+                    
+                    if(txtAdminOther.Text != "" && _userManager.ResetPasswordAdmin(txtAdminOther.Text))
+                    {
+                        MessageBox.Show("Password reset");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error resetting password", ex.InnerException.Message);
+                }
+            }
+        }
+
+        private void mnuChangePassword_Click(object sender, RoutedEventArgs e)
+        {
+            UpdatePassword updatePassword = new UpdatePassword(_loggedInUser.email);
+            blurWindow(10);
+            updatePassword.ShowDialog();
+            if (updatePassword.DialogResult == true)
+            {
+                MessageBox.Show("Password Successfully Changed");
+            }
+            else
+            {
+                MessageBox.Show("Password not changed, please try again");
+            }
+            blurWindow(0);
+        }
     }
 }

@@ -205,5 +205,10 @@ namespace DataAccessFakes
 
             return rows;
         }
+
+        public int ResetPasswordAdmin(string email)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
