@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Collection.cs" />
     <Compile Include="DisplayHelpers.cs" />
     <Compile Include="Movie.cs" />
     <Compile Include="MovieSearchHelpers.cs" />

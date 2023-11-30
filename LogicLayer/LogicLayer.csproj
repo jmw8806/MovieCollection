@@ -41,6 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CollectionManager.cs" />
+    <Compile Include="ICollectionManager.cs" />
     <Compile Include="IMovieManager.cs" />
     <Compile Include="IUserManager.cs" />
     <Compile Include="MovieManager.cs" />

@@ -22,6 +22,7 @@ namespace MovieCollection
     {
         UserManager _userManager = null;
         MovieManager _movieManager = null;
+        CollectionManager _collectionManager = null;
         int _random_id = 0;
         UserVM _loggedInUser = null;
         MovieVM _homeMovie = null;
@@ -40,7 +41,9 @@ namespace MovieCollection
         List<string> _searchGenres = null;
         List<User> _activeUsers = null;
         List<User> _inactiveUsers = null;
+        List<CollectionVM> _collectionVMs = null;
         int _selectedUserID = 0;
+
         public MainWindow()
         {
 
@@ -53,8 +56,16 @@ namespace MovieCollection
 
             try
             {
-                int currentYear = DateTime.Now.Year;
-                MessageBox.Show(currentYear.ToString());
+                if (_loggedInUser != null)
+                {
+                    _collectionVMs = _collectionManager.GetCollectionsByUserID(_loggedInUser.userID);
+                    string names = "";
+                    foreach (CollectionVM collection in _collectionVMs)
+                    {
+                        names += collection.collectionName + " ";
+                    }
+                    MessageBox.Show(names);
+                }
             }
             catch (Exception ex)
             {
@@ -67,7 +78,7 @@ namespace MovieCollection
         {
             _userManager = new UserManager();
             _movieManager = new MovieManager();
-
+            _collectionManager = new CollectionManager();
             _movies = new List<Movie>();
             _movieVMs = new List<MovieVM>();
             _genres = new List<string>();
@@ -107,6 +118,7 @@ namespace MovieCollection
                 hideTabs();
                 hideMenuItems();
             }
+
             refreshMovieList();
             resetForms();
             _movieYears = getMovieYears(_movieVMs);
@@ -145,7 +157,7 @@ namespace MovieCollection
                 _loggedInUser = _userManager.LoginUser(email, password);
                 if (pwdPassword.Password.ToString() == "password")
                 {
-                    
+
                     UpdatePassword passwordUpdate = new UpdatePassword(_loggedInUser.email);
 
                     var result = passwordUpdate.ShowDialog();
@@ -173,8 +185,17 @@ namespace MovieCollection
                         return;
                     }
                 }
+
+
                 updateUIForLogin();
                 showTabs();
+                _collectionVMs = _collectionManager.GetCollectionsByUserID(_loggedInUser.userID);
+                foreach (CollectionVM collection in _collectionVMs)
+                {
+                    collection.movieIDs = _collectionManager.GetMovieIDsByCollectionID(collection.collectionID);
+                    cboCollectionsSelect.Items.Add(collection.collectionName);
+                    cboCollectionsAddMoveCollection.Items.Add(collection.collectionName);
+                }
             }
             catch (Exception ex)
             {
@@ -206,6 +227,8 @@ namespace MovieCollection
                 lblEmail.Visibility = Visibility.Visible;
                 lblPassword.Visibility = Visibility.Visible;
                 imgProfilePic.Visibility = Visibility.Hidden;
+                cboCollectionsSelect.Items.Clear();
+                cboCollectionsAddMoveCollection.Items.Clear();
                 hideMenuItems();
                 hideTabs();
             }
@@ -908,19 +931,19 @@ namespace MovieCollection
                         imgAdminMovie.Source = displayImageFromURL(imgURL);
                     }
                 }
-                if(cboAdminType.SelectedValue == cboAdminTypeUser)
+                if (cboAdminType.SelectedValue == cboAdminTypeUser)
                 {
-                    if(cboAdminStatus.SelectedValue == cboAdminStatusActive)
+                    if (cboAdminStatus.SelectedValue == cboAdminStatusActive)
                     {
                         User selectedUser = null;
-                        foreach(User user in _activeUsers)
+                        foreach (User user in _activeUsers)
                         {
-                            if(lstAdmin.SelectedValue.ToString() == user.email)
+                            if (lstAdmin.SelectedValue.ToString() == user.email)
                             {
                                 selectedUser = user;
-                            }                            
+                            }
                         }
-                        if(selectedUser != null) 
+                        if (selectedUser != null)
                         {
                             txtAdminID.Text = selectedUser.userID.ToString();
                             txtAdminOther.Text = selectedUser.email;
@@ -947,7 +970,7 @@ namespace MovieCollection
                         }
                     }
                 }
-                
+
             }
             catch (Exception ex)
             {
@@ -1033,11 +1056,11 @@ namespace MovieCollection
                 }
                 if (cboAdminStatus.SelectedValue == cboAdminStatusDefault)
                 {
-                    
+
                 }
                 if (cboAdminType.SelectedValue == cboAdminTypeMovie)
                 {
-                    
+
                     if (cboAdminStatus.SelectedValue == cboAdminStatusActive)
                     {
                         txtAdminID.Text = "";
@@ -1080,16 +1103,16 @@ namespace MovieCollection
                         }
                     }
                 }
-                if(cboAdminType.SelectedValue == cboAdminTypeUser)
+                if (cboAdminType.SelectedValue == cboAdminTypeUser)
                 {
-                    
+
                     btnAdminRight.Content = "Reset Password";
-                    if(cboAdminStatus.SelectedValue == cboAdminStatusActive)
+                    if (cboAdminStatus.SelectedValue == cboAdminStatusActive)
                     {
                         btnAdminLeft.Content = "Deactivate";
-                        if(_activeUsers != null) 
-                        { 
-                            foreach(User user in _activeUsers)
+                        if (_activeUsers != null)
+                        {
+                            foreach (User user in _activeUsers)
                             {
                                 lstAdmin.Items.Add(user.email);
                             }
@@ -1098,9 +1121,9 @@ namespace MovieCollection
                         {
                             MessageBox.Show("No active users found");
                         }
-                        
+
                     }
-                    if(cboAdminStatus.SelectedValue == cboAdminStatusInactive)
+                    if (cboAdminStatus.SelectedValue == cboAdminStatusInactive)
                     {
                         btnAdminLeft.Content = "Reactivate";
                         if (_inactiveUsers != null)
@@ -1153,8 +1176,8 @@ namespace MovieCollection
                 }
                 if (cboAdminType.SelectedValue == cboAdminTypeUser)
                 {
-                    
-                    if(cboAdminStatus.SelectedValue == cboAdminStatusActive)
+
+                    if (cboAdminStatus.SelectedValue == cboAdminStatusActive)
                     {
                         _userManager.UpdateUserIsActive(_selectedUserID, false);
                         MessageBox.Show("User has been deactivated");
@@ -1163,7 +1186,7 @@ namespace MovieCollection
                         _activeUsers = _userManager.GetActiveUsers();
                         _inactiveUsers = _userManager.GetInactiveUsers();
                         lstAdmin.Items.Clear();
-                        foreach(var user in _activeUsers) 
+                        foreach (var user in _activeUsers)
                         {
                             lstAdmin.Items.Add(user.email);
                         }
@@ -1195,7 +1218,7 @@ namespace MovieCollection
             UpdatePassword updatePassword = new UpdatePassword(_loggedInUser.email);
             blurWindow(10);
             updatePassword.ShowDialog();
-            if(updatePassword.DialogResult == true)
+            if (updatePassword.DialogResult == true)
             {
                 MessageBox.Show("Password Successfully Changed");
             }
@@ -1237,7 +1260,7 @@ namespace MovieCollection
                 {
                     MessageBox.Show("Account not deactivated. Please try again later");
                 }
-                
+
             }
             catch (Exception ex)
             {
@@ -1247,12 +1270,12 @@ namespace MovieCollection
 
         private void btnAdminRight_Click(object sender, RoutedEventArgs e)
         {
-            if(btnAdminRight.Content.ToString() == "Reset Password")
+            if (btnAdminRight.Content.ToString() == "Reset Password")
             {
                 try
                 {
-                    
-                    if(txtAdminOther.Text != "" && _userManager.ResetPasswordAdmin(txtAdminOther.Text))
+
+                    if (txtAdminOther.Text != "" && _userManager.ResetPasswordAdmin(txtAdminOther.Text))
                     {
                         MessageBox.Show("Password reset");
                     }
@@ -1278,6 +1301,120 @@ namespace MovieCollection
                 MessageBox.Show("Password not changed, please try again");
             }
             blurWindow(0);
+        }
+
+        private void cboCollectionsSelect_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            lstCollectionContents.Items.Clear();
+            try
+            {
+                if (_collectionVMs != null)
+                {
+                    List<MovieVM> movies = new List<MovieVM>();
+                    foreach (CollectionVM collection in _collectionVMs)
+                    {
+                        if (collection != null && cboCollectionsSelect.SelectedValue != null &&
+                            collection.collectionName == cboCollectionsSelect.SelectedValue.ToString())
+                        {
+
+                            foreach (int movieID in collection.movieIDs)
+                            {
+                                movies.Add(_movieManager.GetMovieByTitleID(movieID));
+                            }
+
+                        }
+                    }
+                    if (movies != null)
+                    {
+                        foreach (MovieVM movie in movies)
+                        {
+                            lstCollectionContents.Items.Add(movie.title);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+
+        private void lstCollectionContents_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            MovieVM movie = null;
+            try
+            {
+
+                foreach (MovieVM movieVM in _movieVMs)
+                {
+                    if (lstCollectionContents.SelectedItem != null && lstCollectionContents.SelectedValue.ToString() == movieVM.title)
+                    {
+                        movie = movieVM;
+                        txtCollectionsTitle.Text = movie.title;
+                        txtCollectionsYear.Text = movie.year.ToString();
+                        txtCollectionsRating.Text = movie.rating;
+                        txtCollectionsRuntime.Text = movie.runtime.ToString();
+                        txtCollectionsCriterion.Text = criterionOutputConverter(movie.isCriterion);
+                        txtCollectionsGenres.Text = displayList(movie.genres);
+                        txtCollectionsLanguages.Text = displayList(movie.languages);
+                        imgCollectionsImage.Source = displayImageFromURL(movie.imgName);
+                    }
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("No Movie Selected");
+            }
+        }
+
+        private void btnCollectionNew_Click(object sender, RoutedEventArgs e)
+        {
+            if (txtCollectionNew.Text == "")
+            {
+                MessageBox.Show("Please give your collection a name");
+            }
+            else
+            {
+                try
+                {
+                    foreach (CollectionVM collection in _collectionVMs)
+                    {
+                        if (txtCollectionNew.Text.ToLower() == collection.collectionName.ToLower())
+                        {
+                            MessageBox.Show("You already have a collection by that name.");
+                        }
+                    }
+
+                    bool addCollectionResult = _collectionManager.AddUserCollection(_loggedInUser.userID, txtCollectionNew.Text);
+                    
+                    if (addCollectionResult)
+                    {
+                        MessageBox.Show("Success! Collection Added");
+                        _collectionVMs = _collectionManager.GetCollectionsByUserID(_loggedInUser.userID);
+                        cboCollectionsSelect.Items.Clear();
+                        cboCollectionsAddMoveCollection.Items.Clear();
+                        
+                        foreach (CollectionVM collectionVM in _collectionVMs)
+                        {
+                            cboCollectionsSelect.Items.Add(collectionVM.collectionName);
+                            cboCollectionsAddMoveCollection.Items.Add(collectionVM.collectionName);
+                            
+                        }
+
+                    }
+                    else
+                    {
+                        MessageBox.Show("Collection addition failed");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Could not add collection\n\n" + ex.InnerException.Message);
+                }
+
+            }
         }
     }
 }

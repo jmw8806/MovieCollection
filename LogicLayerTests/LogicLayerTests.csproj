@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MovieManagerTests.cs" />
+    <Compile Include="CollectionManagerTests.cs" />
     <Compile Include="UserManagerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
