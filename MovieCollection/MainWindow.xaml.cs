@@ -1416,5 +1416,59 @@ namespace MovieCollection
 
             }
         }
+
+        private void btnCollectionDelete_Click(object sender, RoutedEventArgs e)
+        {
+            if(cboCollectionsSelect.SelectedValue == null)
+            {
+                MessageBox.Show("You must choose a collection to remove.");
+            } 
+            else if (cboCollectionsSelect.SelectedValue.ToString() == "Favorites")
+            {
+                MessageBox.Show("You can not remove the collection 'Favorites'");
+            }            
+            else
+            {
+                try
+                {
+                    CollectionVM selectedCollection = new CollectionVM();
+                    
+                    foreach(var collection in _collectionVMs)
+                    {
+                        if(collection.collectionName ==  cboCollectionsSelect.SelectedValue.ToString())
+                        {
+                            selectedCollection = collection;
+                            break;
+                        }
+                    }
+
+                    var confirmation = MessageBox.Show("Are you sure you want to remove " + 
+                        cboCollectionsSelect.SelectedValue.ToString() + "?", "Confirm Removal", MessageBoxButton.YesNo);
+                    if(confirmation == MessageBoxResult.No) 
+                    {
+                        MessageBox.Show("Whew, close call! We'll save this collection for later!");
+                    } else
+                    {
+                        bool result = _collectionManager.RemoveUserCollection(_loggedInUser.userID, selectedCollection.collectionID);
+                        if(result)
+                        {
+                            MessageBox.Show("This collection has been removed");
+                            _collectionVMs = _collectionManager.GetCollectionsByUserID(_loggedInUser.userID);
+                            cboCollectionsSelect.Items.Clear();
+                            cboCollectionsAddMoveCollection.Items.Clear();
+                            foreach(var collection in _collectionVMs)
+                            {
+                                cboCollectionsSelect.Items.Add(collection.collectionName);
+                                cboCollectionsAddMoveCollection.Items.Add(collection.collectionName);
+                            }
+                        }
+                    }
+                }
+                catch(Exception ex)
+                {
+                    MessageBox.Show("Error removing collection \n\n" + ex.InnerException.Message);
+                }
+            }
+        }
     }
 }

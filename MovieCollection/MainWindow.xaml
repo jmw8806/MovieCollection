@@ -320,7 +320,7 @@
                                 Width="100" Height="40" Margin="0 0 10 0" Click="btnCollectionNew_Click"/>
                         <Label Content="Delete Collection:" Grid.Row="1" Grid.Column="3" FontSize="15" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0 0 10 0"/>
                         <Button x:Name="btnCollectionDelete" Content="Delete" Grid.Row="1" Grid.Column="4" HorizontalAlignment="Left" VerticalAlignment="Center"
-                                Width="100" Height="40" Margin="10 0 0 0"/>
+                                Width="100" Height="40" Margin="10 0 0 0" Click="btnCollectionDelete_Click"/>
                         <ListBox x:Name="lstCollectionContents" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Margin="10 0 10 0" MouseDoubleClick="lstCollectionContents_MouseDoubleClick" />
                         <ComboBox x:Name="cboCollectionsAddMove" Grid.Row="3" Grid.Column="1" Height="35" Margin="10 0 10 0" Padding="2">
                             <ComboBoxItem x:Name="cboCollectionsAddMoveAdd" Content="Add"/>

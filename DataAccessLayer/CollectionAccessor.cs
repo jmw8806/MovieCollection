@@ -172,6 +172,39 @@ namespace DataAccessLayer
             return movieIDs;
         }
 
+        public int RemoveCollection(int userID, int collectionID)
+        {
+            int rows = 0;
 
+            var conn = DBConnectionProvider.GetConnection();
+            var cmdText = "sp_remove_collection_by_userID_and_collection";
+            var cmd = new SqlCommand(cmdText, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Add("@userID", SqlDbType.Int);
+            cmd.Parameters.Add("@collectionID", SqlDbType.Int);
+
+
+            cmd.Parameters["@userID"].Value = userID;
+            cmd.Parameters["@collectionID"].Value = collectionID;
+
+            try
+            {
+                conn.Open();
+                rows = cmd.ExecuteNonQuery();
+                if (rows == 0)
+                {
+                    throw new ApplicationException("Collecition addition failed");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return rows;
+        }
     }
 }

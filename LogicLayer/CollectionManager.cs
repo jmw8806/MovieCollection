@@ -122,5 +122,25 @@ namespace LogicLayer
 
             return movieIDs;
         }
+
+        public bool RemoveUserCollection(int userID, int collectionID)
+        {
+            bool result = false;
+            int rows = 0;
+            try
+            {
+                rows = _collectionAccessor.RemoveCollection(userID, collectionID);
+                if(rows != 0)
+                {
+                    result = true;
+                }
+            }
+            catch(Exception ex) 
+            {
+                throw new ApplicationException("Error removing collection", ex);
+            }
+
+            return result;
+        }
     }
 }
