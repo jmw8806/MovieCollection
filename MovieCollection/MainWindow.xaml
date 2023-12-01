@@ -50,8 +50,8 @@
                 <MenuItem x:Name="mnuCollections" Header="Collections" Click="mnuCollections_Click"></MenuItem>
                 <MenuItem x:Name="mnuProfile" Header="Profile" Click="mnuProfile_Click"></MenuItem>
             </MenuItem>
-            <MenuItem x:Name="mnuHelp" Header="Help">
-                <MenuItem x:Name="mnuAbout" Header="About"></MenuItem>
+            <MenuItem x:Name="mnuAboutTop" Header="About">
+                <MenuItem x:Name="mnuAbout" Header="About" Click="mnuAbout_Click"></MenuItem>
 
             </MenuItem>
         </Menu>

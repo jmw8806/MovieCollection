@@ -2,6 +2,7 @@
 using LogicLayer;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -1656,6 +1657,11 @@ namespace MovieCollection
         private void txtProfileImgURL_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             txtProfileImgURL.SelectAll();
+        }
+
+        private void mnuAbout_Click(object sender, RoutedEventArgs e)
+        {
+            Process.Start(new ProcessStartInfo("https://studentkirkwoodedu-my.sharepoint.com/:w:/g/personal/k0709531_student_kirkwood_edu/Ee1UG5bU1WpJip2coF8y9XgBt9xlgLTriDTSsPc72KvlKQ?e=ts0tE1") { UseShellExecute = true });
         }
     }
 }
