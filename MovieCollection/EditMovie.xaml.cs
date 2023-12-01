@@ -1,20 +1,10 @@
 ﻿using DataObjects;
 using LogicLayer;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Effects;
 using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 using static DataObjects.DisplayHelpers;
 
@@ -31,7 +21,7 @@ namespace MovieCollection
         public EditMovie(int movieID)
         {
             _movieID = movieID;
-            
+
             InitializeComponent();
         }
 
@@ -46,12 +36,12 @@ namespace MovieCollection
             cboEditRating.Text = _movie.rating;
             lstEditGenre.ItemsSource = movieManager.GetAllGenres();
             txtEditNotes.Text = _movie.notes;
-            foreach(var genre in _movie.genres)
+            foreach (var genre in _movie.genres)
             {
                 lstEditGenre.SelectedItem = genre;
             }
             lstEditLanguage.ItemsSource = movieManager.GetAllLanguages();
-            foreach(var language in _movie.languages)
+            foreach (var language in _movie.languages)
             {
                 lstEditLanguage.SelectedItem = language;
             }
@@ -102,12 +92,12 @@ namespace MovieCollection
                 bool newCriterion = chkEditCriterion.IsChecked == true;
                 string newNotes = txtEditNotes.Text;
                 List<string> newGenres = new List<string>();
-                foreach(string genre in lstEditGenre.SelectedItems)
+                foreach (string genre in lstEditGenre.SelectedItems)
                 {
                     newGenres.Add(genre);
                 }
                 List<string> newLanguages = new List<string>();
-                foreach(string language in lstEditLanguage.SelectedItems)
+                foreach (string language in lstEditLanguage.SelectedItems)
                 {
                     newLanguages.Add(language);
                 }
@@ -121,10 +111,10 @@ namespace MovieCollection
                 MessageBox.Show("Error updating title \n\n" + ex.InnerException.Message);
             }
 
-            if(editMovieSuccess ) 
+            if (editMovieSuccess)
             {
                 editResult = true;
-                this.Close();                
+                this.Close();
             }
         }
 

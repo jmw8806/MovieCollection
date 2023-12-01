@@ -3,10 +3,8 @@ using DataAccessLayer;
 using DataObjects;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace LogicLayer
 {
@@ -14,12 +12,12 @@ namespace LogicLayer
     {
         IUserAccessor _userAccessor = null;
 
-        public UserManager() 
+        public UserManager()
         {
             _userAccessor = new UserAccessor();
         }
 
-        public UserManager(IUserAccessor userAccessor) 
+        public UserManager(IUserAccessor userAccessor)
         {
             _userAccessor = userAccessor;
         }
@@ -92,22 +90,22 @@ namespace LogicLayer
             return userVM;
         }
 
-        public string SelectRoleByUserID(int userId) 
+        public string SelectRoleByUserID(int userId)
         {
             string role = "Guest";
             try
             {
-               role = _userAccessor.SelectRoleByUserID(userId);
+                role = _userAccessor.SelectRoleByUserID(userId);
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 throw new ApplicationException("Couldn't verify user role", ex);
             }
-            
+
             return role;
         }
 
-        public bool VerifyUser(string email, string passwordHash) 
+        public bool VerifyUser(string email, string passwordHash)
         {
             bool result = false;
 
@@ -131,7 +129,7 @@ namespace LogicLayer
             try
             {
                 rows = _userAccessor.UpdateUser(userVM.userID, newFName, newLName, newEmail, newImageURL, userVM.fName, userVM.lName, userVM.email);
-                if(rows == 0)
+                if (rows == 0)
                 {
                     throw new ArgumentException("Incorrect input, user update failed");
                 }
@@ -156,7 +154,7 @@ namespace LogicLayer
             try
             {
                 users = _userAccessor.GetInactiveUsers();
-                if(users == null)
+                if (users == null)
                 {
                     throw new ArgumentException("No inactive users found");
                 }
@@ -193,7 +191,7 @@ namespace LogicLayer
             try
             {
                 rows = _userAccessor.UpdateUserIsActive(userID, isActive);
-                if(rows != 0)
+                if (rows != 0)
                 {
                     result = true;
                 }
@@ -202,7 +200,7 @@ namespace LogicLayer
                     throw new ArgumentException("Error updating user");
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new ApplicationException("Error updating user status", ex);
             }
@@ -213,7 +211,7 @@ namespace LogicLayer
         {
             bool result = false;
 
-            oldPassword = HashSha256(oldPassword); 
+            oldPassword = HashSha256(oldPassword);
             newPassword = HashSha256(newPassword);
 
             try

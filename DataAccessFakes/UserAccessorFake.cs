@@ -2,9 +2,6 @@
 using DataObjects;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataAccessFakes
 {
@@ -14,7 +11,8 @@ namespace DataAccessFakes
         private List<string> passwordHashes = new List<string>();
         private List<User> fakeUser = new List<User>();
 
-        public UserAccessorFake() {
+        public UserAccessorFake()
+        {
 
             // UserVM data
             fakeUsers.Add(new UserVM()
@@ -47,7 +45,7 @@ namespace DataAccessFakes
                 lName = "Smith",
                 email = "jane@gmail.com",
                 isActive = true
-                
+
 
             });
             fakeUser.Add(new User()
@@ -57,28 +55,28 @@ namespace DataAccessFakes
                 lName = "Dude",
                 email = "joeDude@mmail.com",
                 isActive = false
-               
+
             });
 
             passwordHashes.Add("5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8");
             passwordHashes.Add("bad hash");
 
-            
+
 
         }
 
         public UserVM SelectUserByEmail(string email)
         {
             UserVM userVM = null;
-            foreach(var user in fakeUsers)
+            foreach (var user in fakeUsers)
             {
-                if(user.email == email)
+                if (user.email == email)
                 {
                     userVM = user;
                     break;
                 }
             }
-            if(userVM == null)
+            if (userVM == null)
             {
                 throw new ArgumentException("Email address not found");
             }
@@ -104,22 +102,22 @@ namespace DataAccessFakes
             return rows;
         }
 
-        public string SelectRoleByUserID(int userId) 
+        public string SelectRoleByUserID(int userId)
         {
             string role = "";
-            foreach(var user in fakeUsers)
+            foreach (var user in fakeUsers)
             {
-                if (user.userID == userId) 
+                if (user.userID == userId)
                 {
                     role = user.roles;
                 }
-                else 
-                { 
-                    throw new ArgumentException("User not found"); 
+                else
+                {
+                    throw new ArgumentException("User not found");
                 }
             }
             return role;
-           
+
         }
 
         public int UpdateUser(int userID, string newFName, string newLName, string newEmail, string newImgURL, string oldFName, string oldLName, string oldEmail)
@@ -131,14 +129,14 @@ namespace DataAccessFakes
         {
             List<User> users = new List<User>();
 
-            foreach (var user in fakeUser) 
-            { 
-                if(user.isActive == false)
+            foreach (var user in fakeUser)
+            {
+                if (user.isActive == false)
                 {
                     users.Add(user);
                 }
             }
-            if(users == null)
+            if (users == null)
             {
                 throw new ArgumentException("No inactive users found");
             }
@@ -167,10 +165,10 @@ namespace DataAccessFakes
         public int UpdateUserIsActive(int userID, bool isActive)
         {
             int rows = 0;
-            foreach(User user in fakeUser)
+            foreach (User user in fakeUser)
             {
-                if(user.userID == userID) 
-                { 
+                if (user.userID == userID)
+                {
                     user.isActive = isActive;
                     rows++;
                     break;

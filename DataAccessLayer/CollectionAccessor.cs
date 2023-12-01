@@ -2,13 +2,8 @@
 using DataObjects;
 using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.SqlServer.Server;
-using System.Collections;
+using System.Data.SqlClient;
 
 namespace DataAccessLayer
 {
@@ -24,7 +19,7 @@ namespace DataAccessLayer
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.Add("@titleID", SqlDbType.Int);
             cmd.Parameters.Add("@collectionID", SqlDbType.Int);
-           
+
 
             cmd.Parameters["@titleID"].Value = movieID;
             cmd.Parameters["@collectionID"].Value = collectionID;

@@ -1,9 +1,5 @@
 ﻿using DataObjects;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LogicLayer
 {
@@ -29,11 +25,11 @@ namespace LogicLayer
         int RemoveMovieGenre(int movieID);
         int RemoveMovieLanguage(int movieID);
         int UpdateMovieImage(int movieID, string newURL, string oldURL);
-        
+
         bool AddMovie(string title, int year, string rating, int runtime, bool isCriterion, string notes, string language, string genre, string fileName, string format);
         bool UpdateMovie(MovieVM movie, string newTitle, int newYear, string newRating, int newRuntime, bool newCriterion, string newNotes,
             List<string> newLanguages, List<string> newGenres, string newURL);
-        bool UpdateMovieIsActive(int id,  bool isActive);
+        bool UpdateMovieIsActive(int id, bool isActive);
         List<Movie> GetAllInactiveMovies();
     }
 }

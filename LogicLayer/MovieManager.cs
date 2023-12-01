@@ -1,12 +1,8 @@
 ﻿using DataAccessInterfaces;
 using DataAccessLayer;
 using DataObjects;
-using Microsoft.SqlServer.Server;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LogicLayer
 {
@@ -35,11 +31,11 @@ namespace LogicLayer
                 movieVM.formats = _movieAccessor.GetAllFormatsByMovieID(movieID);
                 movieVM.imgName = _movieAccessor.GetImageURLByMovieID(movieID);
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 throw new ApplicationException("Movie not found", ex);
             }
-         
+
             return movieVM;
         }
 
@@ -57,7 +53,7 @@ namespace LogicLayer
             {
                 movies = _movieAccessor.GetAllMovies();
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 throw new ApplicationException("No movies found", ex);
             }
@@ -71,7 +67,7 @@ namespace LogicLayer
             {
                 genres = _movieAccessor.GetAllGenres();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new ApplicationException("No genres found", ex);
             }
@@ -84,7 +80,7 @@ namespace LogicLayer
             try
             {
                 genres = _movieAccessor.GetMovieGenresByMovieID(titleID);
-                if(genres == null)
+                if (genres == null)
                 {
                     throw new ApplicationException("No genres found by that id");
                 }
@@ -93,7 +89,7 @@ namespace LogicLayer
             {
                 throw new ApplicationException("Error accessing genres by that id", ex);
             }
-            
+
             return genres;
         }
 
@@ -121,12 +117,12 @@ namespace LogicLayer
             try
             {
                 languages = _movieAccessor.GetLanguagesByMovieID(movieID);
-                if(languages == null)
+                if (languages == null)
                 {
                     throw new ApplicationException("No languages found");
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new ApplicationException("Error accessing languages by that movieID");
             }
@@ -138,7 +134,7 @@ namespace LogicLayer
             List<string> formats = null;
             try
             {
-                formats= _movieAccessor.GetAllFormats();
+                formats = _movieAccessor.GetAllFormats();
                 if (formats == null)
                 {
                     throw new ApplicationException("No formats found");
@@ -158,12 +154,12 @@ namespace LogicLayer
             try
             {
                 formats = _movieAccessor.GetAllFormatsByMovieID(movieID);
-                if(formats == null)
+                if (formats == null)
                 {
                     throw new ApplicationException("No formats found by that movieID");
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new ApplicationException("Error finding formats", ex);
             }
@@ -177,12 +173,12 @@ namespace LogicLayer
             try
             {
                 locations = _movieAccessor.GetAllLocations();
-                if(locations == null)
+                if (locations == null)
                 {
                     throw new ApplicationException("No locations found");
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new ApplicationException("Error finding locations", ex);
             }
@@ -196,7 +192,7 @@ namespace LogicLayer
             try
             {
                 url = _movieAccessor.GetImageURLByMovieID(movieID);
-                if(url == null || url == "")
+                if (url == null || url == "")
                 {
                     url = "https://thumbs.dreamstime.com/b/movie-film-poster-design-template-background-vintage-reel-sunray-element-can-be-used-backdrop-banner-brochure-leaflet-197521645.jpg";
                 }
@@ -214,7 +210,7 @@ namespace LogicLayer
             List<Movie> movies = _movieAccessor.GetAllMovies();
             List<MovieVM> movieVMs = new List<MovieVM>();
 
-            foreach(Movie movie in movies)
+            foreach (Movie movie in movies)
             {
                 movieVMs.Add(new MovieVM
                 {
@@ -229,7 +225,7 @@ namespace LogicLayer
                     formats = _movieAccessor.GetAllFormatsByMovieID(movie.titleID),
                     imgName = _movieAccessor.GetImageURLByMovieID(movie.titleID),
                     languages = _movieAccessor.GetLanguagesByMovieID(movie.titleID)
-                }) ;
+                });
             }
 
             return movieVMs;
@@ -274,7 +270,7 @@ namespace LogicLayer
                 int addMovieGenre = _movieAccessor.AddMovieGenre(addMovieGetID, genre);
                 int addMovieImage = _movieAccessor.AddMovieImage(addMovieGetID, fileName);
                 int addMovieFormat = _movieAccessor.AddMovieFormat(addMovieGetID, format);
-                
+
                 // Check that all stored procedures executed successfully
                 if (addMovieLanguage != 1 && addMovieGenre != 1 && addMovieImage != 1 && addMovieFormat != 1)
                 {
@@ -299,10 +295,10 @@ namespace LogicLayer
 
             try
             {
-               int rows = 0;
-               rows = _movieAccessor.UpdateTitleByMovieID(movie.titleID, newTitle, newYear, newRating, newRuntime, newCriterion, newNotes,
-                    movie.title, movie.year, movie.rating, movie.runtime, movie.isCriterion, movie.notes);
-               if(rows == 0)
+                int rows = 0;
+                rows = _movieAccessor.UpdateTitleByMovieID(movie.titleID, newTitle, newYear, newRating, newRuntime, newCriterion, newNotes,
+                     movie.title, movie.year, movie.rating, movie.runtime, movie.isCriterion, movie.notes);
+                if (rows == 0)
                 {
                     throw new ApplicationException("Error adding title at sp_update_title_by_titleID");
                 }
@@ -315,7 +311,7 @@ namespace LogicLayer
                 }
 
                 rows = 0;
-                foreach(string genre in  newGenres) 
+                foreach (string genre in newGenres)
                 {
                     rows = _movieAccessor.AddMovieGenre(movie.titleID, genre);
                 }
@@ -343,15 +339,16 @@ namespace LogicLayer
 
                 rows = 0;
                 rows = _movieAccessor.UpdateMovieImageURL(movie.titleID, newURL, movie.imgName);
-                if(rows == 0)
+                if (rows == 0)
                 {
                     throw new ApplicationException("Error updating image url");
-                    
-                } else
+
+                }
+                else
                 {
                     success = true;
                 }
-                
+
 
             }
             catch (Exception ex)
@@ -365,11 +362,11 @@ namespace LogicLayer
         {
             bool success = false;
             int rows = 0;
-           
+
             try
             {
                 rows = _movieAccessor.UpdateMovieIsActive(id, isActive);
-                if(rows == 0) 
+                if (rows == 0)
                 {
                     throw new ApplicationException("Updating movie failed");
                 }
@@ -401,7 +398,7 @@ namespace LogicLayer
             {
                 throw new ApplicationException("Error adding movie and retrieving new ID");
             }
-       
+
             return newID;
         }
 
@@ -410,15 +407,15 @@ namespace LogicLayer
             int rows = 0;
             try
             {
-               rows = _movieAccessor.AddMovieLanguage(movieID, language);
-               if(rows == 0)
+                rows = _movieAccessor.AddMovieLanguage(movieID, language);
+                if (rows == 0)
                 {
                     throw new ArgumentException("Language not added at this time");
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-               throw new ApplicationException("Error adding language", ex);
+                throw new ApplicationException("Error adding language", ex);
             }
 
             return rows;
@@ -430,7 +427,7 @@ namespace LogicLayer
             try
             {
                 rows = _movieAccessor.AddMovieGenre(movieID, genre);
-                if(rows == 0)
+                if (rows == 0)
                 {
                     throw new ArgumentException("Genre not added at this time");
                 }
@@ -479,7 +476,7 @@ namespace LogicLayer
             return rows;
         }
 
-        public int RemoveMovieGenre(int movieID) 
+        public int RemoveMovieGenre(int movieID)
         {
             int rows = 0;
             try
@@ -524,13 +521,13 @@ namespace LogicLayer
             try
             {
                 rows = _movieAccessor.UpdateMovieImageURL(movieID, newURL, oldURL);
-                
+
             }
             catch (Exception ex)
             {
                 throw new ApplicationException("Could not change image at this time.", ex);
             }
-            if(rows == 0)
+            if (rows == 0)
             {
                 throw new ArgumentException("Not able to change image at this time");
             }
@@ -542,7 +539,7 @@ namespace LogicLayer
             Random random = new Random();
             int randomID = 0;
             List<int> movieIDs = new List<int>();
-            foreach(MovieVM movie in movies) 
+            foreach (MovieVM movie in movies)
             {
                 movieIDs.Add(movie.titleID);
             }
@@ -557,12 +554,12 @@ namespace LogicLayer
             try
             {
                 movies = _movieAccessor.GetAllInactiveMovies();
-                if(movies == null)
+                if (movies == null)
                 {
                     throw new ArgumentException("No inactive movies found");
                 }
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 throw new ApplicationException("Error during inactive movie retrieval.", ex);
             }

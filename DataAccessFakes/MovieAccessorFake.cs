@@ -2,9 +2,6 @@
 using DataObjects;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataAccessFakes
 {
@@ -18,7 +15,8 @@ namespace DataAccessFakes
         private List<string> locations = new List<string>();
         private List<string> ratings = new List<string>();
         private int movieCount = 0;
-        public MovieAccessorFake() {
+        public MovieAccessorFake()
+        {
             //MovieVM
             fakeMovies.Add(new MovieVM()
             {
@@ -33,9 +31,9 @@ namespace DataAccessFakes
                 formats = new List<string>(),
                 imgName = "one.png",
                 languages = new List<string>(),
-                
 
-            }) ;
+
+            });
             fakeMovies.Add(new MovieVM()
             {
                 titleID = 2,
@@ -99,7 +97,7 @@ namespace DataAccessFakes
                 isActive = false,
             });
 
-          
+
 
             fakeMovies[0].genres.Add("Horror");
             fakeMovies[0].genres.Add("Drama");
@@ -137,21 +135,21 @@ namespace DataAccessFakes
             movieCount = fakeMovies.Count;
         }
 
-        
+
 
         public MovieVM SelectMovieByID(int movieID)
         {
             MovieVM movieVM = null;
 
-            foreach (var movie in fakeMovies) 
-            { 
-                if(movie.titleID == movieID)
+            foreach (var movie in fakeMovies)
+            {
+                if (movie.titleID == movieID)
                 {
                     movieVM = movie;
                     break;
                 }
             }
-            if(movieVM == null)
+            if (movieVM == null)
             {
                 throw new ArgumentException("Movie ID not found");
             }
@@ -163,7 +161,7 @@ namespace DataAccessFakes
             return fakeMovies.Count;
         }
 
-        public List<Movie> GetAllMovies() 
+        public List<Movie> GetAllMovies()
         {
             return fakeMovie;
         }
@@ -176,9 +174,9 @@ namespace DataAccessFakes
         public List<string> GetMovieGenresByMovieID(int movieID)
         {
             List<string> genres = null;
-            foreach(var movie in fakeMovies)
+            foreach (var movie in fakeMovies)
             {
-                if(movie.titleID == movieID)
+                if (movie.titleID == movieID)
                 {
                     genres = movie.genres;
                     break;
@@ -188,12 +186,12 @@ namespace DataAccessFakes
                     throw new ArgumentException("Movie not found");
                 }
             }
-            if(genres == null)
+            if (genres == null)
             {
                 throw new ArgumentException("No genres found");
             }
             return genres;
-        
+
         }
 
         public List<string> GetAllLanguages()
@@ -235,11 +233,11 @@ namespace DataAccessFakes
             {
                 if (movie.titleID == movieID)
                 {
-                    foreach(string format in movie.formats)
+                    foreach (string format in movie.formats)
                     {
                         formats.Add(format);
                     }
-                    
+
                 }
                 else
                 {
@@ -261,9 +259,9 @@ namespace DataAccessFakes
         public string GetImageURLByMovieID(int movieID)
         {
             string imageName = "";
-            foreach(var movie in fakeMovies)
+            foreach (var movie in fakeMovies)
             {
-                if(movie.titleID == movieID)
+                if (movie.titleID == movieID)
                 {
                     imageName = movie.imgName;
                     break;
@@ -273,7 +271,7 @@ namespace DataAccessFakes
                     throw new ApplicationException("No movie by that ID found");
                 }
             }
-            if(imageName == "")
+            if (imageName == "")
             {
                 throw new ApplicationException("No image found");
             }
@@ -305,16 +303,16 @@ namespace DataAccessFakes
         {
             int rows = 0;
 
-            foreach(MovieVM movie in fakeMovies)
+            foreach (MovieVM movie in fakeMovies)
             {
-                if(movie.titleID == id)
+                if (movie.titleID == id)
                 {
                     movie.languages.Add(language);
                     rows++;
                 }
-              
+
             }
-            if(rows == 0)
+            if (rows == 0)
             {
                 throw new ApplicationException("Error adding language");
             }
@@ -389,15 +387,15 @@ namespace DataAccessFakes
         {
             int genreCount = 0;
 
-            foreach(MovieVM movie in fakeMovies)
+            foreach (MovieVM movie in fakeMovies)
             {
-                if(movie.titleID == id)
+                if (movie.titleID == id)
                 {
                     movie.genres.Clear();
                     genreCount = movie.genres.Count;
                 }
             }
-            
+
             return genreCount;
         }
 
@@ -422,13 +420,13 @@ namespace DataAccessFakes
             int rows = 0;
             foreach (MovieVM movie in fakeMovies)
             {
-                if(movie.titleID == id && movie.imgName == oldURL)
+                if (movie.titleID == id && movie.imgName == oldURL)
                 {
                     movie.imgName = newURL;
                     rows++;
                 }
             }
-            if(rows == 0)
+            if (rows == 0)
             {
                 throw new ArgumentException("Movie image not updated at this time");
             }
@@ -467,7 +465,7 @@ namespace DataAccessFakes
 
             foreach (Movie movie in fakeMovie)
             {
-                if(movie.isActive == false)
+                if (movie.isActive == false)
                 {
                     movies.Add(movie);
                 }

@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataObjects
 {
@@ -11,7 +7,7 @@ namespace DataObjects
         public static bool IsValidEmail(this string email)
         {
             bool result = false;
-            if(email.Length > 14 && email.Length < 255)
+            if (email.Length > 14 && email.Length < 255)
             {
                 result = true;
             }
@@ -42,7 +38,7 @@ namespace DataObjects
         {
             bool result = false;
             int min = 1;
-            
+
             if (runtime >= min)
             {
                 result = true;
@@ -53,12 +49,12 @@ namespace DataObjects
         public static bool isValidNumber(this string input)
         {
             bool result = false;
-            
-            if(int.TryParse(input, out int value))
+
+            if (int.TryParse(input, out int value))
             {
                 result = true;
             }
             return result;
         }
-    }   
+    }
 }

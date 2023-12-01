@@ -2,18 +2,13 @@
 using LogicLayer;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
-using System.IO;
-using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media.Effects;
 using System.Windows.Media.Imaging;
 using static DataObjects.DisplayHelpers;
 using static DataObjects.MovieSearchHelpers;
-using static DataObjects.UtilityHelpers;
 
 
 namespace MovieCollection
@@ -52,8 +47,8 @@ namespace MovieCollection
         }
 
 
-     
-        
+
+
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
@@ -211,7 +206,7 @@ namespace MovieCollection
                 lblPassword.Visibility = Visibility.Visible;
                 imgProfilePic.Visibility = Visibility.Hidden;
                 cboCollectionsSelect.Items.Clear();
-              
+
                 hideMenuItems();
                 hideTabs();
             }
@@ -359,12 +354,12 @@ namespace MovieCollection
             string searchTitle = txtSearchTitle.Text;
             try
             {
-                if(chkSearchCollection.IsChecked == true && cboSearchCollection.SelectedValue != null) 
+                if (chkSearchCollection.IsChecked == true && cboSearchCollection.SelectedValue != null)
                 {
                     CollectionVM selectedCollection = new CollectionVM();
-                    foreach(CollectionVM collection in _collectionVMs)
+                    foreach (CollectionVM collection in _collectionVMs)
                     {
-                        if(collection.collectionName == cboSearchCollection.SelectedValue.ToString())
+                        if (collection.collectionName == cboSearchCollection.SelectedValue.ToString())
                         {
                             selectedCollection = collection;
                             break;
@@ -563,7 +558,7 @@ namespace MovieCollection
 
                     foreach (var collection in _collectionVMs)
                     {
-                        if (collection.collectionName ==cboAllAddToCollection.SelectedValue.ToString())
+                        if (collection.collectionName == cboAllAddToCollection.SelectedValue.ToString())
                         {
                             foreach (int movie in collection.movieIDs)
                             {
@@ -592,7 +587,7 @@ namespace MovieCollection
                     }
 
                 }
-                catch 
+                catch
                 {
                     MessageBox.Show("Movie already exists in the collection");
                 }
@@ -1155,6 +1150,7 @@ namespace MovieCollection
                         btnAdminLeft.Content = "Deactivate";
                         if (_activeUsers != null)
                         {
+                            lstAdmin.Items.Clear();
                             foreach (User user in _activeUsers)
                             {
                                 lstAdmin.Items.Add(user.email);
@@ -1171,6 +1167,7 @@ namespace MovieCollection
                         btnAdminLeft.Content = "Reactivate";
                         if (_inactiveUsers != null)
                         {
+                            lstAdmin.Items.Clear();
                             foreach (User user in _inactiveUsers)
                             {
                                 lstAdmin.Items.Add(user.email);
@@ -1431,7 +1428,7 @@ namespace MovieCollection
                     }
 
                     bool addCollectionResult = _collectionManager.AddUserCollection(_loggedInUser.userID, txtCollectionNew.Text);
-                    
+
                     if (addCollectionResult)
                     {
                         MessageBox.Show("Success! Collection Added");
@@ -1465,38 +1462,39 @@ namespace MovieCollection
 
         private void btnCollectionDelete_Click(object sender, RoutedEventArgs e)
         {
-            if(cboCollectionsSelect.SelectedValue == null)
+            if (cboCollectionsSelect.SelectedValue == null)
             {
                 MessageBox.Show("You must choose a collection to remove.");
-            } 
+            }
             else if (cboCollectionsSelect.SelectedValue.ToString() == "Favorites")
             {
                 MessageBox.Show("You can not remove the collection 'Favorites'");
-            }            
+            }
             else
             {
                 try
                 {
                     CollectionVM selectedCollection = new CollectionVM();
-                    
-                    foreach(var collection in _collectionVMs)
+
+                    foreach (var collection in _collectionVMs)
                     {
-                        if(collection.collectionName ==  cboCollectionsSelect.SelectedValue.ToString())
+                        if (collection.collectionName == cboCollectionsSelect.SelectedValue.ToString())
                         {
                             selectedCollection = collection;
                             break;
                         }
                     }
 
-                    var confirmation = MessageBox.Show("Are you sure you want to remove " + 
+                    var confirmation = MessageBox.Show("Are you sure you want to remove " +
                         cboCollectionsSelect.SelectedValue.ToString() + "?", "Confirm Removal", MessageBoxButton.YesNo);
-                    if(confirmation == MessageBoxResult.No) 
+                    if (confirmation == MessageBoxResult.No)
                     {
                         MessageBox.Show("Whew, close call! We'll save this collection for later!");
-                    } else
+                    }
+                    else
                     {
                         bool result = _collectionManager.RemoveUserCollection(_loggedInUser.userID, selectedCollection.collectionID);
-                        if(result)
+                        if (result)
                         {
                             MessageBox.Show("This collection has been removed");
                             _collectionVMs = _collectionManager.GetCollectionsByUserID(_loggedInUser.userID);
@@ -1504,18 +1502,18 @@ namespace MovieCollection
                             cboSearchCollection.Items.Clear();
                             cboResultAddToCollection.Items.Clear();
                             cboAllAddToCollection.Items.Clear();
-                            foreach(var collection in _collectionVMs)
+                            foreach (var collection in _collectionVMs)
                             {
                                 cboCollectionsSelect.Items.Add(collection.collectionName);
                                 cboSearchCollection.Items.Add(collection.collectionName);
                                 cboResultAddToCollection.Items.Add(collection.collectionName);
                                 cboAllAddToCollection.Items.Add(collection.collectionName);
-                                
+
                             }
                         }
                     }
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     MessageBox.Show("Error removing collection \n\n" + ex.InnerException.Message);
                 }
@@ -1541,7 +1539,7 @@ namespace MovieCollection
                 {
                     if (lstCollectionContents.SelectedItem != null && lstCollectionContents.SelectedValue.ToString() == movieVM.title)
                     {
-                        movie = movieVM; 
+                        movie = movieVM;
                     }
                 }
 
@@ -1553,7 +1551,7 @@ namespace MovieCollection
                 else
                 {
                     bool result = _collectionManager.RemoveMovieFromCollection(movie.titleID, selectedCollection.collectionID);
-                    if(result)
+                    if (result)
                     {
                         MessageBox.Show("Success! Movie removed from your collection!");
                         txtCollectionsTitle.Text = "";
@@ -1571,18 +1569,18 @@ namespace MovieCollection
                             collection.movieIDs = _collectionManager.GetMovieIDsByCollectionID(collection.collectionID);
                             lstCollectionContents.Items.Clear();
 
-                            foreach(var movieVM in _movieVMs)
+                            foreach (var movieVM in _movieVMs)
                             {
-                                foreach(int movieID in collection.movieIDs)
+                                foreach (int movieID in collection.movieIDs)
                                 {
-                                    if(movieVM.titleID ==  movieID)
+                                    if (movieVM.titleID == movieID)
                                     {
                                         lstCollectionContents.Items.Add(movieVM.title);
                                     }
                                 }
                             }
                         }
-                        
+
                     }
                     else
                     {
@@ -1599,11 +1597,11 @@ namespace MovieCollection
 
         private void btnResultAdd_Click(object sender, RoutedEventArgs e)
         {
-            if(cboResultAddToCollection.SelectedValue == null)
+            if (cboResultAddToCollection.SelectedValue == null)
             {
                 MessageBox.Show("Please select a collection to add to");
             }
-            else if(_selectedID == 0)
+            else if (_selectedID == 0)
             {
                 MessageBox.Show("Please select a movie to add to the collection");
             }
@@ -1611,19 +1609,19 @@ namespace MovieCollection
             {
                 try
                 {
-                    
-                    foreach(var collection in _collectionVMs)
+
+                    foreach (var collection in _collectionVMs)
                     {
-                        if(collection.collectionName == cboResultAddToCollection.SelectedValue.ToString())
+                        if (collection.collectionName == cboResultAddToCollection.SelectedValue.ToString())
                         {
-                            foreach(int movie in collection.movieIDs) 
-                            { 
-                               if(movie == _selectedID)
+                            foreach (int movie in collection.movieIDs)
+                            {
+                                if (movie == _selectedID)
                                 {
                                     MessageBox.Show("This movie already exists in this collection");
                                     break;
                                 }
-                               else
+                                else
                                 {
                                     bool result = _collectionManager.AddMovieToCollection(_selectedID, collection.collectionID);
                                     if (!result)
@@ -1641,7 +1639,7 @@ namespace MovieCollection
                         }
 
                     }
-                   
+
                 }
                 catch (Exception ex)
                 {

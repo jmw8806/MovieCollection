@@ -4,9 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataAccessLayer
 {
@@ -34,7 +31,7 @@ namespace DataAccessLayer
 
                 SqlDataReader reader = cmd.ExecuteReader();
 
-                if(reader.HasRows)
+                if (reader.HasRows)
                 {
                     reader.Read();
 
@@ -79,7 +76,7 @@ namespace DataAccessLayer
             cmd.Parameters.Add("@passwordHash", SqlDbType.NVarChar, 100);
             cmd.Parameters["@email"].Value = email;
             cmd.Parameters["@passwordHash"].Value = passwordHash;
-            
+
             try
             {
                 conn.Open();
@@ -89,7 +86,7 @@ namespace DataAccessLayer
             {
                 throw ex;
             }
-            finally 
+            finally
             {
                 conn.Close();
             }
@@ -112,8 +109,8 @@ namespace DataAccessLayer
             {
                 conn.Open();
                 var result = cmd.ExecuteScalar();
-                
-                if(result == null)
+
+                if (result == null)
                 {
                     throw new ApplicationException("No roles found");
                 }
@@ -126,9 +123,9 @@ namespace DataAccessLayer
             {
                 throw ex;
             }
-            finally 
-            { 
-                conn.Close(); 
+            finally
+            {
+                conn.Close();
             }
             return role;
         }
@@ -154,7 +151,7 @@ namespace DataAccessLayer
             cmd.Parameters.Add("@oldLName", SqlDbType.NVarChar, 100);
             cmd.Parameters.Add("@oldEmail", SqlDbType.NVarChar, 250);
 
-            cmd.Parameters["@userID"].Value = userID;          
+            cmd.Parameters["@userID"].Value = userID;
             cmd.Parameters["@newFName"].Value = newFName;
             cmd.Parameters["@newLName"].Value = newLName;
             cmd.Parameters["@newEmail"].Value = newEmail;
@@ -202,7 +199,7 @@ namespace DataAccessLayer
                 if (reader.HasRows)
                 {
 
-                    
+
                     while (reader.Read())
                     {
                         users.Add(new User()
@@ -212,7 +209,7 @@ namespace DataAccessLayer
                             lName = reader.GetString(2),
                             email = reader.GetString(3),
                             imgURL = reader.GetString(4)
-                        }); 
+                        });
                     }
 
                 }

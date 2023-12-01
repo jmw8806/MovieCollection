@@ -1,9 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 
 namespace DataObjects
@@ -28,18 +24,18 @@ namespace DataObjects
         public static string displayList(List<string> list)
         {
             string output = "";
-            foreach(string item in list)
+            foreach (string item in list)
             {
                 output += item + " ";
             }
             return output;
         }
 
-       public static List<int> getYears(int start)
+        public static List<int> getYears(int start)
         {
             int end = DateTime.Now.Year;
             List<int> years = new List<int>();
-            for(int year = start; year <= end; year++) 
+            for (int year = start; year <= end; year++)
             {
                 years.Add(year);
             }

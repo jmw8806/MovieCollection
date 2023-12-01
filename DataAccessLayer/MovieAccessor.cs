@@ -1,14 +1,9 @@
 ﻿using DataAccessInterfaces;
 using DataObjects;
-using Microsoft.SqlServer.Server;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Runtime.Remoting.Messaging;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataAccessLayer
 {
@@ -17,34 +12,34 @@ namespace DataAccessLayer
         public MovieVM SelectMovieByID(int movieID)
         {
             MovieVM movieVM = null;
-            
+
 
             var conn = DBConnectionProvider.GetConnection();
             var cmd = new SqlCommand("sp_select_title_by_titleID", conn);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.Add("@titleID", SqlDbType.Int);
             cmd.Parameters["@titleID"].Value = movieID;
-            try 
+            try
             {
                 conn.Open();
                 SqlDataReader reader = cmd.ExecuteReader();
 
-                if(reader.HasRows)
+                if (reader.HasRows)
                 {
-                    
-                        reader.Read();
-                        movieVM = new MovieVM()
-                        {
-                            titleID = reader.GetInt32(0),
-                            title = reader.GetString(1),
-                            year = reader.GetInt32(2),
-                            rating = reader.GetString(3),
-                            runtime = reader.GetInt32(4),
-                            isCriterion = reader.GetBoolean(5),
-                            notes = reader.GetString(6),
-                            isActive = reader.GetBoolean(7)
-                        };
-                    
+
+                    reader.Read();
+                    movieVM = new MovieVM()
+                    {
+                        titleID = reader.GetInt32(0),
+                        title = reader.GetString(1),
+                        year = reader.GetInt32(2),
+                        rating = reader.GetString(3),
+                        runtime = reader.GetInt32(4),
+                        isCriterion = reader.GetBoolean(5),
+                        notes = reader.GetString(6),
+                        isActive = reader.GetBoolean(7)
+                    };
+
                 }
                 else
                 {
@@ -89,12 +84,12 @@ namespace DataAccessLayer
         public List<Movie> GetAllMovies()
         {
             List<Movie> movies = new List<Movie>();
-            
+
 
             var conn = DBConnectionProvider.GetConnection();
             var cmd = new SqlCommand("sp_select_all_movies", conn);
             cmd.CommandType = CommandType.StoredProcedure;
-            
+
             try
             {
                 conn.Open();
@@ -126,7 +121,7 @@ namespace DataAccessLayer
                 }
 
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw ex;
             }
@@ -193,9 +188,9 @@ namespace DataAccessLayer
             {
                 conn.Open();
                 SqlDataReader reader = cmd.ExecuteReader();
-                if(reader.HasRows)
+                if (reader.HasRows)
                 {
-                    while(reader.Read())
+                    while (reader.Read())
                     {
                         genres.Add(reader.GetString(0));
                     }
@@ -230,9 +225,9 @@ namespace DataAccessLayer
             {
                 conn.Open();
                 SqlDataReader reader = cmd.ExecuteReader();
-                if(reader.HasRows)
+                if (reader.HasRows)
                 {
-                    while(reader.Read())
+                    while (reader.Read())
                     {
                         languages.Add(reader.GetString(0));
                     }
@@ -484,7 +479,7 @@ namespace DataAccessLayer
             cmd.Parameters.Add("@release_year", SqlDbType.Int);
             cmd.Parameters.Add("@rating", SqlDbType.NVarChar, 5);
             cmd.Parameters.Add("@runtime", SqlDbType.Int);
-            cmd.Parameters.Add("@criterion", SqlDbType.Bit);           
+            cmd.Parameters.Add("@criterion", SqlDbType.Bit);
             cmd.Parameters.Add("@notes", SqlDbType.NVarChar, 250);
             cmd.Parameters.Add("@new_id", SqlDbType.Int).Direction = ParameterDirection.Output;
 
@@ -500,12 +495,12 @@ namespace DataAccessLayer
                 conn.Open();
                 cmd.ExecuteNonQuery();
                 newID = (int)cmd.Parameters["@new_id"].Value;
-                if(newID == 0)
+                if (newID == 0)
                 {
                     throw new ApplicationException("ID retrieval failed");
                 }
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 throw ex;
             }
@@ -526,16 +521,16 @@ namespace DataAccessLayer
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.Add("@titleID", SqlDbType.Int);
             cmd.Parameters.Add("@media_language", SqlDbType.NVarChar, 100);
-           
+
 
             cmd.Parameters["@titleID"].Value = id;
             cmd.Parameters["@media_language"].Value = language;
-           
+
             try
             {
                 conn.Open();
                 rows = cmd.ExecuteNonQuery();
-               if(rows == 0)
+                if (rows == 0)
                 {
                     throw new ApplicationException("Language " + language + " addition failed");
                 }
@@ -757,7 +752,7 @@ namespace DataAccessLayer
             cmd.Parameters.Add("@titleID", SqlDbType.Int);
 
             cmd.Parameters["@titleID"].Value = id;
-            
+
 
             try
             {
@@ -790,7 +785,7 @@ namespace DataAccessLayer
             cmd.Parameters.Add("@titleID", SqlDbType.Int);
             cmd.Parameters.Add("@newURL", SqlDbType.NVarChar, 255);
             cmd.Parameters.Add("@oldURL", SqlDbType.NVarChar, 255);
-            
+
             cmd.Parameters["@titleID"].Value = id;
             cmd.Parameters["@newURL"].Value = newURL;
             cmd.Parameters["@oldURL"].Value = oldURL;
@@ -826,10 +821,10 @@ namespace DataAccessLayer
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.Add("@titleID", SqlDbType.Int);
             cmd.Parameters.Add("@isActive", SqlDbType.Bit);
-            
+
             cmd.Parameters["@titleID"].Value = id;
             cmd.Parameters["@isActive"].Value = isActive;
-            
+
             try
             {
                 conn.Open();
@@ -867,7 +862,7 @@ namespace DataAccessLayer
                 if (reader.HasRows)
                 {
 
-                    
+
                     while (reader.Read())
                     {
                         movies.Add(new Movie()

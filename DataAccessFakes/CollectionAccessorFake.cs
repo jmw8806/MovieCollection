@@ -2,10 +2,6 @@
 using DataObjects;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataAccessFakes
 {
@@ -13,9 +9,9 @@ namespace DataAccessFakes
 
     {
         private List<CollectionVM> fakeCollections = new List<CollectionVM>();
- 
 
-        public CollectionAccessorFake() 
+
+        public CollectionAccessorFake()
         {
             fakeCollections.Add(new CollectionVM()
             {
@@ -54,14 +50,14 @@ namespace DataAccessFakes
         public int AddMovieToCollection(int movieID, int collectionID)
         {
             int rows = 0;
-            foreach(var collection in fakeCollections)
+            foreach (var collection in fakeCollections)
             {
-                if(collection.collectionID == collectionID)
+                if (collection.collectionID == collectionID)
                 {
                     collection.movieIDs.Add(movieID);
                     rows++;
                 }
-                if(rows == 0)
+                if (rows == 0)
                 {
                     throw new ArgumentException("No movies added to the collection");
                 }
@@ -75,11 +71,11 @@ namespace DataAccessFakes
             int rows = 0;
             int newCollectionID = fakeCollections.Count + 1;
             CollectionVM newCollection = new CollectionVM();
-            foreach( var collection in fakeCollections)
+            foreach (var collection in fakeCollections)
             {
                 if (collection.userID == userID)
                 {
-                    
+
                     if (collection.collectionName.ToLower() == collectionName.ToLower())
                     {
                         throw new ArgumentException("Collection name already exists");
@@ -94,7 +90,7 @@ namespace DataAccessFakes
                     }
                 }
             }
-            if(rows != 0)
+            if (rows != 0)
             {
                 fakeCollections.Add(newCollection);
             }
@@ -105,14 +101,14 @@ namespace DataAccessFakes
         {
             List<CollectionVM> collections = new List<CollectionVM>();
 
-            foreach(var fakeCollection in fakeCollections)
+            foreach (var fakeCollection in fakeCollections)
             {
-                if(fakeCollection.userID == userID)
+                if (fakeCollection.userID == userID)
                 {
                     collections.Add(fakeCollection);
                 }
             }
-            if(collections == null)
+            if (collections == null)
             {
                 throw new ArgumentException();
             }
@@ -123,15 +119,15 @@ namespace DataAccessFakes
         {
             List<int> movieIDs = new List<int>();
 
-            foreach(var fakeCollection in fakeCollections)
+            foreach (var fakeCollection in fakeCollections)
             {
-                if(fakeCollection.collectionID == collectionID)
+                if (fakeCollection.collectionID == collectionID)
                 {
                     movieIDs = fakeCollection.movieIDs;
                 }
             }
 
-            if(movieIDs == null)
+            if (movieIDs == null)
             {
                 throw new ArgumentException();
             }
@@ -152,7 +148,7 @@ namespace DataAccessFakes
                     indexToRemove = i;
                 }
             }
-            if(rows != 0)
+            if (rows != 0)
             {
                 fakeCollections.RemoveAt(indexToRemove);
             }
@@ -186,13 +182,13 @@ namespace DataAccessFakes
                 {
                     throw new ArgumentException("No collections found");
                 }
-               
+
             }
-            if(rows != 0)
+            if (rows != 0)
             {
                 fakeCollections[collectionIndex].movieIDs.Remove(fakeCollections[collectionIndex].movieIDs[indexToRemove]);
             }
-   
+
             return rows;
 
         }

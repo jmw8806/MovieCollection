@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        Title="Movie Collection " Height="700" Width="1200" ResizeMode="NoResize" Loaded="Window_Loaded" Icon="/blank.png">
+        Title="Movie Collection " Height="750" Width="1200" ResizeMode="NoResize" Loaded="Window_Loaded" Icon="/blank.png">
 
 
     <Window.Background>
@@ -52,7 +52,7 @@
             </MenuItem>
             <MenuItem x:Name="mnuHelp" Header="Help">
                 <MenuItem x:Name="mnuAbout" Header="About"></MenuItem>
-           
+
             </MenuItem>
         </Menu>
         <Grid Grid.Row="1" Grid.ColumnSpan="5">
@@ -89,7 +89,10 @@
                             <GradientStop Color="#FF83F9F9" Offset="1"/>
                         </LinearGradientBrush>
                     </TabItem.Background>
-                    <Grid x:Name="grdHome" Height="480">
+                    <Grid x:Name="grdHome" Height="475">
+                        <Grid.Effect>
+                            <DropShadowEffect/>
+                        </Grid.Effect>
                         <Grid.Background>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="#FFFCFCFC"/>
@@ -98,12 +101,12 @@
                         </Grid.Background>
                         <Grid.RowDefinitions>
                             <RowDefinition  />
-                            <RowDefinition Height="50"/>
-                            <RowDefinition Height="40"/>
-                            <RowDefinition Height="40"/>
-                            <RowDefinition Height="40"/>
-                            <RowDefinition Height="50"/>
-                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="70"/>
+                            <RowDefinition Height="60"/>
+                            <RowDefinition Height="60"/>
+                            <RowDefinition Height="60"/>
+                            <RowDefinition Height="70"/>
+                            <RowDefinition Height="70"/>
                             <RowDefinition/>
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
@@ -139,19 +142,19 @@
                             </Image.Effect>
                         </Image>
                         <Label x:Name="lblHomeTitle" Grid.Column="11" Grid.Row="1" Grid.ColumnSpan="4" Content="Title" FontSize="28" FontWeight="Bold" Margin="5,0,0,0"/>
-                        <Label x:Name="lblHomeRuntime" Grid.Row="2" Grid.Column="11" Content="Runtime:" FontSize="25" HorizontalAlignment="Left"
+                        <Label x:Name="lblHomeRuntime" VerticalContentAlignment="Center" Grid.Row="2" Grid.Column="11" Content="Runtime:" FontSize="25" HorizontalAlignment="Left"
                                FontWeight="Bold" Margin="23,0,0,0"/>
-                        <TextBlock x:Name="txtHomeRuntime" Text="90" FontSize="25" Grid.Row="2" Grid.Column="12" VerticalAlignment="Center" Grid.ColumnSpan="3" Margin="10,0,205,0"/>
-                        <Label x:Name="lblHomeRating" Grid.Row="3" Grid.Column="11" Content="Rating:" FontSize="25" HorizontalAlignment="Left"
+                        <TextBlock x:Name="txtHomeRuntime" Text="90" HorizontalAlignment="Left" FontSize="25" Grid.Row="2" Grid.Column="12" VerticalAlignment="Center" Grid.ColumnSpan="3" Margin="10,0,0,0"/>
+                        <Label x:Name="lblHomeRating" VerticalAlignment="Center" Grid.Row="3" Grid.Column="11" Content="Rating:" FontSize="25" HorizontalAlignment="Left"
                                FontWeight="Bold" Margin="46,0,0,0"/>
                         <TextBlock x:Name="txtHomeRating" Text="G" FontSize="25" Grid.Row="3" Grid.Column="12" VerticalAlignment="Center" Grid.ColumnSpan="3" Margin="10,0,205,0" />
-                        <Label x:Name="lblHomeFormat" Grid.Row="4" Grid.Column="11" Content="Format:" FontSize="25" HorizontalAlignment="Left"
+                        <Label x:Name="lblHomeFormat" VerticalAlignment="Center" Grid.Row="4" Grid.Column="11" Content="Format:" FontSize="25" HorizontalAlignment="Left"
                                FontWeight="Bold" Margin="39,0,0,0"/>
                         <TextBlock x:Name="txtHomeFormat" Text="DVD" FontSize="25" Grid.Row="4" Grid.Column="12" VerticalAlignment="Center" Grid.ColumnSpan="3" Margin="10,0,205,0" />
-                        <Label x:Name="lblHomeLanguage" Grid.Row="5" Grid.Column="11" Content="Language:" FontSize="25" HorizontalAlignment="Left"
+                        <Label x:Name="lblHomeLanguage" VerticalAlignment="Center" Grid.Row="5" Grid.Column="11" Content="Language:" FontSize="25" HorizontalAlignment="Left"
                                FontWeight="Bold" Margin="9,0,0,0"/>
                         <TextBlock x:Name="txtHomeLanguage" Text="English" FontSize="25" Grid.Row="5" Grid.Column="12" VerticalAlignment="Center" Grid.ColumnSpan="3" Margin="10,0,205,0" />
-                        <Label x:Name="lblHomeGenres" Grid.Row="6" Grid.Column="11" Content="Genres:" FontSize="25" HorizontalAlignment="Left"
+                        <Label x:Name="lblHomeGenres" VerticalAlignment="Center" Grid.Row="6" Grid.Column="11" Content="Genres:" FontSize="25" HorizontalAlignment="Left"
                                FontWeight="Bold" Margin="43,0,0,0"/>
                         <TextBlock x:Name="txtHomeGenres" Text="" FontSize="25" Grid.Row="6" Grid.Column="12" VerticalAlignment="Center" Grid.ColumnSpan="3" Margin="10,0,205,0" />
 
@@ -164,7 +167,10 @@
                             <GradientStop Color="#FFFF94F8" Offset="1"/>
                         </LinearGradientBrush>
                     </TabItem.Background>
-                    <Grid Height="500" Width="1205">
+                    <Grid Height="475">
+                        <Grid.Effect>
+                            <DropShadowEffect/>
+                        </Grid.Effect>
                         <Grid.Background>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="White" Offset="0"/>
@@ -195,7 +201,7 @@
                             <RowDefinition Height="50"/>
                             <RowDefinition/>
                         </Grid.RowDefinitions>
-                        <Label Content="Filter" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.ColumnSpan="2" Grid.RowSpan="2" Margin="104,67,0,0"/>
+                        <Label Content="Filter" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.ColumnSpan="2" Grid.RowSpan="2" Margin="104,60,0,0"/>
                         <Label Content="Collection:" Grid.Row="1" Grid.Column="2" FontSize="18" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0"/>
                         <CheckBox x:Name="chkSearchCollection" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="1" Grid.Column="2" Margin="114,0,0,0" />
                         <CheckBox x:Name="chkSearchTitle" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="2" Grid.Column="2" Margin="114,0,0,0" />
@@ -223,7 +229,7 @@
                         <Button x:Name="btnSearchSubmit" Content="Search" Grid.Column="3" Grid.Row="7" Width="100" Height="40" HorizontalAlignment="Right" VerticalAlignment="Top" VerticalContentAlignment="Center" Click="btnSearchSubmit_Click" Background="#FFFFC0FF" BorderBrush="#FF832A7D"/>
                         <ListBox x:Name="lstSearchResults" Grid.Column="5" Grid.Row="1" Grid.RowSpan="7" MouseDoubleClick="lstSearchResults_MouseDoubleClick" />
                         <Image x:Name="imgSearch" Grid.Row="1" Grid.Column="7" Grid.RowSpan="6" Width="245" Height="280" Margin="2,0,2,10">
-                        
+
                         </Image>
                         <ComboBox x:Name="cboResultAddToCollection" Grid.Column="7" Grid.Row="7" Width="150" Height="40" VerticalContentAlignment="Center" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,3,0,0" Padding="2"/>
                         <Button x:Name="btnResultAdd" Content="Add" Grid.Column="7" Grid.Row="7" Width="85" Height="40" HorizontalAlignment="Left" VerticalAlignment="Center" VerticalContentAlignment="Center" Background="#FFC1F6C1" BorderBrush="#FF18FF27" Click="btnResultAdd_Click" />
@@ -246,7 +252,10 @@
                             <GradientStop Color="#FFFFDCA9" Offset="1"/>
                         </LinearGradientBrush>
                     </TabItem.Background>
-                    <Grid Height="500" Width="1200">
+                    <Grid Height="475" >
+                        <Grid.Effect>
+                            <DropShadowEffect/>
+                        </Grid.Effect>
                         <Grid.Background>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="White"/>
@@ -303,7 +312,10 @@
                             <GradientStop Color="#FF5C91F4" Offset="1"/>
                         </LinearGradientBrush>
                     </TabItem.Background>
-                    <Grid Height="500" Width="1150">
+                    <Grid Height="475">
+                        <Grid.Effect>
+                            <DropShadowEffect/>
+                        </Grid.Effect>
                         <Grid.Background>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="White"/>
@@ -378,7 +390,10 @@
                             <GradientStop Color="#FF86F191" Offset="1"/>
                         </LinearGradientBrush>
                     </TabItem.Background>
-                    <Grid Height="450" Width="1150">
+                    <Grid Height="475">
+                        <Grid.Effect>
+                            <DropShadowEffect/>
+                        </Grid.Effect>
                         <Grid.Background>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="White"/>
@@ -443,7 +458,10 @@
                             <GradientStop Color="#FFC698FF" Offset="1"/>
                         </LinearGradientBrush>
                     </TabItem.Background>
-                    <Grid Height="520" Width="1150">
+                    <Grid Height="475">
+                        <Grid.Effect>
+                            <DropShadowEffect/>
+                        </Grid.Effect>
                         <Grid.Background>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="#FFFFFCFC"/>
@@ -451,7 +469,7 @@
                             </LinearGradientBrush>
                         </Grid.Background>
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="105"/>
+                            <RowDefinition Height="100"/>
                             <RowDefinition Height="55"/>
                             <RowDefinition Height="55"/>
                             <RowDefinition Height="55"/>
@@ -489,7 +507,7 @@
                                  VerticalAlignment="Top" VerticalContentAlignment="Center" Padding="1" Margin="5 0 0 0" Visibility="Hidden" MouseDoubleClick="txtProfileImgURL_MouseDoubleClick"/>
                         <Button x:Name="btnProfileImgPreview" Content="Preview Image" Grid.Row="4" Grid.Column="5" Width="100" Height="45" 
                                 HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,45,0,0" Visibility="Hidden" Click="btnProfileImgPreview_Click" Background="#FFEED2FF" BorderBrush="#FFA23DFF" />
-                        <Button x:Name="btnProfileUpdate" Content="Update" Grid.Row="5" Grid.Column="5" Width="100" Height="45" HorizontalAlignment="Left" Click="btnProfileUpdate_Click" Background="#FFDAF7FF" BorderBrush="#FF475FFD" Margin="0,15,0,15"/>
+                        <Button x:Name="btnProfileUpdate" Content="Update" Grid.Row="5" Grid.Column="5" Width="100" Height="45" HorizontalAlignment="Left" Click="btnProfileUpdate_Click" Background="#FFA4EBFF" BorderBrush="#FF475FFD" Margin="0,15,0,15"/>
                         <Button x:Name="btnProfilePassword" Content="Change Password" Grid.Row="5" Grid.Column="5" Width="110" Height="45" HorizontalAlignment="Left"  Background="#FFEDFFDA" BorderBrush="#FF475FFD" Margin="150,15,0,15" Click="btnProfilePassword_Click"/>
                         <Button x:Name="btnProfileDeactivate" Content="Deactivate" Grid.Row="5" Grid.Column="6" Width="100" Height="45" HorizontalAlignment="Left" Margin="15,15,0,15" Background="#FFFFC8C8" BorderBrush="#FFF16C6C" Click="btnProfileDeactivate_Click"/>
                         <Button x:Name="btnProfileSubmit" Content="Submit" Grid.Row="5" Grid.Column="5" Width="100" Height="45" HorizontalAlignment="Left" Visibility="Hidden" Click="btnProfileSubmit_Click" Background="#FFC1F6C1" BorderBrush="#FF18FF27" Margin="0,15,0,15"/>
@@ -503,7 +521,16 @@
                             <GradientStop Color="#FFFF9696" Offset="1"/>
                         </LinearGradientBrush>
                     </TabItem.Background>
-                    <Grid Height="480" Width="1150" Background="#FFFC9191">
+                    <Grid Height="475">
+                        <Grid.Background>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="White"/>
+                                <GradientStop Color="#FFFC9191" Offset="0.039"/>
+                            </LinearGradientBrush>
+                        </Grid.Background>
+                        <Grid.Effect>
+                            <DropShadowEffect/>
+                        </Grid.Effect>
                         <Grid.RowDefinitions>
                             <RowDefinition/>
                             <RowDefinition Height="65"/>

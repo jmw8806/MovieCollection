@@ -1,25 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataObjects
 {
     public static class MovieSearchHelpers
     {
-        
 
-       public static List<MovieVM> searchByCollection(CollectionVM collection, List<MovieVM> movies)
+
+        public static List<MovieVM> searchByCollection(CollectionVM collection, List<MovieVM> movies)
         {
             List<MovieVM> results = new List<MovieVM>();
-            
+
             results = movies.Where(movie => collection.movieIDs.Contains(movie.titleID)).ToList();
-            
+
             return results;
         }
 
-        public static List<MovieVM> searchByTitle(List<MovieVM> movies, string term) 
+        public static List<MovieVM> searchByTitle(List<MovieVM> movies, string term)
         {
             List<MovieVM> results = new List<MovieVM>();
             results = movies.Where(m => m.title.ToLower().Contains(term.ToLower())).ToList();
@@ -39,7 +36,7 @@ namespace DataObjects
             results = movies.Where(m => m.year == year).ToList();
             return results;
         }
-        
+
         public static List<MovieVM> searchByLessThanRuntime(List<MovieVM> movies, int runtime)
         {
             List<MovieVM> results = new List<MovieVM>();
@@ -57,7 +54,7 @@ namespace DataObjects
         public static List<MovieVM> searchByRating(List<MovieVM> movies, string rating)
         {
             List<MovieVM> results = new List<MovieVM>();
-            results = movies.Where(m => m.rating.ToLower() ==rating.ToLower()).ToList();
+            results = movies.Where(m => m.rating.ToLower() == rating.ToLower()).ToList();
             return results;
         }
 
@@ -82,12 +79,12 @@ namespace DataObjects
             return results;
         }
 
-        public static List<int> getMovieYears(List<MovieVM> movies) 
+        public static List<int> getMovieYears(List<MovieVM> movies)
         {
             List<int> years = new List<int>();
-            foreach(var movie in  movies) 
-            { 
-                if(!years.Contains(movie.year))
+            foreach (var movie in movies)
+            {
+                if (!years.Contains(movie.year))
                 {
                     years.Add(movie.year);
                 }
@@ -110,7 +107,7 @@ namespace DataObjects
                     }
                 }
             }
-            genres.Sort(); 
+            genres.Sort();
             return genres;
         }
 

@@ -37,7 +37,8 @@ namespace LogicLayerTests
             Assert.AreNotEqual(expected, actual);
         }
 
-        [TestMethod] public void AddMovieIDtoCollectionPasses()
+        [TestMethod]
+        public void AddMovieIDtoCollectionPasses()
         {
             bool actual = false;
             int collectionID = 1;
@@ -78,7 +79,7 @@ namespace LogicLayerTests
         }
 
         [TestMethod]
-        public void RemoveCollectionByUserIDAndCollectionIDPasses() 
+        public void RemoveCollectionByUserIDAndCollectionIDPasses()
         {
             bool result = false;
             int userID = 1;
@@ -100,7 +101,7 @@ namespace LogicLayerTests
 
         [TestMethod]
         public void RemoveMovieFromCollectionPasses()
-        
+
         {
             bool result = false;
             int movieID = 1;

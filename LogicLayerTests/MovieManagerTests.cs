@@ -35,9 +35,9 @@ namespace LogicLayerTests
             int movieID = 2;
             string expectedTitle = "First";
             string actualTitle = _movieManager.GetMovieByTitleID(movieID).title;
-            
+
         }
-        
+
         [TestMethod]
         public void TestCountMoviesFail()
         {
@@ -103,11 +103,11 @@ namespace LogicLayerTests
         {
             int movieID = 12;
             List<string> result = _movieManager.GetGenresByTitleID(movieID);
-           
+
         }
 
         [TestMethod]
-        
+
         public void TestGetGenresByMovieIDIncorrectResultsFails()
         {
             int movieID = 1;
@@ -130,11 +130,11 @@ namespace LogicLayerTests
             string expectedResult = "EnglishSpanishFrench";
             List<string> languages = _movieManager.GetAllLanguages();
             string actualResult = "";
-            foreach(string language in languages)
+            foreach (string language in languages)
             {
                 actualResult += language;
             }
-            Assert.AreEqual(expectedResult, actualResult); 
+            Assert.AreEqual(expectedResult, actualResult);
         }
 
         [TestMethod]
@@ -143,7 +143,7 @@ namespace LogicLayerTests
             int movieID = 1;
             string expectedResult = "English";
             string actualResult = "";
-            foreach(string language in _movieManager.GetLanguagesByMovieID(movieID))
+            foreach (string language in _movieManager.GetLanguagesByMovieID(movieID))
             {
                 actualResult += language;
             }
@@ -167,7 +167,7 @@ namespace LogicLayerTests
         }
 
         [TestMethod]
-        
+
         public void TestGetAllFormatsFailsCountIsFalse()
         {
             int count = _movieManager.GetAllFormats().Count;
@@ -179,18 +179,18 @@ namespace LogicLayerTests
         {
             int movieID = 2;
             int expectedResult = 1;
-            int actualResult = 0;  
+            int actualResult = 0;
 
             actualResult = _movieManager.GetFormatsByMovieID(movieID).Count;
             Assert.AreEqual(expectedResult, actualResult);
-           
+
         }
 
         [TestMethod]
         public void TestGetAllRatingsCountPasses()
         {
             int actualCount = _movieManager.GetAllRatings().Count;
-            Assert.IsTrue (actualCount == 3);
+            Assert.IsTrue(actualCount == 3);
         }
 
         [TestMethod]
@@ -229,9 +229,9 @@ namespace LogicLayerTests
         [TestMethod]
         [ExpectedException(typeof(ApplicationException))]
         public void TestAddNewMovieLanguageFailsThrowsException()
-        {          
+        {
             int actual = 0;
-            actual = _movieManager.AddLanguage(7, "Spanish"); 
+            actual = _movieManager.AddLanguage(7, "Spanish");
         }
 
 
@@ -288,7 +288,7 @@ namespace LogicLayerTests
         {
             int expected = 0;
             int actual = 0;
-           
+
             Assert.AreEqual(expected, actual);
         }
         [TestMethod]
@@ -304,7 +304,7 @@ namespace LogicLayerTests
         {
             int expected = 0;
             int actual = 0;
-           
+
             Assert.AreEqual(expected, actual);
         }
         [TestMethod]
@@ -337,13 +337,13 @@ namespace LogicLayerTests
             string oldURL = "one1111.png";
             string newURL = "oneOne.png";
             actual = _movieManager.UpdateMovieImage(id, newURL, oldURL);
-            
+
         }
 
         [TestMethod]
         public void TestUpdateMovieIsActivePasses()
         {
-           
+
             bool actual = false;
             int id = 1;
             bool isActive = false;
@@ -359,7 +359,7 @@ namespace LogicLayerTests
             int id = 5;
             bool isActive = false;
             actual = _movieManager.UpdateMovieIsActive(id, isActive);
-            
+
         }
 
         [TestMethod]
