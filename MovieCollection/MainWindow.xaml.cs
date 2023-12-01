@@ -196,6 +196,7 @@ namespace MovieCollection
                     cboCollectionsSelect.Items.Add(collection.collectionName);
                     cboResultAddToCollection.Items.Add(collection.collectionName);
                     cboCollectionsAddMoveCollection.Items.Add(collection.collectionName);
+                    cboAllAddToCollection.Items.Add(collection.collectionName);
                 }
             }
             catch (Exception ex)
@@ -554,7 +555,55 @@ namespace MovieCollection
 
         private void btnAllAdd_Click(object sender, RoutedEventArgs e)
         {
-            tabAdd.Focus();
+            if (cboAllAddToCollection.SelectedValue == null)
+            {
+                MessageBox.Show("Please select a collection to add to");
+            }
+            else if (_selectedID == 0)
+            {
+                MessageBox.Show("Please select a movie to add to the collection");
+            }
+            else
+            {
+                try
+                {
+
+                    foreach (var collection in _collectionVMs)
+                    {
+                        if (collection.collectionName ==cboAllAddToCollection.SelectedValue.ToString())
+                        {
+                            foreach (int movie in collection.movieIDs)
+                            {
+                                if (movie == _selectedID)
+                                {
+                                    MessageBox.Show("This movie already exists in this collection");
+                                    break;
+                                }
+                                else
+                                {
+                                    bool result = _collectionManager.AddMovieToCollection(_selectedID, collection.collectionID);
+                                    if (!result)
+                                    {
+                                        MessageBox.Show("Movie may already exist in collection.");
+                                    }
+                                    else
+                                    {
+                                        MessageBox.Show("Movie added to collection");
+                                        collection.movieIDs = _collectionManager.GetMovieIDsByCollectionID(collection.collectionID);
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+
+                    }
+
+                }
+                catch 
+                {
+                    MessageBox.Show("Movie already exists in the collection");
+                }
+            }
         }
 
         private void btnAllEdit_Click(object sender, RoutedEventArgs e)
@@ -1397,12 +1446,14 @@ namespace MovieCollection
                         cboCollectionsSelect.Items.Clear();
                         cboCollectionsAddMoveCollection.Items.Clear();
                         cboResultAddToCollection.Items.Clear();
+                        cboAllAddToCollection.Items.Clear();
                         txtCollectionNew.Text = "";
                         foreach (CollectionVM collectionVM in _collectionVMs)
                         {
                             cboCollectionsSelect.Items.Add(collectionVM.collectionName);
                             cboCollectionsAddMoveCollection.Items.Add(collectionVM.collectionName);
                             cboResultAddToCollection.Items.Add(collectionVM.collectionName);
+                            cboAllAddToCollection.Items.Add(collectionVM.collectionName);
                         }
 
                     }
@@ -1459,11 +1510,13 @@ namespace MovieCollection
                             cboCollectionsSelect.Items.Clear();
                             cboCollectionsAddMoveCollection.Items.Clear();
                             cboResultAddToCollection.Items.Clear();
+                            cboAllAddToCollection.Items.Clear();
                             foreach(var collection in _collectionVMs)
                             {
                                 cboCollectionsSelect.Items.Add(collection.collectionName);
                                 cboCollectionsAddMoveCollection.Items.Add(collection.collectionName);
                                 cboResultAddToCollection.Items.Add(collection.collectionName);
+                                cboAllAddToCollection.Items.Add(collection.collectionName);
                                 
                             }
                         }

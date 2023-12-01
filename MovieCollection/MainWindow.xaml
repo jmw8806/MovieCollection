@@ -280,6 +280,7 @@
                         <Label x:Name="lblAllMoviesLanguages" Grid.Row="6" Grid.Column="4" Content="Languages"  FontSize="20" />
                         <Label x:Name="lblAllMoviesRuntime" Grid.Row="7" Grid.Column="4" Content="Runtime: mins"  FontSize="20" />
                         <Label x:Name="lblAllMoviesCriterion" Grid.Row="8" Grid.Column="4" Content="Criterion: "  FontSize="20" />
+                        <ComboBox x:Name="cboAllAddToCollection" Grid.Row="9" Grid.Column="3" Height="35" VerticalAlignment="Center" VerticalContentAlignment="Center" Padding="2"/>
                         <Button x:Name="btnAllAdd" Content="Add" Grid.Row="9" Grid.Column="4" Width="100" Height="35" HorizontalAlignment="Left" Margin="0 0 10 0" Click="btnAllAdd_Click" Background="#FFC1F6C1" BorderBrush="#FF18FF27"/>
                         <Button x:Name="btnAllEdit" Content="Edit" Grid.Row="9" Grid.Column="4" Width="100" Height="35" HorizontalAlignment="Center" Click="btnAllEdit_Click" Background="#FFDAF7FF" BorderBrush="#FF475FFD"/>
                         <Button x:Name="btnAllRemove" Content="Remove" Grid.Row="9" Grid.Column="4" Width="100" Height="35" HorizontalAlignment="Right" Click="btnAllRemove_Click" Background="#FFFFC8C8" BorderBrush="#FFF16C6C"/>
