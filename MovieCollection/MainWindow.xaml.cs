@@ -51,28 +51,8 @@ namespace MovieCollection
         }
 
 
-        private void mnuTest_Click(object sender, RoutedEventArgs e)
-        {
-
-            try
-            {
-                if (_loggedInUser != null)
-                {
-                    _collectionVMs = _collectionManager.GetCollectionsByUserID(_loggedInUser.userID);
-                    string names = "";
-                    foreach (CollectionVM collection in _collectionVMs)
-                    {
-                        names += collection.collectionName + " ";
-                    }
-                    MessageBox.Show(names);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error \n\n" + ex);
-            }
-
-        }
+     
+        
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
@@ -195,7 +175,7 @@ namespace MovieCollection
                     collection.movieIDs = _collectionManager.GetMovieIDsByCollectionID(collection.collectionID);
                     cboCollectionsSelect.Items.Add(collection.collectionName);
                     cboResultAddToCollection.Items.Add(collection.collectionName);
-                    cboCollectionsAddMoveCollection.Items.Add(collection.collectionName);
+                  
                     cboAllAddToCollection.Items.Add(collection.collectionName);
                 }
             }
@@ -230,7 +210,7 @@ namespace MovieCollection
                 lblPassword.Visibility = Visibility.Visible;
                 imgProfilePic.Visibility = Visibility.Hidden;
                 cboCollectionsSelect.Items.Clear();
-                cboCollectionsAddMoveCollection.Items.Clear();
+              
                 hideMenuItems();
                 hideTabs();
             }
@@ -1444,14 +1424,14 @@ namespace MovieCollection
                         MessageBox.Show("Success! Collection Added");
                         _collectionVMs = _collectionManager.GetCollectionsByUserID(_loggedInUser.userID);
                         cboCollectionsSelect.Items.Clear();
-                        cboCollectionsAddMoveCollection.Items.Clear();
+                     
                         cboResultAddToCollection.Items.Clear();
                         cboAllAddToCollection.Items.Clear();
                         txtCollectionNew.Text = "";
                         foreach (CollectionVM collectionVM in _collectionVMs)
                         {
                             cboCollectionsSelect.Items.Add(collectionVM.collectionName);
-                            cboCollectionsAddMoveCollection.Items.Add(collectionVM.collectionName);
+                        
                             cboResultAddToCollection.Items.Add(collectionVM.collectionName);
                             cboAllAddToCollection.Items.Add(collectionVM.collectionName);
                         }
@@ -1508,13 +1488,13 @@ namespace MovieCollection
                             MessageBox.Show("This collection has been removed");
                             _collectionVMs = _collectionManager.GetCollectionsByUserID(_loggedInUser.userID);
                             cboCollectionsSelect.Items.Clear();
-                            cboCollectionsAddMoveCollection.Items.Clear();
+                          
                             cboResultAddToCollection.Items.Clear();
                             cboAllAddToCollection.Items.Clear();
                             foreach(var collection in _collectionVMs)
                             {
                                 cboCollectionsSelect.Items.Add(collection.collectionName);
-                                cboCollectionsAddMoveCollection.Items.Add(collection.collectionName);
+                             
                                 cboResultAddToCollection.Items.Add(collection.collectionName);
                                 cboAllAddToCollection.Items.Add(collection.collectionName);
                                 
@@ -1655,6 +1635,16 @@ namespace MovieCollection
                     MessageBox.Show("Movie already exists in the collection");
                 }
             }
+        }
+
+        private void txtAddURL_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            txtAddURL.SelectAll();
+        }
+
+        private void txtProfileImgURL_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            txtProfileImgURL.SelectAll();
         }
     }
 }

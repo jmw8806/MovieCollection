@@ -128,6 +128,19 @@ namespace MovieCollection
             }
         }
 
+        private void txtEditTitle_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            txtEditTitle.SelectAll();
+        }
 
+        private void txtEditRuntime_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            txtEditRuntime.SelectAll();
+        }
+
+        private void txtEditURL_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            txtEditURL.SelectAll();
+        }
     }
 }

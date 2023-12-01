@@ -52,7 +52,7 @@
             </MenuItem>
             <MenuItem x:Name="mnuHelp" Header="Help">
                 <MenuItem x:Name="mnuAbout" Header="About"></MenuItem>
-                <MenuItem x:Name="mnuTest" Header="Test" Click="mnuTest_Click"></MenuItem>
+           
             </MenuItem>
         </Menu>
         <Grid Grid.Row="1" Grid.ColumnSpan="5">
@@ -133,7 +133,11 @@
                                 </TransformGroup>
                             </Label.RenderTransform>
                         </Label>
-                        <Image x:Name="imgHome" Grid.Column="7" Grid.RowSpan="8" Width="300" Height="352" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="50,64,0,0" OpacityMask="Black" Grid.ColumnSpan="3"/>
+                        <Image x:Name="imgHome" Grid.Column="7" Grid.RowSpan="8" Width="300" Height="352" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="50,64,0,0" OpacityMask="Black" Grid.ColumnSpan="3">
+                            <Image.Effect>
+                                <DropShadowEffect/>
+                            </Image.Effect>
+                        </Image>
                         <Label x:Name="lblHomeTitle" Grid.Column="11" Grid.Row="1" Grid.ColumnSpan="4" Content="Title" FontSize="28" FontWeight="Bold" Margin="5,0,0,0"/>
                         <Label x:Name="lblHomeRuntime" Grid.Row="2" Grid.Column="11" Content="Runtime:" FontSize="25" HorizontalAlignment="Left"
                                FontWeight="Bold" Margin="23,0,0,0"/>
@@ -218,7 +222,9 @@
                         <CheckBox x:Name="chkSearchCriterion" Grid.Column="3" Grid.Row="7" Width="50" Height="40" VerticalAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Left" Margin="35,0,0,0" />
                         <Button x:Name="btnSearchSubmit" Content="Search" Grid.Column="3" Grid.Row="7" Width="100" Height="40" HorizontalAlignment="Right" VerticalAlignment="Top" VerticalContentAlignment="Center" Click="btnSearchSubmit_Click" Background="#FFFFC0FF" BorderBrush="#FF832A7D"/>
                         <ListBox x:Name="lstSearchResults" Grid.Column="5" Grid.Row="1" Grid.RowSpan="7" MouseDoubleClick="lstSearchResults_MouseDoubleClick" />
-                        <Image x:Name="imgSearch" Grid.Row="1" Grid.Column="7" Grid.RowSpan="6" Width="245" Height="300" Margin="2,0,2,0"/>
+                        <Image x:Name="imgSearch" Grid.Row="1" Grid.Column="7" Grid.RowSpan="6" Width="245" Height="280" Margin="2,0,2,10">
+                        
+                        </Image>
                         <ComboBox x:Name="cboResultAddToCollection" Grid.Column="7" Grid.Row="7" Width="150" Height="40" VerticalContentAlignment="Center" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,3,0,0" Padding="2"/>
                         <Button x:Name="btnResultAdd" Content="Add" Grid.Column="7" Grid.Row="7" Width="85" Height="40" HorizontalAlignment="Left" VerticalAlignment="Center" VerticalContentAlignment="Center" Background="#FFC1F6C1" BorderBrush="#FF18FF27" Click="btnResultAdd_Click" />
                         <TextBlock x:Name="txtResultTitle" Grid.Row="1" Grid.Column="9" Text="Title" FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Center" TextWrapping="Wrap"/>
@@ -270,17 +276,21 @@
                         </Grid.ColumnDefinitions>
                         <ListBox x:Name="lstAllMovies" Grid.Row="1" Grid.RowSpan="9" Grid.Column="1" MouseDoubleClick="lstAllMovies_MouseDoubleClick"/>
 
-                        <Image x:Name="imgAllMoviesImage"  Grid.Row="1" Grid.RowSpan="8" Grid.Column="3" Width="300" Height="352" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0 0 0 10"/>
+                        <Image x:Name="imgAllMoviesImage"  Grid.Row="1" Grid.RowSpan="8" Grid.Column="3" Width="300" Height="340" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0 0 0 10">
+                            <Image.Effect>
+                                <DropShadowEffect/>
+                            </Image.Effect>
+                        </Image>
                         <TextBlock x:Name="lblAllMoviesTitle" Grid.Row="1" Grid.Column="4" Text="Title" FontWeight="Bold" FontSize="20" TextWrapping="Wrap"
-                                   Margin="5 0 0 0"/>
-                        <Label x:Name="lblAllMoviesYear" Grid.Row="2" Grid.Column="4" Content="Year"  FontSize="20" />
-                        <Label x:Name="lblAllMoviesRating" Grid.Row="3" Grid.Column="4" Content="Rating"  FontSize="20" />
-                        <Label x:Name="lblAllMoviesFormats" Grid.Row="4" Grid.Column="4" Content="Formats"  FontSize="20" />
-                        <Label x:Name="lblAllMoviesGenres" Grid.Row="5" Grid.Column="4" Content="Genres"  FontSize="20" />
-                        <Label x:Name="lblAllMoviesLanguages" Grid.Row="6" Grid.Column="4" Content="Languages"  FontSize="20" />
-                        <Label x:Name="lblAllMoviesRuntime" Grid.Row="7" Grid.Column="4" Content="Runtime: mins"  FontSize="20" />
-                        <Label x:Name="lblAllMoviesCriterion" Grid.Row="8" Grid.Column="4" Content="Criterion: "  FontSize="20" />
-                        <ComboBox x:Name="cboAllAddToCollection" Grid.Row="9" Grid.Column="3" Height="35" VerticalAlignment="Center" VerticalContentAlignment="Center" Padding="2"/>
+                                   Margin="10 0 0 0"/>
+                        <Label x:Name="lblAllMoviesYear" Grid.Row="2" Grid.Column="4" Content="Year"  FontSize="20" Margin="10 0 0 0"/>
+                        <Label x:Name="lblAllMoviesRating" Grid.Row="3" Grid.Column="4" Content="Rating"  FontSize="20" Margin="10 0 0 0"/>
+                        <Label x:Name="lblAllMoviesFormats" Grid.Row="4" Grid.Column="4" Content="Formats"  FontSize="20" Margin="10 0 0 0"/>
+                        <Label x:Name="lblAllMoviesGenres" Grid.Row="5" Grid.Column="4" Content="Genres"  FontSize="20" Margin="10 0 0 0"/>
+                        <Label x:Name="lblAllMoviesLanguages" Grid.Row="6" Grid.Column="4" Content="Languages"  FontSize="20" Margin="10 0 0 0"/>
+                        <Label x:Name="lblAllMoviesRuntime" Grid.Row="7" Grid.Column="4" Content="Runtime: mins"  FontSize="20" Margin="10 0 0 0"/>
+                        <Label x:Name="lblAllMoviesCriterion" Grid.Row="8" Grid.Column="4" Content="Criterion: "  FontSize="20" Margin="10 0 0 0"/>
+                        <ComboBox x:Name="cboAllAddToCollection" Grid.Row="9" Grid.Column="3" Height="35" VerticalAlignment="Center" VerticalContentAlignment="Center" Padding="2" Margin="0 0 10 0"/>
                         <Button x:Name="btnAllAdd" Content="Add" Grid.Row="9" Grid.Column="4" Width="100" Height="35" HorizontalAlignment="Left" Margin="0 0 10 0" Click="btnAllAdd_Click" Background="#FFC1F6C1" BorderBrush="#FF18FF27"/>
                         <Button x:Name="btnAllEdit" Content="Edit" Grid.Row="9" Grid.Column="4" Width="100" Height="35" HorizontalAlignment="Center" Click="btnAllEdit_Click" Background="#FFDAF7FF" BorderBrush="#FF475FFD"/>
                         <Button x:Name="btnAllRemove" Content="Remove" Grid.Row="9" Grid.Column="4" Width="100" Height="35" HorizontalAlignment="Right" Click="btnAllRemove_Click" Background="#FFFFC8C8" BorderBrush="#FFF16C6C"/>
@@ -310,33 +320,31 @@
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
+                            <ColumnDefinition Width="138"/>
+                            <ColumnDefinition Width="62"/>
                             <ColumnDefinition Width="200"/>
-                            <ColumnDefinition Width="200"/>
-                            <ColumnDefinition Width="150"/>
+                            <ColumnDefinition Width="10"/>
+                            <ColumnDefinition Width="10"/>
                             <ColumnDefinition Width="250"/>
                             <ColumnDefinition Width="250"/>
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
-                        <Label Content="Select Collection:" Grid.Row="1" Grid.Column="1" FontSize="15" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0 0 10 0"/>
-                        <ComboBox x:Name="cboCollectionsSelect" Grid.Row="1" Grid.Column="2" Height="35" Margin="0 0 10 0" Padding="2" SelectionChanged="cboCollectionsSelect_SelectionChanged"/>
-                        <Button x:Name="btnCollectionNew" Content="Add" Grid.Row="4" Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Center"
-                                Width="100" Height="40" Margin="0 0 10 0" Click="btnCollectionNew_Click"/>
-                        <Label Content="Delete Collection:" Grid.Row="1" Grid.Column="3" FontSize="15" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0 0 10 0"/>
-                        <Button x:Name="btnCollectionDelete" Content="Delete" Grid.Row="1" Grid.Column="4" HorizontalAlignment="Left" VerticalAlignment="Center"
-                                Width="100" Height="40" Margin="10 0 0 0" Click="btnCollectionDelete_Click"/>
-                        <ListBox x:Name="lstCollectionContents" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Margin="10 0 10 0" MouseDoubleClick="lstCollectionContents_MouseDoubleClick" />
-                        <ComboBox x:Name="cboCollectionsAddMove" Grid.Row="3" Grid.Column="1" Height="35" Margin="10 0 10 0" Padding="2">
-                            <ComboBoxItem x:Name="cboCollectionsAddMoveAdd" Content="Add"/>
-                            <ComboBoxItem x:Name="cboCollecgtionsAddMoveMove" Content="Move"/>
-                        </ComboBox>
-                        <ComboBox x:Name="cboCollectionsAddMoveCollection" Grid.Row="3" Grid.Column="2" Height="35" Margin="10 0 10 0" Padding="2"/>
-                        <Button x:Name="btnCollectionGo" Content="Go" Grid.Row="3" Grid.Column="3" HorizontalAlignment="Left" VerticalAlignment="Center"
-                                Width="100" Height="40" Margin="10 0 0 0"/>
-                        <Label Content="New Collection: " Grid.Row="4" Grid.Column="1" VerticalAlignment="Center"/>
-                        <TextBox x:Name="txtCollectionNew" Text="" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" Height="40" Width="150" Margin="0 0 50 0"/>
+                        <Label Content="Select Collection:" Grid.Row="1" Grid.Column="1" FontWeight="SemiBold" FontSize="15" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,0,0,0" Grid.ColumnSpan="2"/>
+                        <ComboBox x:Name="cboCollectionsSelect" Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="35" Width="200" Margin="52,20,0,20" Padding="2" SelectionChanged="cboCollectionsSelect_SelectionChanged"/>
+                        <Button x:Name="btnCollectionNew" Content="Add" Grid.Row="3" Grid.Column="3" HorizontalAlignment="Left" VerticalAlignment="Center"
+                                Width="100" Height="40" Margin="70,0,0,0" Click="btnCollectionNew_Click" Background="#FFC1F6C1" BorderBrush="#FF18FF27"/>
+                        <Label Content="Delete Collection:" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="97,0,0,0" FontWeight="SemiBold" Grid.ColumnSpan="2"/>
+                        <Button x:Name="btnCollectionDelete" Content="Delete" Grid.Row="4" Grid.Column="3" HorizontalAlignment="Left" VerticalAlignment="Center"
+                                Width="100" Height="40" Margin="10,0,0,0" Click="btnCollectionDelete_Click" Background="#FFFFC8C8" BorderBrush="#FFF16C6C"/>
+                        <ListBox x:Name="lstCollectionContents" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3" Margin="10,0,10,70" MouseDoubleClick="lstCollectionContents_MouseDoubleClick" Grid.RowSpan="2" />
 
-                        <Image x:Name="imgCollectionsImage" Grid.Row="2" Grid.RowSpan="2" Width="190" Grid.Column="4" Margin="10"/>
-                        <Grid Grid.Row="2" Grid.Column="5" Grid.RowSpan="2">
+                        <Label Content="New Collection: " Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" FontWeight="SemiBold" Grid.ColumnSpan="2"/>
+                        <TextBox x:Name="txtCollectionNew" Text="" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3" Height="35" Width="150"
+                                 VerticalContentAlignment="Center" Padding="2" Margin="100,16,150,19"/>
+
+                        <Image x:Name="imgCollectionsImage" Grid.Row="2" Grid.RowSpan="2" Width="200" Grid.Column="6" Margin="30,10,20,10"/>
+                        <Label Content="Movie Preview" FontWeight="SemiBold" Grid.Row="1" Grid.Column="7" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="15"/>
+                        <Grid Grid.Row="2" Grid.Column="7" Grid.RowSpan="3" Margin="0,0,0,70">
                             <Grid.RowDefinitions>
                                 <RowDefinition/>
                                 <RowDefinition/>
@@ -345,22 +353,22 @@
                                 <RowDefinition/>
 
                             </Grid.RowDefinitions>
-                            <TextBox x:Name="txtCollectionsTitle" FontSize="15" Text="title" VerticalContentAlignment="Center" Padding="2" Background="{x:Null}" BorderBrush="{x:Null}"/>
-                            <TextBox x:Name="txtCollectionsYear" Grid.Row="1" FontSize="15" Text="year" VerticalContentAlignment="Center" Padding="2"
+                            <TextBox x:Name="txtCollectionsTitle" IsReadOnly="True" FontSize="15" Text="Title" VerticalContentAlignment="Center" Padding="2" Background="{x:Null}" BorderBrush="{x:Null}"/>
+                            <TextBox x:Name="txtCollectionsYear" IsReadOnly="True" Grid.Row="1" FontSize="15" Text="Year" VerticalContentAlignment="Center" Padding="2"
                                      HorizontalAlignment="Left" Width="120" Background="{x:Null}" BorderBrush="{x:Null}"/>
-                            <TextBox x:Name="txtCollectionsRating" Grid.Row="1" FontSize="15" Text="rating" VerticalContentAlignment="Center" Padding="2"
+                            <TextBox x:Name="txtCollectionsRating" IsReadOnly="True" Grid.Row="1" FontSize="15" Text="Rating" VerticalContentAlignment="Center" Padding="2"
                                      HorizontalAlignment="Right" Width="120" Background="{x:Null}" BorderBrush="{x:Null}"/>
-                            <TextBox x:Name="txtCollectionsRuntime" Grid.Row="2" FontSize="15" Text="runtime" VerticalContentAlignment="Center" Padding="2"
+                            <TextBox x:Name="txtCollectionsRuntime" IsReadOnly="True" Grid.Row="2" FontSize="15" Text="Runtime" VerticalContentAlignment="Center" Padding="2"
                                      HorizontalAlignment="Left" Width="120" Background="{x:Null}" BorderBrush="{x:Null}"/>
-                            <TextBox x:Name="txtCollectionsCriterion" Grid.Row="2" FontSize="15" Text="Criterion: " VerticalContentAlignment="Center" Padding="2"
+                            <TextBox x:Name="txtCollectionsCriterion" IsReadOnly="True" Grid.Row="2" FontSize="15" Text="Criterion: " VerticalContentAlignment="Center" Padding="2"
                                      HorizontalAlignment="Right" Width="120" Background="{x:Null}" BorderBrush="{x:Null}"/>
-                            <TextBox x:Name="txtCollectionsGenres" Grid.Row="3" FontSize="15" Text="genres" VerticalContentAlignment="Center" Padding="2"
+                            <TextBox x:Name="txtCollectionsGenres" IsReadOnly="True" Grid.Row="3" FontSize="15" Text="Genres" VerticalContentAlignment="Center" Padding="2"
                                      HorizontalAlignment="Left" Width="250" Background="{x:Null}" BorderBrush="{x:Null}"/>
-                            <TextBox x:Name="txtCollectionsLanguages" Grid.Row="4" FontSize="15" Text="languages" VerticalContentAlignment="Center" Padding="2"
+                            <TextBox x:Name="txtCollectionsLanguages" IsReadOnly="True" Grid.Row="4" FontSize="15" Text="Languages" VerticalContentAlignment="Center" Padding="2"
                                      HorizontalAlignment="Left" Width="250" Background="{x:Null}" BorderBrush="{x:Null}"/>
                         </Grid>
-                        <Button x:Name="btnCollectionRemoveTitle" Content="Remove Title" Grid.Row="4" Grid.Column="5" HorizontalAlignment="Left" VerticalAlignment="Center"
-                                Width="100" Height="40" Margin="10 0 0 0" Click="btnCollectionRemoveTitle_Click"/>
+                        <Button x:Name="btnCollectionRemoveTitle" Content="Remove Title" Grid.Row="4" Grid.Column="7" HorizontalAlignment="Left" VerticalAlignment="Center"
+                                Width="100" Height="40" Margin="10,0,0,0" Click="btnCollectionRemoveTitle_Click" Background="#FFFFC8C8" BorderBrush="#FFF16C6C"/>
                     </Grid>
                 </TabItem>
                 <TabItem x:Name="tabAdd" Header="Add">
@@ -402,7 +410,7 @@
 
 
                         <Image x:Name="imgAddImage" Grid.Row="1" Grid.Column="2" Width="200" Height="260" Grid.RowSpan="7" />
-                        <TextBox x:Name="txtAddURL" VerticalContentAlignment="Center" Grid.Row="7" Grid.Column="4" Margin="3,3,20,5"/>
+                        <TextBox x:Name="txtAddURL" VerticalContentAlignment="Center" Grid.Row="7" Grid.Column="4" Margin="3,3,20,5" MouseDoubleClick="txtAddURL_MouseDoubleClick"/>
                         <Label Content="Image URl:" HorizontalAlignment="Right" VerticalAlignment="Top" Grid.Row="7" Grid.Column="3" FontSize="12" FontWeight="Bold" Margin="0 3 5 0"/>
                         <Button x:Name="btnAddMovieImage" Content="Preview Image"  Grid.Row="8"  Grid.Column="4"  HorizontalAlignment="Right" VerticalAlignment="Center" Width="125" Height="35" 
                                  Click="btnAddMovieImage_Click" Background="#FFEED2FF" BorderBrush="#FFA23DFF" Margin="3 3 20 5"/>
@@ -461,7 +469,11 @@
                             <ColumnDefinition Width="300"/>
                             <ColumnDefinition Width="175*"/>
                         </Grid.ColumnDefinitions>
-                        <Image x:Name="imgProfileTab" Grid.Row="1" Grid.Column="2" Grid.RowSpan="4"/>
+                        <Image x:Name="imgProfileTab" Grid.Row="1" Grid.Column="2" Grid.RowSpan="4">
+                            <Image.Effect>
+                                <DropShadowEffect/>
+                            </Image.Effect>
+                        </Image>
                         <Label x:Name="lblProfileFirstName" Content="First Name:" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="1" Grid.Column="4" Margin="16,0,0,0"/>
                         <TextBox x:Name="txtProfileFirstName" IsReadOnly="True" FontSize="15" Width="280" Height="35" Grid.Row="1" Grid.Column="5" HorizontalAlignment="Left" 
                                  VerticalAlignment="Center" VerticalContentAlignment="Center" Padding="1" Margin="5,0,0,0" Background="{x:Null}" BorderBrush="{x:Null}"/>
@@ -474,7 +486,7 @@
                                  VerticalAlignment="Center" VerticalContentAlignment="Center" Padding="1" Margin="5,0,0,0" Background="{x:Null}" BorderBrush="{x:Null}"/>
                         <Label x:Name="lblProfileImgURL" Content="Image URL:" FontSize="20" HorizontalAlignment="Right" VerticalAlignment="Top"  Grid.Row="4" Grid.Column="4" Visibility="Hidden"/>
                         <TextBox x:Name="txtProfileImgURL" IsReadOnly="True" FontSize="15" Width="280" Height="35" Grid.Row="4" Grid.Column="5" HorizontalAlignment="Left" 
-                                 VerticalAlignment="Top" VerticalContentAlignment="Center" Padding="1" Margin="5 0 0 0" Visibility="Hidden"/>
+                                 VerticalAlignment="Top" VerticalContentAlignment="Center" Padding="1" Margin="5 0 0 0" Visibility="Hidden" MouseDoubleClick="txtProfileImgURL_MouseDoubleClick"/>
                         <Button x:Name="btnProfileImgPreview" Content="Preview Image" Grid.Row="4" Grid.Column="5" Width="100" Height="45" 
                                 HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,45,0,0" Visibility="Hidden" Click="btnProfileImgPreview_Click" Background="#FFEED2FF" BorderBrush="#FFA23DFF" />
                         <Button x:Name="btnProfileUpdate" Content="Update" Grid.Row="5" Grid.Column="5" Width="100" Height="45" HorizontalAlignment="Left" Click="btnProfileUpdate_Click" Background="#FFDAF7FF" BorderBrush="#FF475FFD" Margin="0,15,0,15"/>
