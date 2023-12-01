@@ -2,6 +2,7 @@
 using DataObjects;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -157,6 +158,43 @@ namespace DataAccessFakes
             }
 
             return rows;
+        }
+
+        public int RemoveMovieFromCollection(int movieID, int collectionID)
+        {
+            int rows = 0;
+            List<int> movieIDs = new List<int>();
+            int collectionIndex = 0;
+            int indexToRemove = 0;
+
+            for (int i = 0; i < fakeCollections.Count; i++)
+            {
+                if (fakeCollections[i].collectionID == collectionID)
+                {
+                    collectionIndex = i;
+                    for (int j = 0; j < fakeCollections[i].movieIDs.Count; j++)
+                    {
+                        if (fakeCollections[i].movieIDs[j] == movieID)
+                        {
+                            indexToRemove = j;
+                            rows++;
+                            break;
+                        }
+                    }
+                }
+                else
+                {
+                    throw new ArgumentException("No collections found");
+                }
+               
+            }
+            if(rows != 0)
+            {
+                fakeCollections[collectionIndex].movieIDs.Remove(fakeCollections[collectionIndex].movieIDs[indexToRemove]);
+            }
+   
+            return rows;
+
         }
     }
 }

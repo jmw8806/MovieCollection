@@ -218,7 +218,9 @@
                         <CheckBox x:Name="chkSearchCriterion" Grid.Column="3" Grid.Row="7" Width="50" Height="40" VerticalAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Left" Margin="35,0,0,0" />
                         <Button x:Name="btnSearchSubmit" Content="Search" Grid.Column="3" Grid.Row="7" Width="100" Height="40" HorizontalAlignment="Right" VerticalAlignment="Top" VerticalContentAlignment="Center" Click="btnSearchSubmit_Click" Background="#FFFFC0FF" BorderBrush="#FF832A7D"/>
                         <ListBox x:Name="lstSearchResults" Grid.Column="5" Grid.Row="1" Grid.RowSpan="7" MouseDoubleClick="lstSearchResults_MouseDoubleClick" />
-                        <Image x:Name="imgSearch" Grid.Row="1" Grid.Column="7" Grid.RowSpan="7" Width="245" Height="350" Margin="2,0,2,0"/>
+                        <Image x:Name="imgSearch" Grid.Row="1" Grid.Column="7" Grid.RowSpan="6" Width="245" Height="300" Margin="2,0,2,0"/>
+                        <ComboBox x:Name="cboResultAddToCollection" Grid.Column="7" Grid.Row="7" Width="150" Height="40" VerticalContentAlignment="Center" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,3,0,0" Padding="2"/>
+                        <Button x:Name="btnResultAdd" Content="Add" Grid.Column="7" Grid.Row="7" Width="85" Height="40" HorizontalAlignment="Left" VerticalAlignment="Center" VerticalContentAlignment="Center" Background="#FFC1F6C1" BorderBrush="#FF18FF27" Click="btnResultAdd_Click" />
                         <TextBlock x:Name="txtResultTitle" Grid.Row="1" Grid.Column="9" Text="Title" FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Center" TextWrapping="Wrap"/>
                         <TextBlock x:Name="txtResultYear" Grid.Row="2" Grid.Column="9" Text="Year" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Center" />
                         <TextBlock x:Name="txtResultRating" Grid.Row="2" Grid.Column="9" Text="Rating" FontSize="16" HorizontalAlignment="Right" VerticalAlignment="Center"/>
@@ -353,10 +355,11 @@
                                      HorizontalAlignment="Right" Width="120" Background="{x:Null}" BorderBrush="{x:Null}"/>
                             <TextBox x:Name="txtCollectionsGenres" Grid.Row="3" FontSize="15" Text="genres" VerticalContentAlignment="Center" Padding="2"
                                      HorizontalAlignment="Left" Width="250" Background="{x:Null}" BorderBrush="{x:Null}"/>
-                            <TextBox x:Name="txtCollectionsLanguages" Grid.Row="4" FontSize="15" Text="year" VerticalContentAlignment="Center" Padding="2"
+                            <TextBox x:Name="txtCollectionsLanguages" Grid.Row="4" FontSize="15" Text="languages" VerticalContentAlignment="Center" Padding="2"
                                      HorizontalAlignment="Left" Width="250" Background="{x:Null}" BorderBrush="{x:Null}"/>
                         </Grid>
-
+                        <Button x:Name="btnCollectionRemoveTitle" Content="Remove Title" Grid.Row="4" Grid.Column="5" HorizontalAlignment="Left" VerticalAlignment="Center"
+                                Width="100" Height="40" Margin="10 0 0 0" Click="btnCollectionRemoveTitle_Click"/>
                     </Grid>
                 </TabItem>
                 <TabItem x:Name="tabAdd" Header="Add">

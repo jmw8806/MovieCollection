@@ -194,6 +194,7 @@ namespace MovieCollection
                 {
                     collection.movieIDs = _collectionManager.GetMovieIDsByCollectionID(collection.collectionID);
                     cboCollectionsSelect.Items.Add(collection.collectionName);
+                    cboResultAddToCollection.Items.Add(collection.collectionName);
                     cboCollectionsAddMoveCollection.Items.Add(collection.collectionName);
                 }
             }
@@ -1456,10 +1457,13 @@ namespace MovieCollection
                             _collectionVMs = _collectionManager.GetCollectionsByUserID(_loggedInUser.userID);
                             cboCollectionsSelect.Items.Clear();
                             cboCollectionsAddMoveCollection.Items.Clear();
+                            cboResultAddToCollection.Items.Clear();
                             foreach(var collection in _collectionVMs)
                             {
                                 cboCollectionsSelect.Items.Add(collection.collectionName);
                                 cboCollectionsAddMoveCollection.Items.Add(collection.collectionName);
+                                cboResultAddToCollection.Items.Add(collection.collectionName);
+
                             }
                         }
                     }
@@ -1467,6 +1471,134 @@ namespace MovieCollection
                 catch(Exception ex)
                 {
                     MessageBox.Show("Error removing collection \n\n" + ex.InnerException.Message);
+                }
+            }
+        }
+
+        private void btnCollectionRemoveTitle_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                CollectionVM selectedCollection = new CollectionVM();
+                MovieVM movie = null;
+                foreach (var collection in _collectionVMs)
+                {
+                    if (collection.collectionName == cboCollectionsSelect.SelectedValue.ToString())
+                    {
+                        selectedCollection = collection;
+                        break;
+                    }
+                }
+
+                foreach (MovieVM movieVM in _movieVMs)
+                {
+                    if (lstCollectionContents.SelectedItem != null && lstCollectionContents.SelectedValue.ToString() == movieVM.title)
+                    {
+                        movie = movieVM; 
+                    }
+                }
+
+                var confirmation = MessageBox.Show("Are you sure you want to remove this movie?", "Confirm Removal", MessageBoxButton.YesNo);
+                if (confirmation == MessageBoxResult.No)
+                {
+                    MessageBox.Show("Woah, that was a close call! We'll keep this movie right where it is!");
+                }
+                else
+                {
+                    bool result = _collectionManager.RemoveMovieFromCollection(movie.titleID, selectedCollection.collectionID);
+                    if(result)
+                    {
+                        MessageBox.Show("Success! Movie removed from your collection!");
+                        txtCollectionsTitle.Text = "";
+                        txtCollectionsYear.Text = "";
+                        txtCollectionsRating.Text = "";
+                        txtCollectionsRuntime.Text = "";
+                        txtCollectionsCriterion.Text = "";
+                        txtCollectionsGenres.Text = "";
+                        txtCollectionsLanguages.Text = "";
+                        imgCollectionsImage.Source = null;
+
+                        txtCollectionsYear.Text = "";
+                        foreach (var collection in _collectionVMs)
+                        {
+                            collection.movieIDs = _collectionManager.GetMovieIDsByCollectionID(collection.collectionID);
+                            lstCollectionContents.Items.Clear();
+
+                            foreach(var movieVM in _movieVMs)
+                            {
+                                foreach(int movieID in collection.movieIDs)
+                                {
+                                    if(movieVM.titleID ==  movieID)
+                                    {
+                                        lstCollectionContents.Items.Add(movieVM.title);
+                                    }
+                                }
+                            }
+                        }
+                        
+                    }
+                    else
+                    {
+                        MessageBox.Show("Failure. The movie remains");
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("No Movie Selected");
+            }
+        }
+
+        private void btnResultAdd_Click(object sender, RoutedEventArgs e)
+        {
+            if(cboResultAddToCollection.SelectedValue == null)
+            {
+                MessageBox.Show("Please select a collection to add to");
+            }
+            else if(_selectedID == 0)
+            {
+                MessageBox.Show("Please select a movie to add to the collection");
+            }
+            else
+            {
+                try
+                {
+                    
+                    foreach(var collection in _collectionVMs)
+                    {
+                        if(collection.collectionName == cboResultAddToCollection.SelectedValue.ToString())
+                        {
+                            foreach(int movie in collection.movieIDs) 
+                            { 
+                               if(movie == _selectedID)
+                                {
+                                    MessageBox.Show("This movie already exists in this collection");
+                                    break;
+                                }
+                               else
+                                {
+                                    bool result = _collectionManager.AddMovieToCollection(_selectedID, collection.collectionID);
+                                    if (!result)
+                                    {
+                                        MessageBox.Show("Movie may already exist in collection.");
+                                    }
+                                    else
+                                    {
+                                        MessageBox.Show("Movie added to collection");
+                                        collection.movieIDs = _collectionManager.GetMovieIDsByCollectionID(collection.collectionID);
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+
+                    }
+                   
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error adding movie to collection");
                 }
             }
         }

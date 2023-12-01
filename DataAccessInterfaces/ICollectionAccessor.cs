@@ -14,6 +14,6 @@ namespace DataAccessInterfaces
         int AddNewCollection(int userID, string collectionName);
         int AddMovieToCollection(int movieID, int collectionID);
         int RemoveCollection(int userID, int collectionID);
-
+        int RemoveMovieFromCollection(int movieID, int collectionID);
     }
 }

@@ -98,5 +98,16 @@ namespace LogicLayerTests
             Assert.IsFalse(result);
         }
 
+        [TestMethod]
+        public void RemoveMovieFromCollectionPasses()
+        
+        {
+            bool result = false;
+            int movieID = 1;
+            int collectionID = 2;
+            result = _collectionManager.RemoveMovieFromCollection(movieID, collectionID);
+            Assert.IsTrue(result);
+        }
+
     }
 }

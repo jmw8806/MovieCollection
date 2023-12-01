@@ -123,6 +123,31 @@ namespace LogicLayer
             return movieIDs;
         }
 
+        public bool RemoveMovieFromCollection(int movieID, int collectionID)
+        {
+            bool result = false;
+            int rows = 0;
+
+            try
+            {
+                rows = _collectionAccessor.RemoveMovieFromCollection(movieID, collectionID);
+                if(rows == 0)
+                {
+                    throw new ArgumentException("Error processing removal");
+                }
+                else
+                {
+                    result = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Error removing movie", ex);
+            }
+
+            return result;
+        }
+
         public bool RemoveUserCollection(int userID, int collectionID)
         {
             bool result = false;
@@ -142,5 +167,6 @@ namespace LogicLayer
 
             return result;
         }
+
     }
 }

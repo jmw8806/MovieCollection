@@ -193,7 +193,42 @@ namespace DataAccessLayer
                 rows = cmd.ExecuteNonQuery();
                 if (rows == 0)
                 {
-                    throw new ApplicationException("Collecition addition failed");
+                    throw new ApplicationException("Collecition removal failed");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return rows;
+        }
+
+        public int RemoveMovieFromCollection(int movieID, int collectionID)
+        {
+            int rows = 0;
+
+            var conn = DBConnectionProvider.GetConnection();
+            var cmdText = "sp_remove_title_from_UserCollectionLineItems";
+            var cmd = new SqlCommand(cmdText, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Add("@titleID", SqlDbType.Int);
+            cmd.Parameters.Add("@collectionID", SqlDbType.Int);
+
+
+            cmd.Parameters["@titleID"].Value = movieID;
+            cmd.Parameters["@collectionID"].Value = collectionID;
+
+            try
+            {
+                conn.Open();
+                rows = cmd.ExecuteNonQuery();
+                if (rows == 0)
+                {
+                    throw new ApplicationException("Removing movie from collection failed");
                 }
             }
             catch (Exception ex)

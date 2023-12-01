@@ -14,6 +14,6 @@ namespace LogicLayer
         bool AddUserCollection(int userID, string collectionName);
         bool AddMovieToCollection(int movieID, int collectionID);
         bool RemoveUserCollection(int userID, int collectionID);
-
+        bool RemoveMovieFromCollection(int movieID, int collectionID);
     }
 }
