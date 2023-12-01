@@ -10,7 +10,14 @@ namespace DataObjects
     {
         
 
-       
+       public static List<MovieVM> searchByCollection(CollectionVM collection, List<MovieVM> movies)
+        {
+            List<MovieVM> results = new List<MovieVM>();
+            
+            results = movies.Where(movie => collection.movieIDs.Contains(movie.titleID)).ToList();
+            
+            return results;
+        }
 
         public static List<MovieVM> searchByTitle(List<MovieVM> movies, string term) 
         {

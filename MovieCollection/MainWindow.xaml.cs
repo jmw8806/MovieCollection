@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
@@ -175,7 +176,7 @@ namespace MovieCollection
                     collection.movieIDs = _collectionManager.GetMovieIDsByCollectionID(collection.collectionID);
                     cboCollectionsSelect.Items.Add(collection.collectionName);
                     cboResultAddToCollection.Items.Add(collection.collectionName);
-                  
+                    cboSearchCollection.Items.Add(collection.collectionName);
                     cboAllAddToCollection.Items.Add(collection.collectionName);
                 }
             }
@@ -358,7 +359,19 @@ namespace MovieCollection
             string searchTitle = txtSearchTitle.Text;
             try
             {
-
+                if(chkSearchCollection.IsChecked == true && cboSearchCollection.SelectedValue != null) 
+                {
+                    CollectionVM selectedCollection = new CollectionVM();
+                    foreach(CollectionVM collection in _collectionVMs)
+                    {
+                        if(collection.collectionName == cboSearchCollection.SelectedValue.ToString())
+                        {
+                            selectedCollection = collection;
+                            break;
+                        }
+                    }
+                    searchResults = searchByCollection(selectedCollection, searchResults);
+                }
                 if (chkSearchTitle.IsChecked == true && searchTitle != null)
                 {
                     searchResults = searchByTitle(searchResults, searchTitle);
@@ -1424,14 +1437,14 @@ namespace MovieCollection
                         MessageBox.Show("Success! Collection Added");
                         _collectionVMs = _collectionManager.GetCollectionsByUserID(_loggedInUser.userID);
                         cboCollectionsSelect.Items.Clear();
-                     
+                        cboSearchCollection.Items.Clear();
                         cboResultAddToCollection.Items.Clear();
                         cboAllAddToCollection.Items.Clear();
                         txtCollectionNew.Text = "";
                         foreach (CollectionVM collectionVM in _collectionVMs)
                         {
                             cboCollectionsSelect.Items.Add(collectionVM.collectionName);
-                        
+                            cboSearchCollection.Items.Add(collectionVM.collectionName);
                             cboResultAddToCollection.Items.Add(collectionVM.collectionName);
                             cboAllAddToCollection.Items.Add(collectionVM.collectionName);
                         }
@@ -1488,13 +1501,13 @@ namespace MovieCollection
                             MessageBox.Show("This collection has been removed");
                             _collectionVMs = _collectionManager.GetCollectionsByUserID(_loggedInUser.userID);
                             cboCollectionsSelect.Items.Clear();
-                          
+                            cboSearchCollection.Items.Clear();
                             cboResultAddToCollection.Items.Clear();
                             cboAllAddToCollection.Items.Clear();
                             foreach(var collection in _collectionVMs)
                             {
                                 cboCollectionsSelect.Items.Add(collection.collectionName);
-                             
+                                cboSearchCollection.Items.Add(collection.collectionName);
                                 cboResultAddToCollection.Items.Add(collection.collectionName);
                                 cboAllAddToCollection.Items.Add(collection.collectionName);
                                 
