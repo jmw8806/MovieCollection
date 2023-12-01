@@ -1396,12 +1396,13 @@ namespace MovieCollection
                         _collectionVMs = _collectionManager.GetCollectionsByUserID(_loggedInUser.userID);
                         cboCollectionsSelect.Items.Clear();
                         cboCollectionsAddMoveCollection.Items.Clear();
-                        
+                        cboResultAddToCollection.Items.Clear();
+                        txtCollectionNew.Text = "";
                         foreach (CollectionVM collectionVM in _collectionVMs)
                         {
                             cboCollectionsSelect.Items.Add(collectionVM.collectionName);
                             cboCollectionsAddMoveCollection.Items.Add(collectionVM.collectionName);
-                            
+                            cboResultAddToCollection.Items.Add(collectionVM.collectionName);
                         }
 
                     }
@@ -1463,7 +1464,7 @@ namespace MovieCollection
                                 cboCollectionsSelect.Items.Add(collection.collectionName);
                                 cboCollectionsAddMoveCollection.Items.Add(collection.collectionName);
                                 cboResultAddToCollection.Items.Add(collection.collectionName);
-
+                                
                             }
                         }
                     }
@@ -1598,7 +1599,7 @@ namespace MovieCollection
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Error adding movie to collection");
+                    MessageBox.Show("Movie already exists in the collection");
                 }
             }
         }
