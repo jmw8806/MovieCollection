@@ -110,6 +110,10 @@ namespace DataAccessFakes
                 if (user.userID == userId)
                 {
                     role = user.roles;
+                    if(role != "")
+                    {
+                        break;
+                    }
                 }
                 else
                 {

@@ -181,10 +181,6 @@ namespace DataAccessFakes
                     genres = movie.genres;
                     break;
                 }
-                else
-                {
-                    throw new ArgumentException("Movie not found");
-                }
             }
             if (genres == null)
             {
@@ -209,10 +205,7 @@ namespace DataAccessFakes
                     languages = movie.languages;
                     break;
                 }
-                else
-                {
-                    throw new ArgumentException("Movie not found");
-                }
+
             }
             if (languages == null)
             {
@@ -228,20 +221,18 @@ namespace DataAccessFakes
 
         public List<string> GetAllFormatsByMovieID(int movieID)
         {
-            List<string> formats = null;
+            List<string> formats = new List<string>();
             foreach (var movie in fakeMovies)
             {
                 if (movie.titleID == movieID)
                 {
                     foreach (string format in movie.formats)
                     {
+
                         formats.Add(format);
+                        
                     }
 
-                }
-                else
-                {
-                    throw new ArgumentException("Movie not found");
                 }
             }
             if (formats == null)
@@ -266,10 +257,7 @@ namespace DataAccessFakes
                     imageName = movie.imgName;
                     break;
                 }
-                else
-                {
-                    throw new ApplicationException("No movie by that ID found");
-                }
+
             }
             if (imageName == "")
             {

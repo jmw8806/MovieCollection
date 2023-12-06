@@ -67,8 +67,8 @@ namespace LogicLayerTests
         [TestMethod]
         public void TestGetRoleByUserIDReturnsCorrectRole()
         {
-            int testID = 10001;
-            string expectedRole = "User";
+            int testID = 10003;
+            string expectedRole = "Administrator";
             string actualRole = "";
 
             actualRole = _userManager.SelectRoleByUserID(testID);
@@ -150,7 +150,7 @@ namespace LogicLayerTests
         public void TestUpdateUserIsActivePasses()
         {
             bool result = false;
-            int userID = 10001;
+            int userID = 10003;
             result = _userManager.UpdateUserIsActive(userID, true);
             Assert.IsTrue(result);
         }

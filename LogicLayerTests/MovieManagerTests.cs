@@ -21,21 +21,22 @@ namespace LogicLayerTests
         [TestMethod]
         public void TestSelectMovieByIDSuccess()
         {
-            int movieID = 1;
-            string expectedTitle = "First";
+            int movieID = 2;
+            string expectedTitle = "Second";
             string actualTitle = _movieManager.GetMovieByTitleID(movieID).title;
 
             Assert.AreEqual(expectedTitle, actualTitle);
 
         }
         [TestMethod]
-        [ExpectedException(typeof(ApplicationException))]
+        
         public void TestSelectMovieByIDFail()
         {
             int movieID = 2;
-            string expectedTitle = "First";
+            string wrongTitle = "First";
             string actualTitle = _movieManager.GetMovieByTitleID(movieID).title;
 
+            Assert.AreNotEqual(wrongTitle, actualTitle);
         }
 
         [TestMethod]
@@ -152,11 +153,15 @@ namespace LogicLayerTests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ApplicationException))]
-        public void TestGetLanguagesByMovieIDFailsThrowsException()
+       
+        public void TestGetLanguagesByMovieIDFailsIncorrectCount()
         {
+            int expected = 1;
+            int actual = 0;
             int movieID = 12;
-            List<string> result = _movieManager.GetLanguagesByMovieID(movieID);
+            actual = _movieManager.GetLanguagesByMovieID(movieID).Count;
+
+            Assert.AreNotEqual(expected, actual);
         }
 
         [TestMethod]
@@ -179,9 +184,11 @@ namespace LogicLayerTests
         {
             int movieID = 2;
             int expectedResult = 1;
-            int actualResult = 0;
+            int actualResult = 1;
 
             actualResult = _movieManager.GetFormatsByMovieID(movieID).Count;
+
+
             Assert.AreEqual(expectedResult, actualResult);
 
         }

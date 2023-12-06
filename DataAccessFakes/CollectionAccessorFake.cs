@@ -178,11 +178,7 @@ namespace DataAccessFakes
                         }
                     }
                 }
-                else
-                {
-                    throw new ArgumentException("No collections found");
-                }
-
+             
             }
             if (rows != 0)
             {
