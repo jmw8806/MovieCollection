@@ -157,6 +157,7 @@ namespace MovieCollection
                         lblEmail.Visibility = Visibility.Visible;
                         lblPassword.Visibility = Visibility.Visible;
                         imgProfilePic.Visibility = Visibility.Hidden;
+                      
                         hideMenuItems();
                         hideTabs();
                         return;
@@ -207,7 +208,8 @@ namespace MovieCollection
                 lblPassword.Visibility = Visibility.Visible;
                 imgProfilePic.Visibility = Visibility.Hidden;
                 cboCollectionsSelect.Items.Clear();
-
+                cboAllAddToCollection.Items.Clear();
+                cboResultAddToCollection.Items.Clear();
                 hideMenuItems();
                 hideTabs();
             }
@@ -424,25 +426,27 @@ namespace MovieCollection
         private void lstSearchResults_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             MovieVM movie = null;
-
-            foreach (MovieVM movieVM in _searchResults)
+            if (_searchResults != null)
             {
-                if (lstSearchResults.SelectedItem != null && lstSearchResults.SelectedValue.ToString() == movieVM.title)
+                foreach (MovieVM movieVM in _searchResults)
                 {
-                    movie = movieVM;
-                    _selectedID = movieVM.titleID;
-                    txtResultTitle.Text = movie.title;
-                    txtResultYear.Text = "Year: " + movie.year.ToString();
-                    txtResultRating.Text = "Rating: " + movie.rating;
-                    txtResultFormats.Text = displayList(movie.formats);
-                    txtResultLanguages.Text = displayList(movie.languages);
-                    txtResultGenres.Text = displayList(movie.genres);
-                    txtResultRuntime.Text = movie.runtime.ToString() + "mins";
-                    txtResultCriterion.Text = "Criterion: " + criterionOutputConverter(movie.isCriterion);
-                    imgSearch.Source = displayImageFromURL(movie.imgName);
+
+                    if (lstSearchResults.SelectedItem != null && lstSearchResults.SelectedValue.ToString() == movieVM.title)
+                    {
+                        movie = movieVM;
+                        _selectedID = movieVM.titleID;
+                        txtResultTitle.Text = movie.title;
+                        txtResultYear.Text = "Year: " + movie.year.ToString();
+                        txtResultRating.Text = "Rating: " + movie.rating;
+                        txtResultFormats.Text = displayList(movie.formats);
+                        txtResultLanguages.Text = displayList(movie.languages);
+                        txtResultGenres.Text = displayList(movie.genres);
+                        txtResultRuntime.Text = movie.runtime.ToString() + "mins";
+                        txtResultCriterion.Text = "Criterion: " + criterionOutputConverter(movie.isCriterion);
+                        imgSearch.Source = displayImageFromURL(movie.imgName);
+                    }
                 }
             }
-
 
         }
 
@@ -524,9 +528,9 @@ namespace MovieCollection
                         refreshMovieList();
                         resetForms();
                         refreshSearchCBOs();
-
-
-
+                        lstAdmin.Items.Clear();
+                        _movieVMs = _movieManager.GetAllMovieVMs();
+                        _inactiveMovies = _movieManager.GetAllInactiveMovies();
 
                         MessageBox.Show("So long, farewell, auf Wiedersehen, goodbye! \n\n Movie has been removed.", "Success", MessageBoxButton.OK);
                     }
@@ -630,6 +634,8 @@ namespace MovieCollection
                         refreshMovieList();
                         resetForms();
                         refreshSearchCBOs();
+                        lstAdmin.Items.Clear();
+                        _inactiveMovies = _movieManager.GetAllInactiveMovies();
                         MessageBox.Show("So long, farewell, auf Wiedersehen, goodbye! \n\n Movie has been removed.", "Success", MessageBoxButton.OK);
                     }
                     else
@@ -940,15 +946,18 @@ namespace MovieCollection
                     MovieVM movie = null;
                     foreach (MovieVM movieVM in _movieVMs)
                     {
-                        if (lstAdmin.SelectedValue.ToString() == movieVM.title)
+                        if (lstAdmin.SelectedValue != null && lstAdmin.SelectedValue.ToString() == movieVM.title)
                         {
                             movie = movieVM;
                             _selectedID = movie.titleID;
                         }
                     }
-                    txtAdminID.Text = movie.titleID.ToString();
-                    txtAdminOther.Text = movie.title;
-                    imgAdminMovie.Source = displayImageFromURL(movie.imgName);
+                    if (movie != null)
+                    {
+                        txtAdminID.Text = movie.titleID.ToString();
+                        txtAdminOther.Text = movie.title;
+                        imgAdminMovie.Source = displayImageFromURL(movie.imgName);
+                    }
                 }
                 if (cboAdminType.SelectedValue == cboAdminTypeMovie && cboAdminStatus.SelectedValue == cboAdminStatusInactive)
                 {
@@ -956,7 +965,7 @@ namespace MovieCollection
 
                     foreach (Movie inactiveMovie in _inactiveMovies)
                     {
-                        if (lstAdmin.SelectedValue.ToString() == inactiveMovie.title)
+                        if (lstAdmin.SelectedValue != null && lstAdmin.SelectedValue.ToString() == inactiveMovie.title)
                         {
                             movie = inactiveMovie;
                             _selectedID = inactiveMovie.titleID;
@@ -977,7 +986,7 @@ namespace MovieCollection
                         User selectedUser = null;
                         foreach (User user in _activeUsers)
                         {
-                            if (lstAdmin.SelectedValue.ToString() == user.email)
+                            if (lstAdmin.SelectedValue != null && lstAdmin.SelectedValue.ToString() == user.email)
                             {
                                 selectedUser = user;
                             }
@@ -995,7 +1004,7 @@ namespace MovieCollection
                         User selectedUser = null;
                         foreach (User user in _inactiveUsers)
                         {
-                            if (lstAdmin.SelectedValue.ToString() == user.email)
+                            if (lstAdmin.SelectedValue != null && lstAdmin.SelectedValue.ToString() == user.email)
                             {
                                 selectedUser = user;
                             }
@@ -1119,6 +1128,7 @@ namespace MovieCollection
                     }
                     if (cboAdminStatus.SelectedValue == cboAdminStatusInactive)
                     {
+
                         txtAdminID.Text = "";
                         txtAdminOther.Text = "";
                         imgAdminMovie.Source = null;
@@ -1199,20 +1209,24 @@ namespace MovieCollection
                     {
                         _movieManager.UpdateMovieIsActive(_selectedID, false);
                         MessageBox.Show("Movie has been deactivated");
-                        _inactiveMovies.Clear();
-                        _movieVMs.Clear();
+                        
                         _movieVMs = _movieManager.GetAllMovieVMs();
                         _inactiveMovies = _movieManager.GetAllInactiveMovies();
+                        lstAdmin.Items.Clear();
+                        lstAllMovies.Items.Clear();
+                        foreach(var movie in _movieVMs) { lstAllMovies.Items.Add(movie.title); };
                     }
 
                     if (cboAdminStatus.SelectedValue == cboAdminStatusInactive && lblAdminID.Content.ToString() != "")
                     {
                         _movieManager.UpdateMovieIsActive(_selectedID, true);
                         MessageBox.Show("Movie has been reactivated");
-                        _inactiveMovies.Clear();
-                        _movieVMs.Clear();
                         _movieVMs = _movieManager.GetAllMovieVMs();
                         _inactiveMovies = _movieManager.GetAllInactiveMovies();
+                        lstAllMovies.Items.Clear();
+                        lstAdmin.Items.Clear();
+                        foreach(Movie movie in _movieVMs) { lstAllMovies.Items.Add(movie.title); }
+
                     }
                 }
                 if (cboAdminType.SelectedValue == cboAdminTypeUser)
