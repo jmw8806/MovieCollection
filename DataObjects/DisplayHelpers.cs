@@ -21,6 +21,7 @@ namespace DataObjects
             return isCriterion;
         }
 
+        // join a list of items into a string
         public static string displayList(List<string> list)
         {
             string output = "";
@@ -31,6 +32,7 @@ namespace DataObjects
             return output;
         }
 
+        //generate a list of ints to represent years. From the start parameter to the current year.
         public static List<int> getYears(int start)
         {
             int end = DateTime.Now.Year;

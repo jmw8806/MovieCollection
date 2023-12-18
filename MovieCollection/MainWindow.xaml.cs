@@ -49,8 +49,6 @@ namespace MovieCollection
 
 
 
-
-
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             _userManager = new UserManager();
@@ -67,7 +65,7 @@ namespace MovieCollection
 
             try
             {
-
+                // initialization methods.
                 _movies = _movieManager.GetAllMovies();
                 _movieVMs = _movieManager.GetAllMovieVMs();
                 _genres = _movieManager.GetAllGenres();
@@ -81,6 +79,7 @@ namespace MovieCollection
                 _activeUsers = _userManager.GetActiveUsers();
                 _inactiveUsers = _userManager.GetInactiveUsers();
                 _inactiveMovies = _movieManager.GetAllInactiveMovies();
+                //display the random movie on the home tab
                 display_home_movie(_homeMovie);
             }
             catch (Exception ex)
@@ -98,7 +97,9 @@ namespace MovieCollection
 
             refreshMovieList();
             resetForms();
+
             _movieYears = getMovieYears(_movieVMs);
+            // populate combo boxes
             cboAddGenre.ItemsSource = _genres;
             cboAddLanguage.ItemsSource = _languages;
             cboAddRating.ItemsSource = _ratings;
@@ -145,6 +146,7 @@ namespace MovieCollection
                     }
                     else
                     {
+                        //reset elements if user doesn't update their password correctly
                         MessageBox.Show("Update Canceled. Logging Out", "Password Not Changed", MessageBoxButton.OK, MessageBoxImage.Hand);
                         _loggedInUser = null;
                         lblGreeting.Content = "Please Log In to Continue to the Movie Collection.";
@@ -157,7 +159,7 @@ namespace MovieCollection
                         lblEmail.Visibility = Visibility.Visible;
                         lblPassword.Visibility = Visibility.Visible;
                         imgProfilePic.Visibility = Visibility.Hidden;
-                      
+
                         hideMenuItems();
                         hideTabs();
                         return;
@@ -168,6 +170,7 @@ namespace MovieCollection
                 updateUIForLogin();
                 showTabs();
                 _collectionVMs = _collectionManager.GetCollectionsByUserID(_loggedInUser.userID);
+                // populate collections
                 foreach (CollectionVM collection in _collectionVMs)
                 {
                     collection.movieIDs = _collectionManager.GetMovieIDsByCollectionID(collection.collectionID);
@@ -196,6 +199,7 @@ namespace MovieCollection
             }
             if (btnLoginCancel.Content.ToString() == "Log Out")
             {
+                // reset UI for when a user logs out
                 _loggedInUser = null;
                 lblGreeting.Content = "Please Log In to Continue to the Movie Collection.";
                 txtEmail.Focus();
@@ -221,6 +225,7 @@ namespace MovieCollection
 
         private void tabAll_GotFocus(object sender, RoutedEventArgs e)
         {
+            // resets the All tab when it has focus
             lblAllMoviesTitle.Text = "Title";
             lblAllMoviesYear.Content = "Year";
             lblAllMoviesRating.Content = "Rating";
@@ -235,14 +240,13 @@ namespace MovieCollection
         private void lstAllMovies_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
 
-
-
             MovieVM movie = null;
             try
             {
 
                 foreach (MovieVM movieVM in _movieVMs)
                 {
+                    // if a movie is selected, display it.
                     if (lstAllMovies.SelectedItem != null && lstAllMovies.SelectedValue.ToString() == movieVM.title)
                     {
                         movie = movieVM;
@@ -251,6 +255,7 @@ namespace MovieCollection
                         lblAllMoviesYear.Content = movie.year;
                         lblAllMoviesRating.Content = movie.rating;
                         lblAllMoviesRuntime.Content = movie.runtime.ToString() + " mins";
+                        txtAllNotes.Text = movie.notes;
                         lblAllMoviesCriterion.Content = "Criterion: " + criterionOutputConverter(movie.isCriterion);
                         imgAllMoviesImage.Source = displayImageFromURL(movie.imgName);
                         lblAllMoviesFormats.Content = displayList(movie.formats);
@@ -275,7 +280,7 @@ namespace MovieCollection
             string addTitle = txtAddName.Text;
 
 
-
+            // get runtime from presentation, verify it is an int
             int addRuntime = 0;
             if (int.TryParse(txtAddRuntime.Text, out int _))
             {
@@ -286,7 +291,7 @@ namespace MovieCollection
                 MessageBox.Show("Runtime is in incorrect format");
                 txtAddRuntime.Clear();
             }
-
+            // get data from presentation layer 
             string addLanguage = cboAddLanguage.SelectedValue.ToString();
             string addGenre = cboAddGenre.SelectedValue.ToString();
             string addFormat = cboAddFormat.SelectedValue.ToString();
@@ -298,6 +303,7 @@ namespace MovieCollection
             }
             bool addIsCriterion = false;
             string addImage = txtAddURL.Text;
+            // if string is empty, display a default image
             if (string.IsNullOrEmpty(addImage))
             {
                 addImage = "https://cdn4.iconfinder.com/data/icons/picture-sharing-sites/32/No_Image-1024.png";
@@ -306,6 +312,7 @@ namespace MovieCollection
             {
                 addIsCriterion = true;
             }
+            // checking that required fields have data present
             if (string.IsNullOrEmpty(addTitle) && string.IsNullOrEmpty(txtAddRuntime.Text)
                 && string.IsNullOrEmpty(addLanguage) && string.IsNullOrEmpty(addGenre) && string.IsNullOrEmpty(addFormat) &&
                 string.IsNullOrEmpty(addRating))
@@ -316,6 +323,7 @@ namespace MovieCollection
             {
                 try
                 {
+                    //add movie
                     int addYear = int.Parse(cboAddYear.SelectedValue.ToString());
                     bool newMovie = _movieManager.AddMovie(addTitle, addYear, addRating, addRuntime, addIsCriterion, addNotes, addLanguage, addGenre, addImage, addFormat);
                     if (newMovie)
@@ -340,6 +348,7 @@ namespace MovieCollection
 
         private void btnAddCancel_Click(object sender, RoutedEventArgs e)
         {
+            // when cancelling add, reset all fields
             resetForms();
         }
 
@@ -347,16 +356,19 @@ namespace MovieCollection
         private void btnAddMovieImage_Click(object sender, RoutedEventArgs e)
         {
 
-
+            //preview img url
             imgAddImage.Source = displayImageFromURL(txtAddURL.Text);
         }
 
+        // Search button
         private void btnSearchSubmit_Click(object sender, RoutedEventArgs e)
         {
+            //initial list of movies to pass to search method
             List<MovieVM> searchResults = _movieManager.GetAllMovieVMs();
             string searchTitle = txtSearchTitle.Text;
             try
             {
+                // check if a search filter has been checked
                 if (chkSearchCollection.IsChecked == true && cboSearchCollection.SelectedValue != null)
                 {
                     CollectionVM selectedCollection = new CollectionVM();
@@ -415,6 +427,7 @@ namespace MovieCollection
             {
                 MessageBox.Show("Error with your query");
             }
+            // clear search results list and populate with results
             lstSearchResults.Items.Clear();
             foreach (var result in searchResults)
             {
@@ -423,6 +436,7 @@ namespace MovieCollection
             _searchResults = searchResults;
         }
 
+        // display information from a selected search result movie
         private void lstSearchResults_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             MovieVM movie = null;
@@ -646,6 +660,7 @@ namespace MovieCollection
                 }
                 catch (Exception ex)
                 {
+
                     MessageBox.Show("Movie removal failed. \n\n" + ex.InnerException.Message);
                 }
             }
@@ -697,6 +712,7 @@ namespace MovieCollection
             }
         }
 
+        // displays tabs based on user role
         private void showTabs()
         {
             if (_loggedInUser != null || _loggedInUser.roles != "Guest")
@@ -796,6 +812,7 @@ namespace MovieCollection
             return bitmap;
         }
 
+        
         private void hideMenuItems()
         {
             mnuAddCollection.Visibility = Visibility.Hidden;
@@ -807,6 +824,7 @@ namespace MovieCollection
             mnuProfile.Visibility = Visibility.Hidden;
         }
 
+       
         private void showMenuItems()
         {
             mnuAddCollection.Visibility = Visibility.Visible;
@@ -818,6 +836,7 @@ namespace MovieCollection
             mnuProfile.Visibility = Visibility.Visible;
         }
 
+        // creates a blur effect, used to give focus to another window that is open
         private void blurWindow(int blurAmnt)
         {
             BlurEffect blur = new BlurEffect();
@@ -1209,12 +1228,12 @@ namespace MovieCollection
                     {
                         _movieManager.UpdateMovieIsActive(_selectedID, false);
                         MessageBox.Show("Movie has been deactivated");
-                        
+
                         _movieVMs = _movieManager.GetAllMovieVMs();
                         _inactiveMovies = _movieManager.GetAllInactiveMovies();
                         lstAdmin.Items.Clear();
                         lstAllMovies.Items.Clear();
-                        foreach(var movie in _movieVMs) { lstAllMovies.Items.Add(movie.title); };
+                        foreach (var movie in _movieVMs) { lstAllMovies.Items.Add(movie.title); };
                     }
 
                     if (cboAdminStatus.SelectedValue == cboAdminStatusInactive && lblAdminID.Content.ToString() != "")
@@ -1225,7 +1244,7 @@ namespace MovieCollection
                         _inactiveMovies = _movieManager.GetAllInactiveMovies();
                         lstAllMovies.Items.Clear();
                         lstAdmin.Items.Clear();
-                        foreach(Movie movie in _movieVMs) { lstAllMovies.Items.Add(movie.title); }
+                        foreach (Movie movie in _movieVMs) { lstAllMovies.Items.Add(movie.title); }
 
                     }
                 }

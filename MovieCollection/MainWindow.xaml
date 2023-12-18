@@ -269,7 +269,7 @@
                             <RowDefinition/>
                             <RowDefinition/>
                             <RowDefinition/>
-                            <RowDefinition/>
+                            <RowDefinition Height="44.84"/>
                             <RowDefinition/>
                             <RowDefinition/>
                             <RowDefinition/>
@@ -293,6 +293,9 @@
                         <TextBlock x:Name="lblAllMoviesTitle" Grid.Row="1" Grid.Column="4" Text="Title" FontWeight="Bold" FontSize="20" TextWrapping="Wrap"
                                    Margin="10 0 0 0"/>
                         <Label x:Name="lblAllMoviesYear" Grid.Row="2" Grid.Column="4" Content="Year"  FontSize="20" Margin="10 0 0 0"/>
+                        <Label  Grid.Row="2" Grid.Column="4" Content="Notes"  FontSize="20" Margin="20 0 80 0" HorizontalAlignment="Right"/>
+                        <TextBlock x:Name="txtAllNotes" Grid.Column="4" Grid.Row="3" Grid.ColumnSpan="2" HorizontalAlignment="Right" Grid.RowSpan="4" Width="180" Margin="10 0 50 0" 
+                                   Padding="2" FontSize="12" TextWrapping="Wrap" Background="White"/>
                         <Label x:Name="lblAllMoviesRating" Grid.Row="3" Grid.Column="4" Content="Rating"  FontSize="20" Margin="10 0 0 0"/>
                         <Label x:Name="lblAllMoviesFormats" Grid.Row="4" Grid.Column="4" Content="Formats"  FontSize="20" Margin="10 0 0 0"/>
                         <Label x:Name="lblAllMoviesGenres" Grid.Row="5" Grid.Column="4" Content="Genres"  FontSize="20" Margin="10 0 0 0"/>
